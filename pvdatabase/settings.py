@@ -28,7 +28,7 @@ SECRET_KEY = '6+p6@ku+zg(%6nh$k436gy020vw_gtmu)8v$1b*a$z3%te#se&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'pvdatabase.herokuapp.com']
 
 
 # Application definition
