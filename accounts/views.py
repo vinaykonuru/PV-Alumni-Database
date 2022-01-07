@@ -12,7 +12,7 @@ def login(request):
         else:
             return render(request,'accounts/login.html',{'error':'username or password is not correct'})
     else:
-        return render(request, 'accounts/login.html')
+        return render(request, 'login.html')
 
 def signup(request):
     if request.method=='POST':
@@ -27,7 +27,7 @@ def signup(request):
         else:
             return render(request,'accounts/signup.html',{'error':'Passwords must match'})
     else:
-        return render(request, 'accounts/signup.html')
+        return render(request, 'signup.html')
 
 def logout(request):
     print('hello1')
