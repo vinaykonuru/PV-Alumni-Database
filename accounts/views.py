@@ -35,3 +35,6 @@ def logout(request):
         print('hello')
         auth.logout(request)
         return redirect('home')
+
+def edit(request):
+    return render(request, 'editprofile.html')
