@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['localhost', 'pvdatabase.herokuapp.com']
 
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
+    'alumniprof.apps.AlumniProfConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'pvdatabase.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['pvdatabase/templates','products/templates','accounts/templates'],
+        'DIRS': ['pvdatabase/templates','alumniprof/templates','accounts/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
