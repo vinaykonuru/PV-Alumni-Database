@@ -26,7 +26,14 @@
         <div class="row mb-4">
             <div class="col">
                 <label for="inputpassword" class="form-label">Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))</label>
-                <input type="password" placeholder="********" id="inputpassword" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" class="form-control" required>
+                <input type="password" placeholder="********" id="inputpassword1" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" class="form-control" required>
+            </div>
+            <div class="invalid-feedback">Password must be between 8-32 characters long, contain at least one uppercase letter and at least one number.</div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <label for="inputpassword" class="form-label">Reenter Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))</label>
+                <input type="password" placeholder="********" id="inputpassword2" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" class="form-control" required>
             </div>
             <div class="invalid-feedback">Password must be between 8-32 characters long, contain at least one uppercase letter and at least one number.</div>
         </div>

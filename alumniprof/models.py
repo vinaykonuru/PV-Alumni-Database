@@ -19,3 +19,4 @@ class AlumniProf(models.Model):
     field = models.CharField(max_length=100)
     hs_activities = models.CharField(max_length=100)
     pub_date=models.DateTimeField(auto_now_add=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE, related_name='user',null=True)
