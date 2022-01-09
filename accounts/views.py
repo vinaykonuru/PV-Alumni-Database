@@ -60,7 +60,8 @@ def logout(request):
         print('hello')
         auth.logout(request)
         return redirect('home')
-
+        
+@login_required(login_url='/accounts/signup')
 def edit(request):
     if request.method == 'POST':
         first_name = request.POST['inputfirstname']
