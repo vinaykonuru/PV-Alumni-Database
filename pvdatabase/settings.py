@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites'
 
 ]
 
@@ -81,9 +80,13 @@ WSGI_APPLICATION = 'pvdatabase.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+        'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'database',
+        'NAME': 'dc63rcaj74ullg',
+        'USER': 'usshbmlnerodla',
+        'PASSWORD': '04943fc0a1b602398197bd00bf43d6b90dc566448364fc8aa85b82a7b46179c0',
+        'HOST': 'ec2-18-235-86-66.compute-1.amazonaws.com', # Or something like this
+        'PORT': '5432',
     }
 }
 DATABASES['default'] = dj_database_url.config()
