@@ -57,6 +57,7 @@ def signup(request):
     else:
         return render(request, 'signup.html')
 
+@login_required(login_url='/accounts/signup')
 def logout(request):
     if request.method=='POST':
         print('hello')
