@@ -62,7 +62,7 @@ def logout(request):
         return redirect('home')
 
 def edit(request):
-    if request.method = 'POST':
+    if request.method == 'POST':
         first_name = request.POST['inputfirstname']
         last_name = request.POST['inputlastname']
         grad_year = request.POST['inputyear']
@@ -76,7 +76,7 @@ def edit(request):
         job = request.POST['inputjobtitle']
         field = request.POST['inputfield']
         hs_activities = request.POST['inputclubs']
-        
+
         alumprof = AlumniProf(
         first_name = firstname, last_name = last_name,
         grad_year = grad_year, college = college,
