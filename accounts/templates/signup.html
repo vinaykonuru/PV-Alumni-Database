@@ -5,6 +5,9 @@
     <div class="container">
     <div class="rows no-gutters">
     <h1 class = "pt-4 pb-4 text-center">Create your profile</h1>
+    {% if error %}
+    {{error}}
+    {% endif %}
     <form method = "POST" action="{% url 'signup' %}">
       {% csrf_token %}
         <div class="row mb-3">
