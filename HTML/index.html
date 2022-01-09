@@ -16,17 +16,17 @@
 
 </head>
 <body>
-    
+
     <!-- Navigation Bar -->
     <nav class = "navbar navbar-expand-lg bg-dark navbar-dark py-3">
         <div class="container">
-            <a href="#" class = "navbar-brand d-none d-sm-block"><img src="images/pvs-130.svg" alt="" width="100" height="100" class="d-inline-block align-text-center px-2">
+            <a href="{% url 'home' %}" class = "navbar-brand d-none d-sm-block"><img src="images/pvs-130.svg" alt="" width="100" height="100" class="d-inline-block align-text-center px-2">
             Pine View School Alumni Community</a>
 
-            <button 
-            class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
+            <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
             data-bs-target="#navmenu"
             >
             <span class="navbar-toggler-icon"></span>
@@ -35,13 +35,13 @@
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="{% url 'home' %}" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="login.html" class="nav-link">Login</a>
+                        <a href="{% url 'login' %}" class="nav-link">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="signup.html" class="nav-link">Sign Up</a>
+                        <a href="{% url 'signup' %}" class="nav-link">Sign Up</a>
                     </li>
                 </ul>
             </div>
@@ -64,9 +64,9 @@
                 >
                     Sign Up
                 </a>
-                </div>  
+                </div>
             <img class="img-fluid w-50 d-none d-sm-block" src="images/undraw_connecting_teams_re_hno7.svg" alt="">
-            </div>  
+            </div>
         </div>
     </section>
 
@@ -76,12 +76,12 @@
             <div class="d-md-flex justify-content-between align-items-center">
                 <h3 class="mb-3 mb-md-0">Sign Up For Our Newsletter</h3>
                 <div class="input-group">
-                    <input type="text" 
-                    class="form-control" 
+                    <input type="text"
+                    class="form-control"
                     placeholder="Enter Email">
-                    <button 
-                    class="btn btn-dark btn-lg" 
-                    type="button" 
+                    <button
+                    class="btn btn-dark btn-lg"
+                    type="button"
                     id="button-addon2"
                     >
                     Submit
