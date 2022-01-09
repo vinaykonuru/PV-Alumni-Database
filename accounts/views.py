@@ -59,10 +59,10 @@ def signup(request):
 
 @login_required(login_url='/accounts/signup')
 def logout(request):
-    if request.method=='POST':
-        print('hello')
-        auth.logout(request)
-        return redirect('home')
+    # if request.method=='POST':
+    #     print('hello')
+    auth.logout(request)
+    return redirect('home')
 
 @login_required(login_url='/accounts/signup')
 def edit(request):
