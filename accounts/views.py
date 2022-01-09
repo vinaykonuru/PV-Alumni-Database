@@ -55,7 +55,6 @@ def signup(request):
         return render(request, 'signup.html')
 
 def logout(request):
-    print('hello1')
     if request.method=='POST':
         print('hello')
         auth.logout(request)
