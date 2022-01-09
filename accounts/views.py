@@ -47,7 +47,7 @@ def signup(request):
                 job = job, field = field,
                 hs_activities = hs_activities, user = user
                 )
-                alumniprof.save()
+                alumprof.save()
                 return redirect('home')
 
         else:
