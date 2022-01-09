@@ -37,8 +37,9 @@ def signup(request):
                 job = request.POST['inputjobtitle']
                 field = request.POST['inputfield']
                 hs_activities = request.POST['inputclubs']
+
                 alumprof = AlumniProf(
-                first_name = firstname, last_name = last_name,
+                first_name = first_name, last_name = last_name,
                 grad_year = grad_year, college = college,
                 major = major, city = city,
                 state = state, country = country,
