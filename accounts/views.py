@@ -6,7 +6,7 @@ from django.contrib import auth
 
 def login(request):
     if request.method=='POST':
-        user=auth.authenticate(username=request.POST['username'],password=request.POST['password'])
+        user=auth.authenticate(username=request.POST['inputemail'],password=request.POST['inputpassword'])
         if user is not None:
             auth.login(request,user)
             return redirect('home')
