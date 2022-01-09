@@ -6,7 +6,7 @@
     <div class="container">
     <div class="rows no-gutters">
     <h1 class = "pt-4 pb-4 text-center">Edit your profile</h1>
-    <form action="createdaccount.html">
+    <form method = "POST" action="{% url 'edit' %}">
         <div class="row mb-3">
             <div class="col">
                 <label for="inputfirstname" class="form-label">First Name</label>
@@ -306,7 +306,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <input type="submit" class="btn1 mb-3"></button>
+                <input type="submit" class="btn1 mb-3">
             </div>
         </div>
     </form>

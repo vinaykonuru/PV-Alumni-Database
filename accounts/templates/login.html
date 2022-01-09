@@ -7,7 +7,7 @@
     <div class="container">
     <div class="rows no-gutters">
     <h1 class = "pt-4 pb-4 text-center">Sign in to your account</h1>
-    <form method = "POST" action="{% url 'login' %}">
+    <form method = "POST" action="{% url 'home' %}">
       {% csrf_token %}
         <div class="row mb-3">
             <div class="col">
@@ -23,10 +23,10 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <input type="submit" class="btn1 mb-3"></button>
+                <input type="submit" class="btn1 mb-3">
             </div>
         </div>
-        <a href="forgotpassword.html">Forgot password?</a>
+        <a href="{% url 'reset_password' %}">Forgot password?</a>
         <p class="pb-4">Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
     </form>
     </div>

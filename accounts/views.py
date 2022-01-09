@@ -64,6 +64,14 @@ def logout(request):
         auth.logout(request)
         return redirect('home')
 
+
+def reset(request):
+    if(request.method == 'POST'):
+        email = request.POST['reset_email']
+        return render(request, 'password_resent_sent.html')
+    else:
+        return render(request, 'forgotpassword.html')
+
 @login_required(login_url='/accounts/signup')
 def edit(request):
     if request.method == 'POST':
@@ -91,5 +99,6 @@ def edit(request):
         hs_activities = hs_activities, user = user
         )
         alumniprof.save()
+        return render(request, 'home.html')
     else:
         return render(request, 'editprofile.html')
