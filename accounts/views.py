@@ -62,4 +62,30 @@ def logout(request):
         return redirect('home')
 
 def edit(request):
-    return render(request, 'editprofile.html')
+    if request.method = 'POST':
+        first_name = request.POST['inputfirstname']
+        last_name = request.POST['inputlastname']
+        grad_year = request.POST['inputyear']
+        college = request.POST['inputcollege']
+        major = request.POST['inputmajor']
+        city = request.POST['inputcity']
+        state = request.POST['inputstate']
+        country = request.POST['inputcountry']
+        zip = request.POST['inputzip']
+        employer = request.POST['inputemployer']
+        job = request.POST['inputjobtitle']
+        field = request.POST['inputfield']
+        hs_activities = request.POST['inputclubs']
+        
+        alumprof = AlumniProf(
+        first_name = firstname, last_name = last_name,
+        grad_year = grad_year, college = college,
+        major = major, city = city,
+        state = state, country = country,
+        zip = zip, employer = employer,
+        job = job, field = field,
+        hs_activities = hs_activities, user = user
+        )
+        alumniprof.save()
+    else:
+        return render(request, 'editprofile.html')
