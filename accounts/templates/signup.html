@@ -1,40 +1,339 @@
-{% extends 'base.html' %}
-
+{% extend 'base.html' %}
 {% block content %}
-
-<div class="container">
-<br />
-<br />
-{% if error %}
-{{error}}
-{% endif %}
-<br />
-<br />
-
-  <h1>Sign Up</h1>
-
-  <form method="post" action="{% url 'signup' %}">
-  {% csrf_token %}
-
-  Email(.edu required):
-  <br />
-  <input type="text" name="username"/>
-  <br />
-
-  Password:
-  <br />
-  <input type="password" name="password1"/>
-  <br />
-
-  Confirm Password:
-  <br />
-  <input type="password" name="password2"/>
-  <br />
-  <br />
-
-  <input class="btn btn-primary" type="submit" value="Sign Up">
-  </form>
-</div>
-
+    <!-- Form -->
+    <section class="form pt-4">
+    <div class="container">
+    <div class="rows no-gutters">
+    <h1 class = "pt-4 pb-4 text-center">Create your profile</h1>
+    <form method = "POST" action="{% url 'signup' %}">
+      {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col">
+                <label for="inputfirstname" class="form-label">First Name</label>
+                <input type="firstname" id="inputfirstname" class="form-control" required>
+            </div>
+            <div class="col">
+                <label for="inputlastname" class="form-label">Last Name</label>
+                <input type="lastname" id="inputlastname" class="form-control" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="inputemail" class="form-label">Email address</label>
+                <input type="email" placeholder="janedoe@example.com" id="inputemail" class="form-control" required>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <label for="inputpassword" class="form-label">Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))</label>
+                <input type="password" placeholder="********" id="inputpassword" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" class="form-control" required>
+            </div>
+            <div class="invalid-feedback">Password must be between 8-32 characters long, contain at least one uppercase letter and at least one number.</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="inputyear" class="form-label">High School Graduation Year</label>
+                <input type="year" id="inputyear" class="form-control" required>
+            </div>
+            <div class="col">
+                <label for="inputcollege" class="form-label">College(s)</label>
+                <input type="college" id="inputcollege" class="form-control">
+            </div>
+            <div class="col">
+                <label for="inputmajor" class="form-label">Major(s)/Department(s)</label>
+                <input type="major" id="inputmajor" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="inputcountry" class="form-label">Country</label>
+                <input type="country" id="inputcountry" class="form-control" required>
+            </div>
+            <div class="col">
+                <label for="inputstate" class="form-label">State</label>
+                <select class="form-select" size="4">
+                    <option selected>N/A</option>
+                    <option value="1">AL</option>
+                    <option value="2">AK</option>
+                    <option value="3">AZ</option>
+                    <option value="4">AR</option>
+                    <option value="5">CA</option>
+                    <option value="6">CO</option>
+                    <option value="7">CT</option>
+                    <option value="8">DE</option>
+                    <option value="9">FL</option>
+                    <option value="10">GA</option>
+                    <option value="11">HI</option>
+                    <option value="12">ID</option>
+                    <option value="13">IL</option>
+                    <option value="14">IN</option>
+                    <option value="15">IA</option>
+                    <option value="16">KS</option>
+                    <option value="17">KY</option>
+                    <option value="18">LA</option>
+                    <option value="19">ME</option>
+                    <option value="20">MD</option>
+                    <option value="21">MA</option>
+                    <option value="22">MI</option>
+                    <option value="23">MN</option>
+                    <option value="24">MS</option>
+                    <option value="25">MO</option>
+                    <option value="26">MT</option>
+                    <option value="27">NE</option>
+                    <option value="28">NV</option>
+                    <option value="29">NH</option>
+                    <option value="30">NJ</option>
+                    <option value="31">NM</option>
+                    <option value="32">NY</option>
+                    <option value="33">NC</option>
+                    <option value="34">ND</option>
+                    <option value="35">OH</option>
+                    <option value="36">OK</option>
+                    <option value="37">OR</option>
+                    <option value="38">PA</option>
+                    <option value="39">RI</option>
+                    <option value="40">SC</option>
+                    <option value="41">SD</option>
+                    <option value="42">TN</option>
+                    <option value="43">TX</option>
+                    <option value="44">UT</option>
+                    <option value="45">VT</option>
+                    <option value="46">VA</option>
+                    <option value="47">WA</option>
+                    <option value="48">WV</option>
+                    <option value="49">WI</option>
+                    <option value="50">WY</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="inputcity" class="form-label">City</label>
+                <input type="city" id="inputcity" class="form-control" required>
+            </div>
+            <div class="col">
+                <label for="inputzip" class="form-label">Zip</label>
+                <input type="zip" id="inputemail" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="inputjobtitle" class="form-label">Job Title</label>
+                <input type="jobtitle" id="inputjobtitle" class="form-control">
+            </div>
+            <div class="col">
+                <label for="inputemployer" class="form-label">Employer</label>
+                <input type="employer" id="inputemployer" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="inputfield" class="form-label">Field/Specialty (you may select more than one)</label>
+                <select class="form-select" multiple size="4">
+                    <option value="1">Accounting</option>
+                    <option value="2">Advertising</option>
+                    <option value="3">Architecture/Planning</option>
+                    <option value="4">Building/Construction</option>
+                    <option value="5">Consulting</option>
+                    <option value="6">Energy Resources</option>
+                    <option value="7">Engineering-Chemical</option>
+                    <option value="8">Engineering-Civil</option>
+                    <option value="9">Engineering-Electrical</option>
+                    <option value="10">Engineering-Mech./Aerospace</option>
+                    <option value="11">Engineering-Other</option>
+                    <option value="12">Environmental Affairs</option>
+                    <option value="13">Finance-Asset Management</option>
+                    <option value="14">Finance-Corporate Finance</option>
+                    <option value="15">Finance-Hedge Funds</option>
+                    <option value="16">Finance-Investment Mngmt.</option>
+                    <option value="17">Finance-Private Equity</option>
+                    <option value="18">Finance-Commercial Banking</option>
+                    <option value="19">Finance-Financial Planning</option>
+                    <option value="20">Finance-Investment Banking</option>
+                    <option value="21">Finance-Other</option>
+                    <option value="22">Finance-Securities/Commodities</option>
+                    <option value="23">Finance-Tax, Trust, & Estate</option>
+                    <option value="24">Finance-Venture Capital</option>
+                    <option value="25">Foreign Service</option>
+                    <option value="26">Fund Raising</option>
+                    <option value="27">Government Departments & Agencies</option>
+                    <option value="28">Government-Cabinet Member</option>
+                    <option value="29">Government-Executive</option>
+                    <option value="30">Government-Legislator</option>
+                    <option value="31">Government-Other</option>
+                    <option value="32">Government-Policy Analysis</option>
+                    <option value="33">Government-Politics</option>
+                    <option value="34">Government-White House Staff</option>
+                    <option value="35">Health Care-Mental</option>
+                    <option value="36">Health Care-Other</option>
+                    <option value="37">Health Care-Physical</option>
+                    <option value="38">Human Resources</option>
+                    <option value="39">Insurance</option>
+                    <option value="40">Law-Corporate</option>
+                    <option value="41">Law-Criminal</option>
+                    <option value="42">Law-Intellectual Property</option>
+                    <option value="43">Law-Litigation</option>
+                    <option value="44">Law-Other</option>
+                    <option value="45">Law-Patent/Copyright</option>
+                    <option value="46">Law-Tax</option>
+                    <option value="47">Law-Trusts & Estates</option>
+                    <option value="48">Management/Admin</option>
+                    <option value="49">Marketing/Sales</option>
+                    <option value="50">Military</option>
+                    <option value="51">Other</option>
+                    <option value="52">Performing Arts</option>
+                    <option value="53">Printing/Publishing</option>
+                    <option value="54">Public Relations</option>
+                    <option value="55">Radio/TV/Film/Theater</option>
+                    <option value="56">Real Estate</option>
+                    <option value="57">Religious Services</option>
+                    <option value="58">Research & Development</option>
+                    <option value="59">Social Work</option>
+                    <option value="60">Sports/Recreation</option>
+                    <option value="61">Teaching-Arts</option>
+                    <option value="62">Teaching-Humanities</option>
+                    <option value="63">Teaching-Other</option>
+                    <option value="64">Teaching-Science/Engineering</option>
+                    <option value="65">Teaching-Social Science</option>
+                    <option value="66">Technology-Biotechnology</option>
+                    <option value="67">Technology-E-Commerce</option>
+                    <option value="68">Technology-Hardware/Software Dev.</option>
+                    <option value="69">Technology-Info. Services/Systems</option>
+                    <option value="70">Technology-Telecommunications</option>
+                    <option value="71">Technology-Other</option>
+                    <option value="72">Transportation/Travel</option>
+                    <option value="73">Veterinary Medicine</option>
+                    <option value="74">Visual/Fine Arts</option>
+                    <option value="75">Writing/Editing</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="inputclubs" class="form-label">Student Activities (you may select more than one)</label>
+                <select class="form-select" multiple size="4">
+                    <option value="1">Academic Olympics</option>
+                    <option value="2">A.K.H.L. (Achieve, Know, Help, Lead)</option>
+                    <option value="3">Anime Club</option>
+                    <option value="4">Anime Pride</option>
+                    <option value="5">Artificial Intelligence and Machine Learning Club</option>
+                    <option value="6">Astronomy Club</option>
+                    <option value="7">Aviation Club</option>
+                    <option value="8">Basketball Group</option>
+                    <option value="9">Biology Olympiad</option>
+                    <option value="10">Biomedical Engineering Club (BMES)</option>
+                    <option value="11">Book Club</option>
+                    <option value="12">buildOn</option>
+                    <option value="13">Business Professionals of America</option>
+                    <option value="14">Chess Club</option>
+                    <option value="15">C2 Community Contributions</option>
+                    <option value="16">Chinese Club</option>
+                    <option value="17">Chinese National Honor Society</option>
+                    <option value="18">Ciao! - The Italian Club</option>
+                    <option value="19">Coexistence Club</option>
+                    <option value="20">Competitive Programming Club</option>
+                    <option value="21">Cosplay</option>
+                    <option value="22">Crate Diggers (A Vinyl Record Club)</option>
+                    <option value="23">Current Events Club</option>
+                    <option value="24">Desi Club (Indian & South Asian Cultural Club)</option>
+                    <option value="25">Disc Golf Club</option>
+                    <option value="26">Dive Club</option>
+                    <option value="27">Diversifying & Integrating Gifted Schools (DIGS)</option>
+                    <option value="28">Doodle Club</option>
+                    <option value="29">Drama Club</option>
+                    <option value="30">Drone Club</option>
+                    <option value="31">Elementary Music Club</option>
+                    <option value="32">Elementary Student Council</option>
+                    <option value="33">Entrepreneur Club</option>
+                    <option value="34">Film Club</option>
+                    <option value="35">FIRST Robotics</option>
+                    <option value="36">Florida Future Educators of America (FFEA)</option>
+                    <option value="37">Gender & Sexuality Alliance (GSA)</option>
+                    <option value="38">National French Honor Society</option>
+                    <option value="39">Gardening Club</option>
+                    <option value="40">Health and Education Initiatives (HEI)</option>
+                    <option value="41">History Bowl</option>
+                    <option value="42">History Club</option>
+                    <option value="43">HOSA (Future Health Professionals)</option>
+                    <option value="44">Interact Club</option>
+                    <option value="45">International Current Events Debate (ICED)</option>
+                    <option value="46">Investors Club</option>
+                    <option value="47">Key Club</option>
+                    <option value="48">Linguistics Club</option>
+                    <option value="49">Luminary Magazine</option>
+                    <option value="50">Magic the Gathering</option>
+                    <option value="51">Marine Science Club</option>
+                    <option value="52">Math Club</option>
+                    <option value="53">MATHCOUNTS</option>
+                    <option value="54">MathWorks Math Modeling Challenge</option>
+                    <option value="55">Mock Trial</option>
+                    <option value="56">Model United Nations</option>
+                    <option value="57">MS Literary Magazine Club</option>
+                    <option value="58">National Art Honor Society</option>
+                    <option value="59">National French Honor Society</option>
+                    <option value="60">National Honor Society</option>
+                    <option value="61">National Junior Honor Society</option>
+                    <option value="62">Nature Club</option>
+                    <option value="63">Neuroscience Club</option>
+                    <option value="64">Odyssey of the Mind</option>
+                    <option value="65">Outreach for Impact</option>
+                    <option value="66">Overbooked</option>
+                    <option value="67">Peace Jam</option>
+                    <option value="68">Peer Mentoring</option>
+                    <option value="69">Philosophy Club</option>
+                    <option value="70">Photography</option>
+                    <option value="71">Poet Society</option>
+                    <option value="72">Political Action</option>
+                    <option value="73">Psi Alpha (Psychology Honor Society)</option>
+                    <option value="74">Puzzle Club</option>
+                    <option value="75">Red Cross Club</option>
+                    <option value="76">Rho Kappa Honor Society</option>
+                    <option value="77">Run Club</option>
+                    <option value="78">Russian Cultural Heritage</option>
+                    <option value="79">SAT Prep Club</option>
+                    <option value="80">Scholars 4 Scholars</option>
+                    <option value="81">Science National Honor Society</option>
+                    <option value="82">Science Olympiad</option>
+                    <option value="83">Signing @ PV - American Sign Language Club</option>
+                    <option value="84">Smash Club</option>
+                    <option value="85">Soccer Club</option>
+                    <option value="86">Spanish National Honor Society</option>
+                    <option value="87">Speech & Debate</option>
+                    <option value="88">Students for Asian Advocacy</option>
+                    <option value="89">Students Organized for Animal Rights (SOAR)</option>
+                    <option value="90">Students Working Against Tobacco (SWAT)</option>
+                    <option value="91">Technology Student Association (TSA)</option>
+                    <option value="92">Together Women Rise (TWR)</option>
+                    <option value="93">Tri-M Music Honor Society</option>
+                    <option value="94">Tree Huggers Environmental Club</option>
+                    <option value="95">UNICEF Club</option>
+                    <option value="96">Ultimate Frisbee Club</option>
+                    <option value="97">Unidos Now at Pine View</option>
+                    <option value="98">Uno Club</option>
+                    <option value="99">VEX Robotics</option>
+                    <option value="100">Women in Literature</option>
+                    <option value="101">Young Investors Society</option>
+                    <option value="102">Weight Lifting Club</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-check px-5">
+                <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                <label class="form-check-label" for="gridCheck">
+                  I agree to the <a href="tos.html">terms of service</a>.
+                </label>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <input type="submit" class="btn1 mb-3"></button>
+            </div>
+        </div>
+        <p class="pb-4 text-center">Already have an account? <a href="login.html">Login here</a></p>
+    </form>
+    </div>
+    </div>
+    </section>
 
 {% endblock %}
