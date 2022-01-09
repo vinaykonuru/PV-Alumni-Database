@@ -74,17 +74,15 @@
                         <a href="{% url 'home' %}" class="nav-link">Home</a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="nav-link">Log Out</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a href="{% url 'login' %}" class="nav-link">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'signup' %}" class="nav-link">Sign Up</a>
-                    </li>
-                    {% endif %}
+                    <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}" onClick="">Log Out</a>
+                    <form id="logout" action="{% url 'logout' %}" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden"/>
+                    </form>
+                   {% else %}
+                   <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
+                   <a class="nav-item nav-link" href="{% url 'login' %}">Log In</a>
+                  {% endif %}
                 </ul>
             </div>
         </div>
