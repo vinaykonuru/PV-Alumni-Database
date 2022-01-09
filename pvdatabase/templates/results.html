@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Profile</h1>
+<br><br>
+<div class="">
+  <!--Profiles-->
+
+  <div class="row">
+    {% for entry in profiles %}
+    {% if forloop.counter0|divisibleby:2 %}
+    {% endif %}
+
+    <div class="column">
+      <p class="lead">{{ entry.name }} ({{entry.year}})</p>
+      <div class="pic-container border-black">
+        <div class="jumbotron white-background">
+          <br />
+          <br />
+          <strong class="d-inline-block mb-2 text-primary">On/Off Campus</strong>
+          <div class="mb-1 text-muted">
+            <p>{{ entry.location }} </p>
+          </div>
+          <strong class="d-inline-block mb-2 text-primary">Duration</strong>
+          <div class="mb-1 text-muted">
+            <p>{{ entry.duration }} Minutes </p>
+          </div>
+          <strong class="d-inline-block mb-2 text-primary">Time Zone</strong>
+          <div class="mb-1 text-muted">
+            <p>{{ entry.time_zone }} </p>
+          </div>
+          <strong class="d-inline-block mb-2 text-primary">Availability</strong>
+          <div class="mb-1 text-muted">
+            <p>{{ entry.days }} </p>
+          </div>
+          <strong class="d-inline-block mb-2 text-primary">Workout Type</strong>
+          <div class="mb-1 text-muted">
+            <p>{{ entry.workout_type }} </p>
+          </div>
+          <br />
+          <a href="{% url 'profile' entry.id %}" class="btn btn-lg btn-secondary">View Profile</a>
+          {% load request_tags %}
+          {% if user|check_partner %}
+          {% else %}
+          <button onclick="on()" class="btn btn-lg btn-secondary">
+            Match
+          </button>
+          <form id="partner_match{{entry.user_id}}" action="{% url 'partner_match' entry.user_id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" />
+          </form>
+          {% endif %}
+        </div>
+      </div>
+      <hr class="my-4">
+    </div>
+</div>
+
+
+
+{% endblock %}

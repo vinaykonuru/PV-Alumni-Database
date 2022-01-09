@@ -31,16 +31,3 @@ def search(request):
         hs_activities = request.POST['inputclubs']
     else:
         return render(request, 'search.html')
-# def about(request):
-#     return render(request,'about.html')
-#
-# def contacts(request):
-#     return render(request,'contact.html')
-#
-# @login_required(login_url='/accounts/login')
-# def find(request):
-#     return render(request,'find.html')
-#
-#
-# def excercise_guide(request):
-#     return render(request,'excercise_guide.html')

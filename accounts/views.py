@@ -101,4 +101,21 @@ def edit(request):
         alumniprof.save()
         return render(request, 'home.html')
     else:
-        return render(request, 'editprofile.html')
+        alumprof = AlumniProf.objects.get(user = request.user)
+        first_name = alumprof.first_name
+        last_name = alumprof.last_name
+        grad_year = alumprof.grad_year
+        college = alumprof.college
+        major = alumprof.major
+        city = alumprof.city
+        state = alumprof.state
+        country = alumprof.country
+        zip = alumprof.zip
+        employer = alumprof.employer
+        job = alumprof.job
+        field = alumprof.field
+        hs_activities = alumprof.hs_activities
+
+        return render(request, 'editprofile.html',{'first_name':first_name, 'last_name':last_name,'grad_year':grad_year,
+        'college':college, 'major':major,'city':city,'state':state, 'country':country,'zip':zip, 'employer':employer,
+        'job':job,'field':field, 'hs_activities':hs_activities})
