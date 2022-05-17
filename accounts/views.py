@@ -101,7 +101,7 @@ def edit(request):
         return render(request, 'home.html')
     else:
         alumprof = AlumniProf.objects.get(user = request.user)
-        if(alumprof == NULL){
+        if(alumprof == None){
             return redirect('home')
         }
         first_name = alumprof.first_name
