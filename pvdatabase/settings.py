@@ -14,6 +14,7 @@ import os
 import django_heroku
 import dj_database_url
 import mimetypes
+
 mimetypes.add_type("text/css", ".css", True)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -136,8 +137,6 @@ STATIC_URL = '/static/'
 # ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
