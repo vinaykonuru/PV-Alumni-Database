@@ -30,6 +30,7 @@ def search(request):
         field = request.POST.getlist('inputfield')
         hs_activities = request.POST.getlist('inputclubs')
 
+        print(state)
         if(state == ['']):
             state = ""
         else:
