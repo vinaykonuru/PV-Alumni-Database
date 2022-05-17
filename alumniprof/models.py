@@ -5,6 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 class AlumniProf(models.Model):
+    id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     grad_year = models.CharField(max_length=4)
