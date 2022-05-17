@@ -36,7 +36,7 @@ def search(request):
         profiles = AlumniProf.objects.all()
         matched_profiles = []
         for profile in profiles: # filtering profiles
-            if( \\
+            if( \
             (first_name == "" || profile.first_name == first_name) && \
             (last_name == "" || profile.last_name == last_name) && \
             (grad_year == "" || profile.grad_year == grad_year) && \
