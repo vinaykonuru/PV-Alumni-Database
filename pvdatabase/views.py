@@ -37,17 +37,17 @@ def search(request):
         matched_profiles = []
         for profile in profiles: # filtering profiles
             if( \
-            (first_name == "" || profile.first_name == first_name) && \
-            (last_name == "" || profile.last_name == last_name) && \
-            (grad_year == "" || profile.grad_year == grad_year) && \
-            (college == "" || profile.college == college) && \
-            (major == "" || profile.major == major) && \
-            (city == "" || profile.city == city) && \
-            (state == "" || profile.state == state) &&  \
-             (country == "" || profile.country == country) && \
-            (zip == "" || profile.zip == zip) && \
-            (job == "" || profile.job == job) &&) \
-            (employer == "" || profile.job == employer)):
+            (first_name == "" | profile.first_name == first_name) && \
+            (last_name == "" | profile.last_name == last_name) && \
+            (grad_year == "" | profile.grad_year == grad_year) && \
+            (college == "" | profile.college == college) && \
+            (major == "" | profile.major == major) && \
+            (city == "" | profile.city == city) && \
+            (state == "" | profile.state == state) &&  \
+             (country == "" | profile.country == country) && \
+            (zip == "" | profile.zip == zip) && \
+            (job == "" | profile.job == job) &&) \
+            (employer == "" | profile.job == employer)):
                 # add sorting by field and hs_activities
                 matched_profiles.append(profile)
 
