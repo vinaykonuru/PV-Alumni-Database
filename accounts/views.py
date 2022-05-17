@@ -51,7 +51,6 @@ def signup(request):
                 )
                 alumprof.save()
                 return redirect('home')
-
         else:
             return render(request,'signup.html',{'error':'Passwords must match'})
     else:
