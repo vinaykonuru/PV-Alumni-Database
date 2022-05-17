@@ -22,7 +22,7 @@ def search(request):
         college = request.POST['inputcollege']
         major = request.POST['inputmajor']
         city = request.POST['inputcity']
-        state = request.POST.getlist('inputstate')[0]
+        state = request.POST.getlist('inputstate')
         country = request.POST['inputcountry']
         zip = request.POST['inputzip']
         employer = request.POST['inputemployer']
@@ -30,6 +30,10 @@ def search(request):
         field = request.POST.getlist('inputfield')
         hs_activities = request.getlist('inputclubs')
 
+        if(state == ['']):
+            state = ""
+        else:
+            state = state[0];
         # 1. get all profiles
         # 2. check which of the filtering paramters are not null
         # 3.filter the list of profiles by the parameters
