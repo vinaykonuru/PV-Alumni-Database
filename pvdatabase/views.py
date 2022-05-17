@@ -46,7 +46,7 @@ def search(request):
             (state == "" | profile.state == state) &  \
              (country == "" | profile.country == country) & \
             (zip == "" | profile.zip == zip) & \
-            (job == "" | profile.job == job) &) \
+            (job == "" | profile.job == job) & \
             (employer == "" | profile.job == employer)):
                 # add sorting by field and hs_activities
                 matched_profiles.append(profile)
