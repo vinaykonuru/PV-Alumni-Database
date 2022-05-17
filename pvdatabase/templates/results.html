@@ -3,7 +3,6 @@
 
 <h1>Profile</h1>
 <br><br>
-<div class="">
   <!--Profiles-->
 
   <div class="row">
@@ -12,44 +11,32 @@
     {% endif %}
 
     <div class="column">
-      <p class="lead">{{ entry.name }} ({{entry.year}})</p>
+      <p class="lead">{{ entry.first_name }} ({{entry.last_name}})</p>
       <div class="pic-container border-black">
         <div class="jumbotron white-background">
           <br />
           <br />
-          <strong class="d-inline-block mb-2 text-primary">On/Off Campus</strong>
+          <strong class="d-inline-block mb-2 text-primary">Graduation Year</strong>
           <div class="mb-1 text-muted">
-            <p>{{ entry.location }} </p>
+            <p>{{ entry.grad_year }} </p>
           </div>
-          <strong class="d-inline-block mb-2 text-primary">Duration</strong>
+          <strong class="d-inline-block mb-2 text-primary">Profession</strong>
           <div class="mb-1 text-muted">
-            <p>{{ entry.duration }} Minutes </p>
+            <p>{{ entry.job }} </p>
           </div>
-          <strong class="d-inline-block mb-2 text-primary">Time Zone</strong>
+          <strong class="d-inline-block mb-2 text-primary">Higher Education</strong>
           <div class="mb-1 text-muted">
-            <p>{{ entry.time_zone }} </p>
+            <p>{{ entry.college }} </p>
           </div>
-          <strong class="d-inline-block mb-2 text-primary">Availability</strong>
+          <strong class="d-inline-block mb-2 text-primary">Location</strong>
           <div class="mb-1 text-muted">
-            <p>{{ entry.days }} </p>
+            <p>{{ entry.city }}, {{entry.state }} {{entry.country}} </p>
           </div>
-          <strong class="d-inline-block mb-2 text-primary">Workout Type</strong>
+          <strong class="d-inline-block mb-2 text-primary">Contact</strong>
           <div class="mb-1 text-muted">
-            <p>{{ entry.workout_type }} </p>
+            <p>{{ entry.user }} </p>
           </div>
           <br />
-          <a href="{% url 'profile' entry.id %}" class="btn btn-lg btn-secondary">View Profile</a>
-          {% load request_tags %}
-          {% if user|check_partner %}
-          {% else %}
-          <button onclick="on()" class="btn btn-lg btn-secondary">
-            Match
-          </button>
-          <form id="partner_match{{entry.user_id}}" action="{% url 'partner_match' entry.user_id %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" />
-          </form>
-          {% endif %}
         </div>
       </div>
       <hr class="my-4">
