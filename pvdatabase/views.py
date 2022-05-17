@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_obj0ect_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -27,8 +27,8 @@ def search(request):
         zip = request.POST['inputzip']
         employer = request.POST['inputemployer']
         job = request.POST['inputjobtitle']
-        field = request.POST['inputfield']
-        hs_activities = request.POST['inputclubs']
+        field = request.POST.getlist('inputfield')
+        hs_activities = request.getlist('inputclubs')
 
         # 1. get all profiles
         # 2. check which of the filtering paramters are not null
