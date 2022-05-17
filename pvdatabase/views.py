@@ -22,7 +22,7 @@ def search(request):
         college = request.POST['inputcollege']
         major = request.POST['inputmajor']
         city = request.POST['inputcity']
-        state = request.POST['inputstate']
+        state = request.POST.getlist('inputstate')[0]
         country = request.POST['inputcountry']
         zip = request.POST['inputzip']
         employer = request.POST['inputemployer']
