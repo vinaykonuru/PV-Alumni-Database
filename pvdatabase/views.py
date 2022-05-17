@@ -28,7 +28,7 @@ def search(request):
         employer = request.POST['inputemployer']
         job = request.POST['inputjobtitle']
         field = request.POST.getlist('inputfield')
-        hs_activities = request.getlist('inputclubs')
+        hs_activities = request.POST.getlist('inputclubs')
 
         if(state == ['']):
             state = ""
