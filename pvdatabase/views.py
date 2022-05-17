@@ -36,21 +36,21 @@ def search(request):
         profiles = AlumniProf.objects.all()
         matched_profiles = []
         for profile in profiles: # filtering profiles
-            if(
-            (first_name == "" || profile.first_name == first_name) &&
-            (last_name == "" || profile.last_name == last_name) &&
-            (grad_year == "" || profile.grad_year == grad_year) &&
-            (college == "" || profile.college == college) &&
-            (major == "" || profile.major == major) &&
-            (city == "" || profile.city == city) &&
-            (state == "" || profile.state == state) &&
-            (country == "" || profile.country == country) &&
-            (zip == "" || profile.zip == zip) &&
-            (job == "" || profile.job == job) &&)
+            if( \\
+            (first_name == "" || profile.first_name == first_name) && \
+            (last_name == "" || profile.last_name == last_name) && \
+            (grad_year == "" || profile.grad_year == grad_year) && \
+            (college == "" || profile.college == college) && \
+            (major == "" || profile.major == major) && \
+            (city == "" || profile.city == city) && \
+            (state == "" || profile.state == state) &&  \
+             (country == "" || profile.country == country) && \
+            (zip == "" || profile.zip == zip) && \
+            (job == "" || profile.job == job) &&) \
             (employer == "" || profile.job == employer)):
                 # add sorting by field and hs_activities
                 matched_profiles.append(profile)
 
-        return render(request,'buddyrequest/database.html',{'profiles':matched_profiles})   
+        return render(request,'buddyrequest/database.html',{'profiles':matched_profiles})
     else:
         return render(request, 'search.html')
