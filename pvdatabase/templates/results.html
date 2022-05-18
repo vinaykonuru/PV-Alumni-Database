@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-Results
-<br>
-  <!--Profiles-->
+<title> Search Results</title>
+
+<!--Page Stylesheet-->
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/DatabaseStyle.css' %}" />
 
   <div class="row">
     {% for entry in profiles %}
