@@ -4,6 +4,7 @@
 
 .center{
   margin: auto;
+  text-align: center;
 }
 
 .bg-light2 {
@@ -15,7 +16,6 @@
 
 .bg-white {
   background-color: #000 !important;
-  background-image: url('https://cdn.discordapp.com/attachments/735319507341672642/735573886997102682/Tiger_Profile_Pic.jpg');
   background-position: center;
   background-size: 90%;
   min-width: 200px;
