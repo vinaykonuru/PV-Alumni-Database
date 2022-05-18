@@ -57,6 +57,6 @@ def search(request):
                 # add sorting by field and hs_activities
                 matched_profiles.append(profile)
 
-        return render(request,'buddyrequest/database.html',{'profiles':matched_profiles})
+        return render(request,'results.html', {'profiles':matched_profiles})
     else:
         return render(request, 'search.html')
