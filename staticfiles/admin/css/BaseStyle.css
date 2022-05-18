@@ -3,13 +3,13 @@ html {
     min-height: 100%;
 }
 body {
-    margin: 0 0 100px; /* bottom = footer height */
+    margin: 0 0 50px; /* bottom = footer height */
 }
 #bottom-footer {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 100px;
+    height: 50px;
     width: 100%;
 }
 *{
