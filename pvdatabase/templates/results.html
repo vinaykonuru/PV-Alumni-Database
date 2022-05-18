@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Profile</h1>
-<br><br>
+Results
+<br>
   <!--Profiles-->
 
   <div class="row">
     {% for entry in profiles %}
     {% if forloop.counter0|divisibleby:2 %}
+    <br>
     {% endif %}
 
     <div class="column">
