@@ -37,8 +37,8 @@ def search(request):
         else:
             state = state[0];
         # 1. get all profiles
-        # 2. check which of the filtering paramters are not null
-        # 3.filter the list of profiles by the parameters
+        # 2. if filter is empty or if the profile matches the filter, include
+        # it in search results
         profiles = AlumniProf.objects.all()
         matched_profiles = []
         for profile in profiles: # filtering profiles

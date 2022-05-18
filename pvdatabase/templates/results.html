@@ -9,9 +9,9 @@
     {% for entry in profiles %}
     {% if forloop.counter0|divisibleby:2 %}
     {% endif %}
-
+ 
     <div class="column">
-      <p class="lead">{{ entry.first_name }} ({{entry.last_name}})</p>
+      <p class="lead">{{ entry.first_name }} {{entry.last_name}}</p>
       <div class="pic-container border-black">
         <div class="jumbotron white-background">
           <br />
