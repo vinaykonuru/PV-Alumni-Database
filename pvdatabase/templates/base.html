@@ -19,43 +19,8 @@
     <!-- Bootstrap core CSS -->
     <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-        body{
-            background-image: url(/images/pvbackground.svg);
-            background-size: 1600px;
-        }
-        .rows{
-            background: white;
-            border-radius: 30px;
-            margin: 0 auto;
-            width: 75%;
-            box-shadow: 12px 12px 22px black;
-        }
-        .row{
-            margin: 0 auto;
-        }
-        .btn1{
-            border: none;
-            outline: none;
-            height: 50px;
-            width: 100%;
-            background-color: black;
-            color: white;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .btn1:hover{
-            background: white;
-            border: 1px solid;
-            color: black;
-        }
-    </style>
+    <!--Page Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/BaseStyle.css' %}" />
 
 </head>
 <body>
@@ -98,11 +63,13 @@
 
     {% endblock %}
     <!-- Footer -->
-    <footer class="p-5 bg-dark text-white text-center position-relative">
-        <div class="container">
-            <p class="lead">Copyright &copy; 2022 Pine View School</p>
-        </div>
-    </footer>
+    <div class="footer">
+      <footer class="p-5 bg-dark text-white text-center position-relative">
+          <div class="container">
+              <p class="lead">Copyright &copy; 2022 Pine View School</p>
+          </div>
+      </footer>
+    </div>
 
 </body>
 </html>
