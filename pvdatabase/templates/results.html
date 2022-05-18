@@ -9,13 +9,11 @@
     {% for entry in profiles %}
     {% if forloop.counter0|divisibleby:2 %}
     {% endif %}
- 
+
     <div class="column">
-      <p class="lead">{{ entry.first_name }} {{entry.last_name}}</p>
       <div class="pic-container border-black">
         <div class="jumbotron white-background">
-          <br />
-          <br />
+          <p class="lead">{{ entry.first_name }} {{entry.last_name}}</p>
           <strong class="d-inline-block mb-2 text-primary">Graduation Year</strong>
           <div class="mb-1 text-muted">
             <p>{{ entry.grad_year }} </p>
