@@ -12,9 +12,6 @@
 
   <div class="row">
     {% for entry in profiles %}
-    {% if forloop.counter0|divisibleby:2 %}
-    {% endif %}
-
     <div class="column">
       <div class="pic-container border-black">
         <div class="jumbotron white-background">
@@ -44,6 +41,12 @@
       </div>
       <hr class="my-4">
     </div>
-</div>
-{% endfor %}
+
+      {% if forloop.counter|divisibleby:2 %}
+        </div>
+        <div class="row">
+      {% endif %}
+    {% endfor %}
+    </div>
+
 {% endblock %}
