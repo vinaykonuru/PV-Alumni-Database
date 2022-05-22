@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,7 @@
     <style>
         *{
             padding: 0;
-            margin: auto;
+            margin: 0;
             box-sizing: border-box;
         }
         body{
@@ -89,19 +90,22 @@
     <!-- Showcase -->
     <section class="bg-dark text-light p-5 text-center text-sm-start p-lg-0 pt-lg-3">
         <div class="container">
-              <div style="width:800px; margin:0 auto;">
-                  <h1>Join the <span class="text-warning">Pine View School</span> Alumni Community</h1>
-              <p class="lead my-4">
-                  Take advantage of all the alumni community has to offer
-                  and connect with fellow Pythons for free!
-              </p>
-              <a class="btn btn-primary btn-lg"
-              href="{% url 'signup' %}"
-              role="button">
-                  Sign Up
-              </a>
-              </div>
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div>
+                    <h1>Join the <span class="text-warning">Pine View School</span> Alumni Community</h1>
+                <p class="lead my-4">
+                    Take advantage of all the alumni community has to offer
+                    and connect with fellow Pythons for free!
+                </p>
+                <a class="btn btn-primary btn-lg"
+                href="{% url 'signup' %}"
+                role="button"
+                >
+                    Sign Up
+                </a>
+                </div>
             <img class="img-fluid w-50 d-none d-sm-block" src="images/undraw_connecting_teams_re_hno7.svg" alt="">
+            </div>
         </div>
     </section>
 
