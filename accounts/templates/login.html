@@ -8,7 +8,7 @@
     <div class="rows no-gutters">
     <h1 class = "pt-4 pb-4 text-center">Sign in to your account</h1>
     {% if error %}
-    {{error}}
+      {{error}}
     {% endif %}
     <form method = "POST" action="{% url 'login' %}">
         {% csrf_token %}
@@ -29,7 +29,7 @@
                 <input type="submit" class="btn1 mb-3">
             </div>
         </div>
-        <a href="{% url 'reset_password' %}">Forgot password?</a>
+        <a href="{% url 'password_reset' %}">Forgot password?</a>
         <p class="pb-4">Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
     </form>
     </div>
