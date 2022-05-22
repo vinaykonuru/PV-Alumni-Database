@@ -43,3 +43,7 @@
 .pic-container {
   box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0,0,0,.05);
 }
+.container {
+  display: flex;
+  justify-content: center;
+}
