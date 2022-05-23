@@ -43,14 +43,14 @@ def search(request):
         matched_profiles = []
         for profile in profiles: # filtering profiles
             if( \
-            (first_name == '' or profile.first_name == first_name) & \
-            (last_name == '' or profile.last_name == last_name) & \
+            (first_name == '' or profile.first_name.upper() == first_name.upper()) & \
+            (last_name == '' or profile.last_name.upper() == last_name.upper()) & \
             (grad_year == '' or profile.grad_year == grad_year) & \
-            (college == '' or profile.college == college) & \
-            (major == '' or profile.major == major) & \
-            (city == '' or profile.city == city) & \
+            (college == '' or profile.college.upper() == college.upper()) & \
+            (major == '' or profile.major.upper() == major.upper()) & \
+            (city == '' or profile.city.upper() == city.upper()) & \
             (state == '' or profile.state == state) &  \
-            (country == '' or profile.country == country) & \
+            (country == '' or profile.country.upper() == country.upper()) & \
             (zip == '' or profile.zip == zip) & \
             (job == '' or profile.job == job) & \
             (employer == '' or profile.job == employer)):
