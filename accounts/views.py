@@ -98,6 +98,7 @@ def edit(request):
         else:
             hs_activities = hs_activities[0]
 
+        AlumniProf.objects.get(user=request.user).delete()
         alumniprof = AlumniProf(
         first_name = first_name, last_name = last_name,
         grad_year = grad_year, college = college,
