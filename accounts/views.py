@@ -86,7 +86,7 @@ def edit(request):
         employer = request.POST['inputemployer']
         job = request.POST['inputjobtitle']
         field = request.POST.getlist('inputfield')
-        hs_activities = request.POST['inputclubs']
+        hs_activities = request.POST.getlist('inputclubs')
 
         if not field:
             field = ""
