@@ -50,7 +50,7 @@ def search(request):
             (major == '' or profile.major == major) & \
             (city == '' or profile.city == city) & \
             (state == '' or profile.state == state) &  \
-             (country == '' or profile.country == country) & \
+            (country == '' or profile.country == country) & \
             (zip == '' or profile.zip == zip) & \
             (job == '' or profile.job == job) & \
             (employer == '' or profile.job == employer)):
