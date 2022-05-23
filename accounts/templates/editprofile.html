@@ -11,35 +11,35 @@
         <div class="row mb-3">
             <div class="col">
                 <label for="inputfirstname" class="form-label">First Name</label>
-                <input value = {{first_name}} type="firstname" id="inputfirstname" class="form-control" required>
+                <input value = {{first_name}} type="firstname" name="inputfirstname" class="form-control" required>
             </div>
             <div class="col">
                 <label for="inputlastname" class="form-label">Last Name</label>
-                <input value = {{last_name}} type="lastname" id="inputlastname" class="form-control" required>
+                <input value = {{last_name}} type="lastname" name="inputlastname" class="form-control" required>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
-                <input value = {{grad_year}} type="year" id="inputyear" class="form-control" required>
+                <input value = {{grad_year}} type="year" name="inputyear" class="form-control" required>
             </div>
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>
-                <input value = {{college}} type="college" id="inputcollege" class="form-control">
+                <input value = {{college}} type="college" name="inputcollege" class="form-control">
             </div>
             <div class="col">
                 <label for="inputmajor" class="form-label">Major(s)/Department(s)</label>
-                <input value = {{major}} type="major" id="inputmajor" class="form-control">
+                <input value = {{major}} type="major" name="inputmajor" class="form-control">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
-                <input value = {{country}} type="country" id="inputcountry" class="form-control" required>
+                <input value = {{country}} type="country" name="inputcountry" class="form-control" required>
             </div>
             <div class="col">
                 <label for="inputstate" class="form-label">State</label>
-                <select class="form-select" size="4">
+                <select name="inputstate" class="form-select" size="4">
                     <option value = {{state}} selected> {{state}} </option>
                     <option value="AL">AL</option>
                     <option value="AK">AK</option>
@@ -97,21 +97,21 @@
         <div class="row mb-3">
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
-                <input value = {{city}} type="city" id="inputcity" class="form-control" required>
+                <input value = {{city}} type="city" name="inputcity" class="form-control" required>
             </div>
             <div class="col">
                 <label for="inputzip" class="form-label">Zip</label>
-                <input value = {{zip}} type="zip" id="inputemail" class="form-control">
+                <input value = {{zip}} type="zip" name="inputemail" class="form-control">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="inputjobtitle" class="form-label">Job Title</label>
-                <input value = {{job}} type="jobtitle" id="inputjobtitle" class="form-control">
+                <input value = {{job}} type="jobtitle" name="inputjobtitle" class="form-control">
             </div>
             <div class="col">
                 <label for="inputemployer" class="form-label">Employer</label>
-                <input value = {{employer}} type="employer" id="inputemployer" class="form-control">
+                <input value = {{employer}} type="employer" name="inputemployer" class="form-control">
             </div>
         </div>
         <div class="row mb-3">
@@ -121,7 +121,7 @@
         <div class="row mb-3">
             <div class="col">
                 <label for="inputfield" class="form-label">Field/Specialty (you may select more than one)</label>
-                <select class="form-select" multiple size="4">
+                <select name="inputfield" class="form-select" multiple size="4">
                     <option value="Accounting">Accounting</option>
                     <option value="Advertising">Advertising</option>
                     <option value="Architecture">Architecture/Planning</option>
@@ -203,7 +203,7 @@
         <div class="row mb-3">
             <div class="col">
                 <label for="inputclubs" class="form-label">Student Activities (you may select more than one)</label>
-                <select class="form-select" name = "inputclubs" multiple size="4">
+                <select name="inputclubs" class="form-select" name = "inputclubs" multiple size="4">
                     <option value="Academic Olympics">Academic Olympics</option>
                     <option value="A.K.H.L. (Achieve, Know, Help, Lead)">A.K.H.L. (Achieve, Know, Help, Lead)</option>
                     <option value="Anime Club">Anime Club</option>
