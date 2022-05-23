@@ -40,7 +40,7 @@ def signup(request):
                 field = request.POST['inputfield']
                 hs_activities = request.POST['inputclubs']
 
-                alumprof = AlumniProf(
+                alumniprof = AlumniProf(
                 first_name = first_name, last_name = last_name,
                 grad_year = grad_year, college = college,
                 major = major, city = city,
@@ -49,7 +49,7 @@ def signup(request):
                 job = job, field = field,
                 hs_activities = hs_activities, user = user
                 )
-                alumprof.save()
+                alumniprof.save()
                 return redirect('home')
         else:
             return render(request,'signup.html',{'error':'Passwords must match'})
@@ -74,7 +74,6 @@ def reset(request):
 @login_required(login_url='/accounts/signup')
 def edit(request):
     if request.method == 'POST':
-        user=request.user
         first_name = request.POST['inputfirstname']
         last_name = request.POST['inputlastname']
         grad_year = request.POST['inputyear']
@@ -99,35 +98,35 @@ def edit(request):
         else:
             hs_activities = hs_activities[0]
 
-        alumprof = AlumniProf(
+        alumniprof = AlumniProf(
         first_name = first_name, last_name = last_name,
         grad_year = grad_year, college = college,
         major = major, city = city,
         state = state, country = country,
         zip = zip, employer = employer,
         job = job, field = field,
-        hs_activities = hs_activities, user = user
+        hs_activities = hs_activities, user = request.user
         )
         alumniprof.save()
         return render(request, 'home.html')
     else:
-        alumprof = AlumniProf.objects.get(user = request.user)
-        if(alumprof == None):
+        alumniprof = AlumniProf.objects.get(user = request.user)
+        if(alumniprof == None):
             return redirect('home')
 
-        first_name = alumprof.first_name
-        last_name = alumprof.last_name
-        grad_year = alumprof.grad_year
-        college = alumprof.college
-        major = alumprof.major
-        city = alumprof.city
-        state = alumprof.state
-        country = alumprof.country
-        zip = alumprof.zip
-        employer = alumprof.employer
-        job = alumprof.job
-        field = alumprof.field
-        hs_activities = alumprof.hs_activities
+        first_name = alumniprof.first_name
+        last_name = alumniprof.last_name
+        grad_year = alumniprof.grad_year
+        college = alumniprof.college
+        major = alumniprof.major
+        city = alumniprof.city
+        state = alumniprof.state
+        country = alumniprof.country
+        zip = alumniprof.zip
+        employer = alumniprof.employer
+        job = alumniprof.job
+        field = alumniprof.field
+        hs_activities = alumniprof.hs_activities
 
         return render(request, 'editprofile.html',{'first_name':first_name, 'last_name':last_name,'grad_year':grad_year,
         'college':college, 'major':major,'city':city,'state':state, 'country':country,'zip':zip, 'employer':employer,
