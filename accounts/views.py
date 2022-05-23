@@ -85,9 +85,14 @@ def edit(request):
         zip = request.POST['inputzip']
         employer = request.POST['inputemployer']
         job = request.POST['inputjobtitle']
-        field = request.POST['inputfield']
+        field = request.POST.getList('inputfield')
         hs_activities = request.POST['inputclubs']
 
+        if not field:
+            field = ""
+        else:
+            field = field[0]
+        
         alumprof = AlumniProf(
         first_name = first_name, last_name = last_name,
         grad_year = grad_year, college = college,
