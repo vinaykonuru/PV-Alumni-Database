@@ -93,6 +93,11 @@ def edit(request):
         else:
             field = field[0]
 
+        if not field:
+            hs_activities = ""
+        else:
+            hs_activities = hs_activities[0]
+
         alumprof = AlumniProf(
         first_name = first_name, last_name = last_name,
         grad_year = grad_year, college = college,
