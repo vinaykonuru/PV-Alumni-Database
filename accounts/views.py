@@ -22,6 +22,7 @@ def signup(request):
         if request.POST['inputpassword1']==request.POST['inputpassword2']:
             try:
                 user=User.objects.get(username = request.POST['inputemail'])
+                # Fix error message to render HTML template instead
                 return render(request, 'signup.html', {'error':'Email has already been taken'})
             except User.DoesNotExist:
                 user=User.objects.create_user(username = request.POST['inputemail'],password=request.POST['inputpassword1'])
@@ -32,13 +33,25 @@ def signup(request):
                 college = request.POST['inputcollege']
                 major = request.POST['inputmajor']
                 city = request.POST['inputcity']
-                state = request.POST['inputstate']
+                state = request.POST.get('inputstate', None)
                 country = request.POST['inputcountry']
                 zip = request.POST['inputzip']
                 employer = request.POST['inputemployer']
                 job = request.POST['inputjobtitle']
-                field = request.POST['inputfield']
-                hs_activities = request.POST['inputclubs']
+                # fixes MultiValueDictKey Error
+                field = request.POST.getlist('inputfield', None)
+                # fixes MultiValueDictKey Error
+                hs_activities = request.POST.getlist('inputclubs', None)
+                try:
+                    newsletter = request.POST['newsletter'] == 'on'
+                    print(newsletter)
+                except:
+                    newsletter = False
+
+                try:
+                    interview = request.POST['interview'] == 'on'
+                except:
+                    interview = False
 
                 alumniprof = AlumniProf(
                 first_name = first_name, last_name = last_name,
@@ -47,11 +60,15 @@ def signup(request):
                 state = state, country = country,
                 zip = zip, employer = employer,
                 job = job, field = field,
-                hs_activities = hs_activities, user = user
+                hs_activities = hs_activities, 
+                newsletter = newsletter,
+                interview = interview,
+                user = user
                 )
                 alumniprof.save()
                 return redirect('home')
         else:
+            # fix error message to render HTML template
             return render(request,'signup.html',{'error':'Passwords must match'})
     else:
         return render(request, 'signup.html')
@@ -59,7 +76,6 @@ def signup(request):
 @login_required(login_url='/accounts/signup')
 def logout(request):
     if request.method=='POST':
-        print('hello')
         auth.logout(request)
         return redirect('home')
 
@@ -87,13 +103,15 @@ def edit(request):
         job = request.POST['inputjobtitle']
         field = request.POST.getlist('inputfield')
         hs_activities = request.POST.getlist('inputclubs')
+        newsletter = request.POST['newsletter']
+        interview = request.POST['interview']
 
         if not field:
             field = ""
         else:
             field = field[0]
 
-        if not field:
+        if not hs_activities:
             hs_activities = ""
         else:
             hs_activities = hs_activities[0]
@@ -106,7 +124,10 @@ def edit(request):
         state = state, country = country,
         zip = zip, employer = employer,
         job = job, field = field,
-        hs_activities = hs_activities, user = request.user
+        hs_activities = hs_activities, 
+        newsletter = newsletter,
+        interview = interview,
+        user = request.user
         )
         alumniprof.save()
         return render(request, 'home.html')
@@ -128,7 +149,9 @@ def edit(request):
         job = alumniprof.job
         field = alumniprof.field
         hs_activities = alumniprof.hs_activities
+        newsletter = alumniprof.newsletter
+        interview = alumniprof.interview
 
         return render(request, 'editprofile.html',{'first_name':first_name, 'last_name':last_name,'grad_year':grad_year,
         'college':college, 'major':major,'city':city,'state':state, 'country':country,'zip':zip, 'employer':employer,
-        'job':job,'field':field, 'hs_activities':hs_activities})
+        'job':job,'field':field, 'hs_activities':hs_activities, 'newsletter':newsletter, 'interview':interview})
