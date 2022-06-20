@@ -42,16 +42,12 @@ def signup(request):
                 field = request.POST.getlist('inputfield', None)
                 # fixes MultiValueDictKey Error
                 hs_activities = request.POST.getlist('inputclubs', None)
-                try:
-                    newsletter = request.POST['newsletter'] == 'on'
-                    print(newsletter)
-                except:
-                    newsletter = False
-
-                try:
-                    interview = request.POST['interview'] == 'on'
-                except:
-                    interview = False
+                newsletter = request.POST.get('newsletter', False)
+                if (newsletter == 'on'):
+                    newsletter = True
+                interview = request.POST.get('interview', False)
+                if (interview == 'on'):
+                    interview = True
 
                 alumniprof = AlumniProf(
                 first_name = first_name, last_name = last_name,
