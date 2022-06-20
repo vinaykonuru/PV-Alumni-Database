@@ -5,12 +5,20 @@
 }
 body {
     background-image: url('/static/admin/img/images/pvbackground.svg');
+    background-size: 1600px;
 }
 .rows{
     background: white;
     border-radius: 30px;
     margin: 0 auto;
     width: 75%;
+    box-shadow: 12px 12px 22px black;
+}
+.rows-login{
+    background: white;
+    border-radius: 30px;
+    margin: 0 auto;
+    width: 60%;
     box-shadow: 12px 12px 22px black;
 }
 .row{
@@ -31,6 +39,6 @@ body {
     border: 1px solid;
     color: black;
 }
-form {
+.text-center{
     text-align: center;
 }

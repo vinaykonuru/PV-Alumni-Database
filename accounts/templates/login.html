@@ -9,7 +9,7 @@
     <!-- Form -->
     <section class="form pt-4">
     <div class="container">
-    <div class="rows no-gutters">
+    <div class="rows-login no-gutters">
     <h1 class = "pt-4 pb-4 text-center">Sign in to your account</h1>
     {% if error %}
       {{error}}
@@ -33,8 +33,10 @@
                 <input type="submit" class="btn1 mb-3">
             </div>
         </div>
-        <a href="{% url 'password_reset' %}">Forgot password?</a>
-        <p class="pb-4">Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+        <div class="text-center">
+            <a href="{% url 'password_reset' %}">Forgot password?</a>
+            <p class="pb-4">Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+        </div>
     </form>
     </div>
     </div>

@@ -334,9 +334,25 @@
         </div>
         <div class="row mb-3">
             <div class="form-check px-5">
-                <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                <input class="form-check-input" type="checkbox" name="tos" required>
                 <label class="form-check-label" for="gridCheck">
                   I agree to the <a href="{% url 'tos' %}">terms of service</a>.
+                </label>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-check px-5">
+                <input class="form-check-input" type="checkbox" name="newsletter" checked>
+                <label class="form-check-label" for="gridCheck">
+                  I would like to receive the Alumni Newsletter.
+                </label>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-check px-5">
+                <input class="form-check-input" type="checkbox" name="interview" checked>
+                <label class="form-check-label" for="gridCheck">
+                  I am interested in mock interviewing students.
                 </label>
             </div>
         </div>
