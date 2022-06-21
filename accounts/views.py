@@ -97,20 +97,24 @@ def edit(request):
         zip = request.POST['inputzip']
         employer = request.POST['inputemployer']
         job = request.POST['inputjobtitle']
-        field = request.POST.getlist('inputfield')
-        hs_activities = request.POST.getlist('inputclubs')
-        newsletter = request.POST['newsletter']
-        interview = request.POST['interview']
+        field = request.POST.getlist('inputfield', None)
+        hs_activities = request.POST.getlist('inputclubs', None)
+        newsletter = request.POST.get('newsletter', False)
+        if (newsletter == 'on'):
+            newsletter = True
+        interview = request.POST.get('interview', False)
+        if (interview == 'on'):
+            interview = True
 
-        if not field:
-            field = ""
-        else:
-            field = field[0]
+        # if not field:
+        #     field = ""
+        # else:
+        #     field = field[0]
 
-        if not hs_activities:
-            hs_activities = ""
-        else:
-            hs_activities = hs_activities[0]
+        # if not hs_activities:
+        #     hs_activities = ""
+        # else:
+        #     hs_activities = hs_activities[0]
 
         AlumniProf.objects.get(user=request.user).delete()
         alumniprof = AlumniProf(
