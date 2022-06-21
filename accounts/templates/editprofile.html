@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/formstyle.css' %}" /> 
+{% endblock %}
 
 {% block content %}
     <!-- Form -->
@@ -307,6 +312,30 @@
                     <option value="Young Investors Society">Young Investors Society</option>
                     <option value="Weight Lifting Club">Weight Lifting Club</option>
                 </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-check px-5">
+                {% if newsletter %}
+                <input class="form-check-input" type="checkbox" name="newsletter" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" name="newsletter">
+                {% endif %}
+                <label class="form-check-label" for="gridCheck">
+                  I would like to receive the Alumni Newsletter.
+                </label>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-check px-5">
+                {% if interview %}
+                <input class="form-check-input" type="checkbox" name="interview" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" name="interview">
+                {% endif %}
+                <label class="form-check-label" for="gridCheck">
+                  I am interested in mock interviewing students.
+                </label>
             </div>
         </div>
         <div class="row mb-3">
