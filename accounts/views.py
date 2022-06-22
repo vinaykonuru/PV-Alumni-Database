@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from alumniprof.models import AlumniProf
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+import re
 
 # Create your views here.
 FIELDSLIST = ["Accounting",
@@ -184,14 +185,36 @@ HSACTIVITIESLIST =  ["Academic Olympics"
                     ,"Young Investors Society"
                     ,"Weight Lifting Club"]
 
+# Reg expression for validating email
+regex_email = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+
+# Reg expression for validating password 
+regex_password = r'^(?=.*[A-Z])(?=.*[0-9]).{8,32}$'
+
+# server-side email and password validator
+def check(email, password):
+    if(re.fullmatch(regex_email, email) and re.fullmatch(regex_password, password)):
+        pass
+    else:
+        return True
+
 def login(request):
     if request.method=='POST':
+        # server-side validation
+        if (
+                len(request.POST['inputemail']) > 30 or
+                len(request.POST['inputpassword']) > 30
+            ):
+                return render(request, 'error.html', {'error':'One of your fields is longer than its character limit. Try again.'})
+        if check(request.POST['inputemail'], request.POST['inputpassword']):
+                    return render(request, 'error.html', {'error':'Enter a valid email and password.'})
+                    
         user=auth.authenticate(username=request.POST['inputemail'],password=request.POST['inputpassword'])
         if user is not None:
             auth.login(request,user)
             return redirect('home')
         else:
-            return render(request,'login.html',{'error':'Username or password is not correct'})
+            return render(request,'error.html',{'error':'Your username or password is not correct.'})
     else:
         return render(request, 'login.html')
 
@@ -209,6 +232,26 @@ def signup(request):
                 # Fix error message to render HTML template instead
                 return render(request, 'error.html', {'error':'This email has already been taken.'})
             except User.DoesNotExist:
+                # Server-side validation 
+                if (
+                len(request.POST['inputfirstname']) > 30 or
+                len(request.POST['inputemail']) > 30 or
+                len(request.POST['inputpassword1']) > 30 or
+                len(request.POST['inputpassword2']) > 30 or
+                len(request.POST['inputlastname']) > 30 or
+                len(request.POST['inputyear']) > 4 or
+                len(request.POST['inputcollege'] > 30) or
+                len(request.POST['inputmajor'] > 30) or
+                len(request.POST['inputcity'] > 30) or
+                len(request.POST['inputcountry'] > 30) or
+                len(request.POST['inputzip'] > 10) or
+                len(request.POST['inputemployer'] > 30) or
+                len(request.POST['inputjobtitle'] > 30)
+                ):
+                    return render(request, 'error.html', {'error':'One of your fields is longer than its character limit. Try again.'})
+                if check(request.POST['inputemail'], request.POST['inputpassword']):
+                    return render(request, 'error.html', {'error':'Enter a valid email and password.'})
+
                 user=User.objects.create_user(username = request.POST['inputemail'],password=request.POST['inputpassword1'], first_name=request.POST['inputfirstname'], last_name=request.POST['inputlastname'])
                 auth.login(request,user)
                 first_name = request.POST['inputfirstname']
