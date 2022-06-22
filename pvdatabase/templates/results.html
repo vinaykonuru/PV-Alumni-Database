@@ -1,79 +1,49 @@
 {% extends 'base.html' %}
-{% block content %}
-
 {% load static %}
 
+{% block head %}
+<!-- Stylesheet -->
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/formstyle.css' %}" /> 
 <title> Search Results</title>
+{% endblock %}
 
-<div class="center">
-  <h1>Search Results</h1>
-</div>
-
-<div class="border">
-<!--Page Stylesheet-->
-<link rel="stylesheet" type="text/css" href="{% static 'admin/css/DatabaseStyle.css' %}" />
-  <div class="row">
-    {% for entry in profiles %}
-    <div class="column">
-      <div class="pic-container border-black">
-        <div class="jumbotron white-background">
-          <p class="lead">{{ entry.first_name }} {{entry.last_name}}</p>
-          <strong class="d-inline-block mb-2 text-primary">Graduation Year</strong>
-          <div class="mb-1 text-muted">
-            <p>{{ entry.grad_year }} </p>
-          </div>
-          <strong class="d-inline-block mb-2 text-primary">Profession</strong>
-          <div class="mb-1 text-muted">
-            <p>{{ entry.job }} </p>
-          </div>
-          <strong class="d-inline-block mb-2 text-primary">Higher Education</strong>
-          <div class="mb-1 text-muted">
-            <p>{{ entry.college }}</p>
-          </div>
-          <strong class="d-inline-block mb-2 text-primary">Major</strong>
-          <div class="mb-1 text-muted">
-            <p>{{ entry.major }}</p>
-          </div>
-          <strong class="d-inline-block mb-2 text-primary">Location</strong>
-          <div class="mb-1 text-muted">
-            <p>{{ entry.city }}, {{entry.state }} {{entry.country}} </p>
-          </div>
-          <strong class="d-inline-block mb-2 text-primary">Fields</strong>
-          <div class="mb-1 text-muted">
-            {% if entry.field|length > 2 %}
-              <p>{{ entry.field }}</p>
-            {% else %}
-              <br>
-            {% endif %}
-          </div>
-          <strong class="d-inline-block mb-2 text-primary">Activities</strong>
-          <div class="mb-1 text-muted">
-            {% if entry.hs_activities|length > 2 %}
-              <p>{{ entry.hs_activities }}</p>
-            {% else %}
-              <br>
-            {% endif %}
-          </div>
-          <strong class="d-inline-block mb-2 text-primary">Employer</strong>
-          <div class="mb-1 text-muted">
-            <p> {{entry.employer}} </p>
-          </div>
-          <strong class="d-inline-block mb-2 text-primary">Contact</strong>
-          <div class="mb-1 text-muted">
-            <p>{{ entry.user }} </p>
-          </div>
-          <br />
-        </div>
-      </div>
-      <hr class="my-4">
-    </div>
-
-      {% if forloop.counter|divisibleby:2 %}
-        </div>
-        <div class="row">
-      {% endif %}
-    {% endfor %}
-    </div>
+{% block content %}
+  <!-- Greeting -->
+  <div class="container">
+    <section class="p-3 col-lg-10 col-xl-8 col-sm-12 bg-light absolute-center position-relative">
+      <p class="lead">Custom Directory - Search Results</p>
+      <p>Your search returned <strong>{{ profiles|length }}</strong> results.</p>
+      <a href="{% url 'search' %}">New Search</a>
+    </section>
   </div>
 
+  <!-- Cards -->
+  <section class="p-3">
+    <div class="container">
+      <div class="col-lg-10 col-xl-8 absolute-center">
+        {% for entry in profiles %}
+        <div class="pb-3">
+          <div class="bg-light text-dark">
+            <div class="row card-body text-center">
+              <div class="col-md-2 col-3">
+                <img class="default-profilepic" src="{% static 'admin/img/images/pvs-130.svg' %}" alt="">
+              </div>
+              <div class="col left-align search-card-text">
+                <strong class="search-card-title mb-3">
+                  {{ entry.first_name }} {{ entry.last_name }}
+                </strong>
+                <p>
+                  {{ entry.college }}
+                </p>
+              </div>
+              <div class="col-3 search-card-contact">
+                <a href="{% url 'search' %}" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 {% endblock %}

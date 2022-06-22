@@ -14,7 +14,7 @@
     <h1 class = "pt-4 pb-4 text-center">Search Alumni</h1>
     <form method = "POST" action="{% url 'search' %}">
         {% csrf_token %}
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfirstname" class="form-label">First Name</label>
                 <input type="firstname" name = "inputfirstname" id="inputfirstname" class="form-control" >
@@ -24,7 +24,7 @@
                 <input type="lastname" name="inputlastname" id="inputlastname" class="form-control" >
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
                 <input type="year" name="inputyear" id="inputyear" class="form-control" >
@@ -38,7 +38,7 @@
                 <input type="major" name="inputmajor" id="inputmajor" class="form-control">
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
                 <input type="country" name="inputcountry" id="inputcountry" class="form-control" >
@@ -99,13 +99,13 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
                 <input type="city" name="inputcity" id="inputcity" class="form-control" >
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputjobtitle" class="form-label">Job Title</label>
                 <input type="jobtitle" name="inputjobtitle" id="inputjobtitle" class="form-control">
@@ -115,7 +115,7 @@
                 <input type="employer" name="inputemployer" id="inputemployer" class="form-control">
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfield" class="form-label">Field/Specialty (you may select more than one)</label>
                 <select class="form-select" name = "inputfield" multiple size="4">
@@ -197,7 +197,7 @@
                   </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputclubs" class="form-label">Student Activities (you may select more than one)</label>
                 <select class="form-select" name = "inputclubs" multiple size="4">
@@ -306,7 +306,7 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <input type="submit" class="btn1 mb-3">
             </div>

@@ -3,10 +3,16 @@
     margin: 0;
     box-sizing: border-box;
 }
-body {
+
+body{
     background-image: url('/static/admin/img/images/pvbackground.svg');
     background-size: 1600px;
+    height:100vh; 
+    margin:0;
+    display:flex; 
+    flex-direction:column; 
 }
+
 .rows{
     background: white;
     border-radius: 30px;
@@ -14,6 +20,7 @@ body {
     width: 75%;
     box-shadow: 12px 12px 22px black;
 }
+
 .rows-login{
     background: white;
     border-radius: 30px;
@@ -21,9 +28,11 @@ body {
     width: 60%;
     box-shadow: 12px 12px 22px black;
 }
-.row{
+
+.row-margin{
     margin: 0 auto;
 }
+
 .btn1{
     border: none;
     outline: none;
@@ -34,17 +43,61 @@ body {
     border-radius: 4px;
     font-weight: bold;
 }
+
 .btn1:hover{
     background: white;
     border: 1px solid;
     color: black;
 }
+
 .text-center{
     text-align: center;
 }
+
 .center{
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+}
+
+.absolute-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-card-contact {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.search-card-text {
+    text-align: left;
+    margin-top: auto;
+    margin-bottom: auto;
+    word-break: break-word;
+}
+
+.search-card-title {
+    font-weight: bold;
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+a { 
+    color:#000; 
+}
+
+.default-profilepic {
+    width: 100px; 
+    height: auto; 
+    filter: grayscale(100%) brightness(130%);
+}
+
+footer {
+    margin-top: auto; 
 }

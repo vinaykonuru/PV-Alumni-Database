@@ -13,7 +13,7 @@
     <h1 class = "pt-4 pb-4 text-center">Edit your profile</h1>
     <form method = "POST" action="{% url 'edit' %}">
         {% csrf_token %}
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfirstname" class="form-label">First Name</label>
                 <input value = {{first_name}} type="firstname" name="inputfirstname" class="form-control" required>
@@ -23,7 +23,7 @@
                 <input value = {{last_name}} type="lastname" name="inputlastname" class="form-control" required>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
                 <input value = {{grad_year}} type="year" name="inputyear" class="form-control" required>
@@ -37,7 +37,7 @@
                 <input value = {{major}} type="major" name="inputmajor" class="form-control">
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
                 <input value = {{country}} type="country" name="inputcountry" class="form-control" required>
@@ -99,7 +99,7 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
                 <input value = {{city}} type="city" name="inputcity" class="form-control" required>
@@ -109,7 +109,7 @@
                 <input value = {{zip}} type="zip" name="inputzip" class="form-control">
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputjobtitle" class="form-label">Job Title</label>
                 <input value = {{job}} type="jobtitle" name="inputjobtitle" class="form-control">
@@ -120,7 +120,7 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfield" class="form-label">Field/Specialty (you may select more than one)</label>
                 <select name="inputfield" class="form-select" multiple size="4">
@@ -134,7 +134,7 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputclubs" class="form-label">Student Activities (you may select more than one)</label>
                 <select name="inputclubs" class="form-select" name = "inputclubs" multiple size="4">
@@ -148,7 +148,7 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="form-check px-5">
                 {% if newsletter %}
                 <input class="form-check-input" type="checkbox" name="newsletter" checked>
@@ -160,7 +160,7 @@
                 </label>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="form-check px-5">
                 {% if interview %}
                 <input class="form-check-input" type="checkbox" name="interview" checked>
@@ -172,7 +172,7 @@
                 </label>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <input type="submit" class="btn1 mb-3">
             </div>

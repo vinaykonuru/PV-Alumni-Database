@@ -16,7 +16,7 @@
     {% endif %}
     <form method = "POST" action="{% url 'signup' %}">
       {% csrf_token %}
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfirstname" class="form-label">First Name</label>
                 <input type="firstname" name = "inputfirstname" class="form-control" required>
@@ -26,27 +26,27 @@
                 <input type="lastname" name = "inputlastname" class="form-control" required>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputemail" class="form-label">Email address</label>
                 <input type="email" placeholder="janedoe@example.com" name = "inputemail" class="form-control" required>
             </div>
         </div>
-        <div class="row mb-4">
+        <div class="row row-margin mb-4">
             <div class="col">
                 <label for="inputpassword" class="form-label">Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))</label>
                 <input type="password" placeholder="********" name = "inputpassword1" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" class="form-control" required>
             </div>
             <div class="invalid-feedback">Password must be between 8-32 characters long, contain at least one uppercase letter and at least one number.</div>
         </div>
-        <div class="row mb-4">
+        <div class="row row-margin mb-4">
             <div class="col">
                 <label for="inputpassword" class="form-label">Reenter Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))</label>
                 <input type="password" placeholder="********" name = "inputpassword2" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" class="form-control" required>
             </div>
             <div class="invalid-feedback">Password must be between 8-32 characters long, contain at least one uppercase letter and at least one number.</div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
                 <input type="year" name = "inputyear" class="form-control">
@@ -60,7 +60,7 @@
                 <input type="major" name = "inputmajor" class="form-control">
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
                 <input type="country" name = "inputcountry" class="form-control">
@@ -121,7 +121,7 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
                 <input type="city" name = "inputcity" class="form-control">
@@ -131,7 +131,7 @@
                 <input type="zip" name = "inputzip" class="form-control">
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputjobtitle" class="form-label">Job Title</label>
                 <input type="jobtitle" name = "inputjobtitle" class="form-control">
@@ -141,7 +141,7 @@
                 <input type="employer" name = "inputemployer" class="form-control">
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfield" class="form-label">Field/Specialty (you may select more than one)</label>
                 <select class="form-select" name = "inputfield" multiple size="4">
@@ -223,7 +223,7 @@
                   </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputclubs" class="form-label">Student Activities (you may select more than one)</label>
                 <select class="form-select" name = "inputclubs" multiple size="4">
@@ -332,7 +332,7 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="form-check px-5">
                 <input class="form-check-input" type="checkbox" name="tos" required>
                 <label class="form-check-label" for="gridCheck">
@@ -340,7 +340,7 @@
                 </label>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="form-check px-5">
                 <input class="form-check-input" type="checkbox" name="newsletter" checked>
                 <label class="form-check-label" for="gridCheck">
@@ -348,7 +348,7 @@
                 </label>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="form-check px-5">
                 <input class="form-check-input" type="checkbox" name="interview" checked>
                 <label class="form-check-label" for="gridCheck">
@@ -356,7 +356,7 @@
                 </label>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <input type="submit" class="btn1 mb-3">
             </div>

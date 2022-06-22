@@ -16,19 +16,19 @@
     {% endif %}
     <form method = "POST" action="{% url 'login' %}">
         {% csrf_token %}
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputemail" class="form-label">Email address</label>
                 <input type="email" placeholder="janedoe@example.com" name = 'inputemail' id="inputemail" class="form-control" required>
             </div>
         </div>
-        <div class="row mb-4">
+        <div class="row row-margin mb-4">
             <div class="col">
                 <label for="inputpassword" class="form-label">Password</label>
                 <input type="password" placeholder="*******" name = "inputpassword" id="inputpassword" class="form-control" required>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <input type="submit" class="btn1 mb-3">
             </div>
