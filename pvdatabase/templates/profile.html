@@ -52,7 +52,9 @@
       {% else %}
       {% endif %}
 
-        <a href="mailto:{{ profile.email }}" class="btn btn-primary">Send Email</a> 
+      <p>Email: {{ profile.user }}</p>
+
+        <a href="mailto:{{ profile.user }}" class="btn btn-primary">Send Email</a> 
     </section>
   </div>
 {% endblock %}
