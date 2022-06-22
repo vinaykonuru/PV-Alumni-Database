@@ -28,21 +28,31 @@
           </div>
           <strong class="d-inline-block mb-2 text-primary">Higher Education</strong>
           <div class="mb-1 text-muted">
-            <p>{{ entry.college }} </p>
+            <p>{{ entry.college }}</p>
+          </div>
+          <strong class="d-inline-block mb-2 text-primary">Major</strong>
+          <div class="mb-1 text-muted">
+            <p>{{ entry.major }}</p>
           </div>
           <strong class="d-inline-block mb-2 text-primary">Location</strong>
           <div class="mb-1 text-muted">
-            <p>{{ entry.city }}, {{entry.state }} {{entry.country} </p>
+            <p>{{ entry.city }}, {{entry.state }} {{entry.country}} </p>
+          </div>
+          <strong class="d-inline-block mb-2 text-primary">Fields</strong>
+          <div class="mb-1 text-muted">
+            {% if entry.field|length > 2 %}
+              <p>{{ entry.field }}</p>
+            {% else %}
+              <br>
+            {% endif %}
           </div>
           <strong class="d-inline-block mb-2 text-primary">Activities</strong>
           <div class="mb-1 text-muted">
-            <p>
-              {% if narratives.narrative_text|length > 0 %}
-                  {{entry.hs_activities}}
-              {% else %}
-                  <br>
-              {% endif %}
-            </p>
+            {% if entry.hs_activities|length > 2 %}
+              <p>{{ entry.hs_activities }}</p>
+            {% else %}
+              <br>
+            {% endif %}
           </div>
           <strong class="d-inline-block mb-2 text-primary">Employer</strong>
           <div class="mb-1 text-muted">

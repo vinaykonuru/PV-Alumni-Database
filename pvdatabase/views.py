@@ -1,3 +1,4 @@
+from sre_parse import SPECIAL_CHARS
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -25,11 +26,10 @@ def search(request):
         city = request.POST['inputcity']
         state = request.POST.getlist('inputstate')
         country = request.POST['inputcountry']
-        zip = request.POST['inputzip']
         employer = request.POST['inputemployer']
         job = request.POST['inputjobtitle']
-        field = request.POST.getlist('inputfield')
-        hs_activities = request.POST.getlist('inputclubs')
+        field = request.POST.getlist('inputfield', None)
+        hs_activities = request.POST.getlist('inputclubs', None)
 
         print(state)
         if not state:
@@ -41,7 +41,28 @@ def search(request):
         # it in search results
         profiles = AlumniProf.objects.all()
         matched_profiles = []
+
+        # convert to sets to search subsets of lists
+        if field != '':
+            fieldset1 = set(field)
+        else:
+            fieldset1 = field
+        if hs_activities != '':
+            activityset1 = set(hs_activities)
+        else:
+            activityset1 = hs_activities
+
         for profile in profiles: # filtering profiles
+            # convert to sets to search subsets of lists
+            if profile.field != '':
+                fieldset2 = set(profile.field)
+            else: 
+                fieldset2 = profile.field
+            if profile.hs_activities != '':
+                activityset2 = set(profile.hs_activities)
+            else:
+                activityset2 = profile.hs_activities
+
             if( \
             (first_name == '' or profile.first_name.upper() == first_name.upper()) & \
             (last_name == '' or profile.last_name.upper() == last_name.upper()) & \
@@ -51,9 +72,10 @@ def search(request):
             (city == '' or profile.city.upper() == city.upper()) & \
             (state == '' or profile.state == state) &  \
             (country == '' or profile.country.upper() == country.upper()) & \
-            (zip == '' or profile.zip == zip) & \
             (job == '' or profile.job == job) & \
-            (employer == '' or profile.job == employer)):
+            (employer == '' or profile.job == employer) & \
+            (field == '' or fieldset1.issubset(fieldset2)) & \
+            (hs_activities == '' or activityset1.issubset(activityset2))):
                 # add sorting by field and hs_activities
                 matched_profiles.append(profile)
 

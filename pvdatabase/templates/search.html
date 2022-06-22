@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<!-- Stylesheet -->
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/formstyle.css' %}" /> 
+{% endblock %}
 
 {% block content %}
     <!-- Form -->
@@ -97,10 +103,6 @@
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
                 <input type="city" name="inputcity" id="inputcity" class="form-control" >
-            </div>
-            <div class="col">
-                <label for="inputzip" class="form-label">Zip</label>
-                <input type="zip" name="inputzip" id="inputzip" class="form-control">
             </div>
         </div>
         <div class="row mb-3">
