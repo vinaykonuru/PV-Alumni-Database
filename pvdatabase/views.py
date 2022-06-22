@@ -89,4 +89,19 @@ def profile(request, first_name, last_name):
     for profile in profiles:
         if (profile.first_name.upper() == first_name.upper()) and (profile.last_name.upper() == last_name.upper()):
             matched_profile = profile
+
+            # put fields and activities in correct format to display
+            if (matched_profile.field == "[]"):
+                matched_profile.field == ''
+            else:
+                matched_profile.field = matched_profile.field.replace('[','')
+                matched_profile.field = matched_profile.field.replace(']', '')
+                matched_profile.field = matched_profile.field.replace("'", '')
+            if (matched_profile.hs_activities == "[]"):
+                matched_profile.hs_activities == ''
+            else:
+                matched_profile.hs_activities = matched_profile.hs_activities.replace('[','')
+                matched_profile.hs_activities = matched_profile.hs_activities.replace(']', '')
+                matched_profile.hs_activities = matched_profile.hs_activities.replace("'", '')
+                
     return render(request, 'profile.html', {'profile':matched_profile})
