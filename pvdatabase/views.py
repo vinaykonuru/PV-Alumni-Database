@@ -64,16 +64,16 @@ def search(request):
                 activityset2 = profile.hs_activities
 
             if( \
-            (first_name == '' or profile.first_name.upper() == first_name.upper()) & \
-            (last_name == '' or profile.last_name.upper() == last_name.upper()) & \
+            (first_name == '' or first_name.upper() in profile.first_name.upper()) & \
+            (last_name == '' or last_name.upper() in profile.last_name.upper()) & \
             (grad_year == '' or profile.grad_year == grad_year) & \
-            (college == '' or profile.college.upper() == college.upper()) & \
-            (major == '' or profile.major.upper() == major.upper()) & \
-            (city == '' or profile.city.upper() == city.upper()) & \
-            (state == '' or profile.state == state) &  \
-            (country == '' or profile.country.upper() == country.upper()) & \
-            (job == '' or profile.job == job) & \
-            (employer == '' or profile.job == employer) & \
+            (college == '' or college.upper() in profile.college.upper()) & \
+            (major == '' or major.upper() in profile.major.upper()) & \
+            (city == '' or city.upper() in profile.city.upper()) & \
+            (state == '' or state in profile.state) &  \
+            (country == '' or country.upper() in profile.country.upper()) & \
+            (job == '' or job in profile.job) & \
+            (employer == '' or employer in profile.employer) & \
             (field == '' or fieldset1.issubset(fieldset2)) & \
             (hs_activities == '' or activityset1.issubset(activityset2))):
                 # add sorting by field and hs_activities
@@ -82,3 +82,11 @@ def search(request):
         return render(request,'results.html', {'profiles':matched_profiles})
     else:
         return render(request, 'search.html')
+
+def profile(request, first_name, last_name):
+    profiles = AlumniProf.objects.all()
+
+    for profile in profiles:
+        if (profile.first_name.upper() == first_name.upper()) and (profile.last_name.upper() == last_name.upper()):
+            matched_profile = profile
+    return render(request, 'profile.html', {'profile':matched_profile})

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<!-- Stylesheet -->
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/formstyle.css' %}" /> 
+<title> Search Results</title>
+{% endblock %}
+
+{% block content %}
+  <!-- Greeting -->
+  <div class="container text-center">
+    <section class="p-3 col-lg-10 col-xl-8 col-sm-12 bg-light absolute-center position-relative">
+      <strong class="search-card-title">{{profile.first_name}} {{profile.last_name}}</strong>
+      {% if profile.grad_year|length > 0 %}
+      <p>Pine View Class of {{ profile.grad_year }}</p>
+      {% else %}
+      {% endif %}
+      
+      {% if profile.college|length > 0 %}
+      <p>Higher Education: {{ profile.college }}</p>
+      {% else %}
+      {% endif %}
+
+      {% if profile.major|length > 0 %}
+      <p>Major: {{ profile.major }}</p>
+      {% else %}
+      {% endif %}
+
+      {% if profile.city|length > 0 %}
+      <p>Location: {{ profile.city }}, {{ profile.state }} {{ profile.country }}</p>
+      {% else %}
+      {% endif %}
+
+      {% if profile.job|length > 0 %}
+      <p>Job: {{ profile.job }}</p>
+      {% else %}
+      {% endif %}
+
+      {% if profile.employer|length > 0 %}
+      <p>Employer: {{ profile.employer }}</p>
+      {% else %}
+      {% endif %}
+
+      {% if profile.field|length > 2 %}
+      <p>Fields: {{ profile.field }}</p>
+      {% else %}
+      {% endif %}
+
+      {% if profile.hs_activities|length > 2 %}
+      <p>High School Activities: {{ profile.hs_activities}}</p>
+      {% else %}
+      {% endif %}
+
+        <a href="mailto:{{ profile.email }}" class="btn btn-primary">Send Email</a> 
+    </section>
+  </div>
+{% endblock %}
