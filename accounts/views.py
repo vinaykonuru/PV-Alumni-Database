@@ -199,11 +199,17 @@ def signup(request):
     if request.method=='POST':
         if request.POST['inputpassword1']==request.POST['inputpassword2']:
             try:
+                user=User.objects.get(first_name = request.POST.get('inputfirstname'), last_name = request.POST.get('inputlastname'))
+                return render(request, 'error.html', {'error':'Your first and last name already match an account in the database.'})
+            except:
+                pass
+
+            try:
                 user=User.objects.get(username = request.POST['inputemail'])
                 # Fix error message to render HTML template instead
-                return render(request, 'signup.html', {'error':'Email has already been taken'})
+                return render(request, 'error.html', {'error':'This email has already been taken.'})
             except User.DoesNotExist:
-                user=User.objects.create_user(username = request.POST['inputemail'],password=request.POST['inputpassword1'])
+                user=User.objects.create_user(username = request.POST['inputemail'],password=request.POST['inputpassword1'], first_name=request.POST['inputfirstname'], last_name=request.POST['inputlastname'])
                 auth.login(request,user)
                 first_name = request.POST['inputfirstname']
                 last_name = request.POST['inputlastname']
