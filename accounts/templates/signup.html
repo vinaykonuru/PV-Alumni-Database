@@ -13,7 +13,7 @@
     <div class="rows col-lg-8 no-gutters">
     <h1 class = "pt-4 pb-4 text-center">Create your profile</h1>
     {% if error %}
-    {{error}}
+    <h2 class="pt-2 pb-2 text-center">{{error}}</h2>
     {% endif %}
     <form method = "POST" action="{% url 'signup' %}">
       {% csrf_token %}

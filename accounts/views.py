@@ -249,6 +249,24 @@ def check(email, password):
     else:
         return True
 
+# server-side length of fields validator
+def checklengths(firstname, lastname, email, password1, password2, year, college, major, city, country, zip, employer, job):
+    if (len(firstname) > 30 or
+        len(lastname) > 30 or
+        len(email) > 30 or
+        len(password1) > 30 or
+        len(password2) > 30 or
+        len(year) != 4 or
+        len(college) > 30 or
+        len(major) > 30 or
+        len(city) > 30 or
+        len(country) > 30 or
+        len(zip) > 10 or
+        len(employer) > 30 or
+        len(job) > 30):
+            return True
+    return False
+
 def login(request):
     if request.method=='POST':
         # server-side validation
@@ -256,17 +274,17 @@ def login(request):
                 len(request.POST['inputemail']) > 30 or
                 len(request.POST['inputpassword']) > 30
             ):
-                return render(request, 'error.html', {'error':'One of your fields is longer than its character limit. Try again.'})
+                return render(request, 'login.html', {'error':'One of your fields is longer than its character limit. Try again.'})
 
         if check(request.POST['inputemail'], request.POST['inputpassword']):
-                    return render(request, 'error.html', {'error':'Enter a valid email and password.'})
+            return render(request, 'login.html', {'error':'Enter a valid email and password.'})
                     
         user=auth.authenticate(username=request.POST['inputemail'],password=request.POST['inputpassword'])
         if user is not None:
             auth.login(request,user)
             return redirect('home')
         else:
-            return render(request,'error.html',{'error':'Your username or password is not correct.'})
+            return render(request,'login.html',{'error':'Enter a valid email and password.'})
     else:
         return render(request, 'login.html')
 
@@ -275,34 +293,34 @@ def signup(request):
         if request.POST['inputpassword1']==request.POST['inputpassword2']:
             try:
                 user=User.objects.get(first_name = request.POST.get('inputfirstname'), last_name = request.POST.get('inputlastname'))
-                return render(request, 'error.html', {'error':'Your first and last name already match an account in the database.'})
+                return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.'})
             except:
                 pass
 
             try:
                 user=User.objects.get(username = request.POST['inputemail'])
                 # Fix error message to render HTML template instead
-                return render(request, 'error.html', {'error':'This email has already been taken.'})
+                return render(request, 'signup.html', {'error':'This email has already been taken.'})
             except User.DoesNotExist:
                 # Server-side validation 
-                if (
-                len(request.POST['inputfirstname']) > 30 or
-                len(request.POST['inputemail']) > 30 or
-                len(request.POST['inputpassword1']) > 30 or
-                len(request.POST['inputpassword2']) > 30 or
-                len(request.POST['inputlastname']) > 30 or
-                len(request.POST['inputyear']) != 4 or
-                len(request.POST['inputcollege']) > 30 or
-                len(request.POST['inputmajor']) > 30 or
-                len(request.POST['inputcity']) > 30 or
-                len(request.POST['inputcountry']) > 30 or
-                len(request.POST['inputzip']) > 10 or
-                len(request.POST['inputemployer']) > 30 or
-                len(request.POST['inputjobtitle']) > 30
+                if checklengths(
+                request.POST['inputfirstname'],
+                request.POST['inputlastname'],
+                request.POST['inputemail'],
+                request.POST['inputpassword1'],
+                request.POST['inputpassword2'],
+                request.POST['inputyear'],
+                request.POST['inputcollege'],
+                request.POST['inputmajor'],
+                request.POST['inputcity'],
+                request.POST['inputcountry'],
+                request.POST['inputzip'],
+                request.POST['inputemployer'],
+                request.POST['inputjobtitle']
                 ):
-                    return render(request, 'error.html', {'error':'One of your fields is longer than its character limit. Try again.'})
+                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.'})
                 if check(request.POST['inputemail'], request.POST['inputpassword1']):
-                    return render(request, 'error.html', {'error':'Enter a valid email and password.'})
+                    return render(request, 'signup.html', {'error':'Enter a valid email and password.'})
 
                 user=User.objects.create_user(username = request.POST['inputemail'],password=request.POST['inputpassword1'], first_name=request.POST['inputfirstname'], last_name=request.POST['inputlastname'])
                 auth.login(request,user)
@@ -365,6 +383,22 @@ def reset(request):
 @login_required(login_url='/accounts/signup')
 def edit(request):
     if request.method == 'POST':
+        if checklengths(
+                request.POST['inputfirstname'],
+                request.POST['inputlastname'],
+                request.POST['inputemail'],
+                '',
+                '',
+                request.POST['inputyear'],
+                request.POST['inputcollege'],
+                request.POST['inputmajor'],
+                request.POST['inputcity'],
+                request.POST['inputcountry'],
+                request.POST['inputzip'],
+                request.POST['inputemployer'],
+                request.POST['inputjobtitle']
+                ):
+                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.'})
         first_name = request.POST['inputfirstname']
         last_name = request.POST['inputlastname']
         grad_year = request.POST['inputyear']
