@@ -50,7 +50,7 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
-                <input type="year" name = "inputyear" maxlength=4 class="form-control">
+                <input type="year" name = "inputyear" pattern= "^[0-9]*$" minlength=4 maxlength=4 class="form-control">
             </div>
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>
@@ -69,56 +69,9 @@
             <div class="col">
                 <label for="inputstate" class="form-label">State</label>
                 <select name = "inputstate" class="form-select" size="4">
-                    <option value="AL">AL</option>
-                    <option value="AK">AK</option>
-                    <option value="AZ">AZ</option>
-                    <option value="AR">AR</option>
-                    <option value="CA">CA</option>
-                    <option value="CO">CO</option>
-                    <option value="CT">CT</option>
-                    <option value="DE">DE</option>
-                    <option value="FL">FL</option>
-                    <option value="GA">GA</option>
-                    <option value="HI">HI</option>
-                    <option value="ID">ID</option>
-                    <option value="IL">IL</option>
-                    <option value="IN">IN</option>
-                    <option value="IA">IA</option>
-                    <option value="KS">KS</option>
-                    <option value="KY">KY</option>
-                    <option value="LA">LA</option>
-                    <option value="ME">ME</option>
-                    <option value="MD">MD</option>
-                    <option value="MA">MA</option>
-                    <option value="MI">MI</option>
-                    <option value="MN">MN</option>
-                    <option value="MS">MS</option>
-                    <option value="MO">MO</option>
-                    <option value="MT">MT</option>
-                    <option value="NE">NE</option>
-                    <option value="NV">NV</option>
-                    <option value="NH">NH</option>
-                    <option value="NJ">NJ</option>
-                    <option value="NM">NM</option>
-                    <option value="NY">NY</option>
-                    <option value="NC">NC</option>
-                    <option value="ND">ND</option>
-                    <option value="OH">OH</option>
-                    <option value="OK">OK</option>
-                    <option value="OR">OR</option>
-                    <option value="PA">PA</option>
-                    <option value="RI">RI</option>
-                    <option value="SC">SC</option>
-                    <option value="SD">SD</option>
-                    <option value="TN">TN</option>
-                    <option value="TX">TX</option>
-                    <option value="UT">UT</option>
-                    <option value="VT">VT</option>
-                    <option value="VA">VA</option>
-                    <option value="WA">WA</option>
-                    <option value="WV">WV</option>
-                    <option value="WI">WI</option>
-                    <option value="WY">WY</option>
+                    {% for state in states %}
+                    <option value="{{ state }}">{{ state }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -129,7 +82,7 @@
             </div>
             <div class="col">
                 <label for="inputzip" class="form-label">Zip</label>
-                <input type="zip" name = "inputzip" maxlength=10 class="form-control">
+                <input type="zip" name = "inputzip" pattern= "^[0-9]*$" maxlength=10 class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
@@ -146,81 +99,9 @@
             <div class="col">
                 <label for="inputfield" class="form-label">Field/Specialty (you may select more than one)</label>
                 <select class="form-select" name = "inputfield" multiple size="4">
-                    <option value="Accounting">Accounting</option>
-                    <option value="Advertising">Advertising</option>
-                    <option value="Architecture">Architecture/Planning</option>
-                    <option value="Building/Construction">Building/Construction</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Energy Resources">Energy Resources</option>
-                    <option value="Engineering-Chemical">Engineering-Chemical</option>
-                    <option value="Engineering-Civil">Engineering-Civil</option>
-                    <option value="Engineering-Electrical">Engineering-Electrical</option>
-                    <option value="Engineering-Mech./Aerospace">Engineering-Mech./Aerospace</option>
-                    <option value="Engineering-Other">Engineering-Other</option>
-                    <option value="Environmental Affairs">Environmental Affairs</option>
-                    <option value="Finance-Asset Management">Finance-Asset Management</option>
-                    <option value="Finance-Corporate Finance">Finance-Corporate Finance</option>
-                    <option value="Finance-Hedge Funds">Finance-Hedge Funds</option>
-                    <option value="Finance-Investment Mngmt.">Finance-Investment Mngmt.</option>
-                    <option value="Finance-Private Equity">Finance-Private Equity</option>
-                    <option value="Finance-Commercial Banking">Finance-Commercial Banking</option>
-                    <option value="Finance-Financial Planning">Finance-Financial Planning</option>
-                    <option value="Finance-Investment Banking">Finance-Investment Banking</option>
-                    <option value="Finance-Other">Finance-Other</option>
-                    <option value="Finance-Securities/Commodities">Finance-Securities/Commodities</option>
-                    <option value="Finance-Tax, Trust, & Estate">Finance-Tax, Trust, & Estate</option>
-                    <option value="Finance-Venture Capital">Finance-Venture Capital</option>
-                    <option value="Foreign Service">Foreign Service</option>
-                    <option value="Fundraising">Fundraising</option>
-                    <option value="Government Departments & Agencies">Government Departments & Agencies</option>
-                    <option value="Government-Cabinet Member">Government-Cabinet Member</option>
-                    <option value="Government-Executive">Government-Executive</option>
-                    <option value="Government-Legislator">Government-Legislator</option>
-                    <option value="Government-Other">Government-Other</option>
-                    <option value="Government-Policy Analysis">Government-Policy Analysis</option>
-                    <option value="Government-Politics">Government-Politics</option>
-                    <option value="Government-White House Staff">Government-White House Staff</option>
-                    <option value="Health Care-Mental">Health Care-Mental</option>
-                    <option value="Health Care-Other">Health Care-Other</option>
-                    <option value="Health Care-Physical">Health Care-Physical</option>
-                    <option value="Human Resources">Human Resources</option>
-                    <option value="Insurance">Insurance</option>
-                    <option value="Law-Corporate">Law-Corporate</option>
-                    <option value="Law-Criminal">Law-Criminal</option>
-                    <option value="Law-Intellectual Property">Law-Intellectual Property</option>
-                    <option value="Law-Litigation">Law-Litigation</option>
-                    <option value="Law-Other">Law-Other</option>
-                    <option value="Law-Patent/Copyright">Law-Patent/Copyright</option>
-                    <option value="Law-Tax">Law-Tax</option>
-                    <option value="Law-Trusts & Estates">Law-Trusts & Estates</option>
-                    <option value="Management/Admin">Management/Admin</option>
-                    <option value="Marketing/Sales">Marketing/Sales</option>
-                    <option value="Military">Military</option>
-                    <option value="Other">Other</option>
-                    <option value="Performing Arts">Performing Arts</option>
-                    <option value="Printing/Publishing">Printing/Publishing</option>
-                    <option value="Public Relations">Public Relations</option>
-                    <option value="Radio/TV/Film/Theater">Radio/TV/Film/Theater</option>
-                    <option value="Real Estate">Real Estate</option>
-                    <option value="Religious Services">Religious Services</option>
-                    <option value="Research & Development">Research & Development</option>
-                    <option value="Social Work">Social Work</option>
-                    <option value="Sports/Recreation">Sports/Recreation</option>
-                    <option value="Teaching-Arts">Teaching-Arts</option>
-                    <option value="Teaching-Humanities">Teaching-Humanities</option>
-                    <option value="Teaching-Other">Teaching-Other</option>
-                    <option value="Teaching-Science/Engineering">Teaching-Science/Engineering</option>
-                    <option value="Teaching-Social Science">Teaching-Social Science</option>
-                    <option value="Technology-Biotechnology">Technology-Biotechnology</option>
-                    <option value="Technology-E-Commerce">Technology-E-Commerce</option>
-                    <option value="Technology-Hardware/Software Dev.">Technology-Hardware/Software Dev.</option>
-                    <option value="Technology-Info. Services/Systems">Technology-Info. Services/Systems</option>
-                    <option value="Technology-Telecommunications">Technology-Telecommunications</option>
-                    <option value="Technology-Other">Technology-Other</option>
-                    <option value="Transportation/Travel">Transportation/Travel</option>
-                    <option value="Veterinary Medicine">Veterinary Medicine</option>
-                    <option value="Visual/Fine Arts">Visual/Fine Arts</option>
-                    <option value="Writing/Editing">Writing/Editing</option>
+                    {% for field in fields %}
+                        <option value="{{ field }}">{{ field }}</option>
+                    {% endfor %}
                   </select>
             </div>
         </div>
@@ -228,108 +109,9 @@
             <div class="col">
                 <label for="inputclubs" class="form-label">Student Activities (you may select more than one)</label>
                 <select class="form-select" name = "inputclubs" multiple size="4">
-                    <option value="Academic Olympics">Academic Olympics</option>
-                    <option value="A.K.H.L. (Achieve, Know, Help, Lead)">A.K.H.L. (Achieve, Know, Help, Lead)</option>
-                    <option value="Anime Club">Anime Club</option>
-                    <option value="Anime Pride">Anime Pride</option>
-                    <option value="Artificial Intelligence and Machine Learning Club">Artificial Intelligence and Machine Learning Club</option>
-                    <option value="Astronomy Club">Astronomy Club</option>
-                    <option value="Aviation Club">Aviation Club</option>
-                    <option value="Basketball Group">Basketball Group</option>
-                    <option value="Biology Olympiad">Biology Olympiad</option>
-                    <option value="Biomedical Engineering Club (BMES)">Biomedical Engineering Club (BMES)</option>
-                    <option value="Book Club">Book Club</option>
-                    <option value="buildOn">buildOn</option>
-                    <option value="Business Professionals of America">Business Professionals of America</option>
-                    <option value="Chess Club">Chess Club</option>
-                    <option value="C2 Community Contributions">C2 Community Contributions</option>
-                    <option value="Chinese Club">Chinese Club</option>
-                    <option value="Chinese National Honor Society">Chinese National Honor Society</option>
-                    <option value="Ciao! - The Italian Club">Ciao! - The Italian Club</option>
-                    <option value="Coexistence Club">Coexistence Club</option>
-                    <option value="Competitive Programming Club">Competitive Programming Club</option>
-                    <option value="Cosplay">Cosplay</option>
-                    <option value="Crate Diggers (A Vinyl Record Club)">Crate Diggers (A Vinyl Record Club)</option>
-                    <option value="Current Events Club">Current Events Club</option>
-                    <option value="Desi Club (Indian & South Asian Cultural Club)">Desi Club (Indian & South Asian Cultural Club)</option>
-                    <option value="Disc Golf Club">Disc Golf Club</option>
-                    <option value="Dive Club">Dive Club</option>
-                    <option value="Diversifying & Integrating Gifted Schools (DIGS)">Diversifying & Integrating Gifted Schools (DIGS)</option>
-                    <option value="Doodle Club">Doodle Club</option>
-                    <option value="Drama Club">Drama Club</option>
-                    <option value="Drone Club">Drone Club</option>
-                    <option value="Elementary Music Club">Elementary Music Club</option>
-                    <option value="Elementary Student Council">Elementary Student Council</option>
-                    <option value="Entrepreneur Club">Entrepreneur Club</option>
-                    <option value="Film Club">Film Club</option>
-                    <option value="FIRST Robotics">FIRST Robotics</option>
-                    <option value="Florida Future Educators of America (FFEA)">Florida Future Educators of America (FFEA)</option>
-                    <option value="Gender & Sexuality Alliance (GSA)">Gender & Sexuality Alliance (GSA)</option>
-                    <option value="National French Honor Society">National French Honor Society</option>
-                    <option value="Gardening Club">Gardening Club</option>
-                    <option value="Health and Education Initiatives (HEI)">Health and Education Initiatives (HEI)</option>
-                    <option value="History Bowl">History Bowl</option>
-                    <option value="History Club">History Club</option>
-                    <option value="HOSA (Future Health Professionals)">HOSA (Future Health Professionals)</option>
-                    <option value="Interact Club">Interact Club</option>
-                    <option value="International Current Events Debate (ICED)">International Current Events Debate (ICED)</option>
-                    <option value="Investors Club">Investors Club</option>
-                    <option value="Key Club">Key Club</option>
-                    <option value="Linguistics Club">Linguistics Club</option>
-                    <option value="Luminary Magazine">Luminary Magazine</option>
-                    <option value="Magic the Gathering">Magic the Gathering</option>
-                    <option value="Marine Science Club">Marine Science Club</option>
-                    <option value="Math Club">Math Club</option>
-                    <option value="MATHCOUNTS">MATHCOUNTS</option>
-                    <option value="MathWorks Math Modeling Challenge">MathWorks Math Modeling Challenge</option>
-                    <option value="Mock Trial">Mock Trial</option>
-                    <option value="Model United Nations">Model United Nations</option>
-                    <option value="MS Literary Magazine Club">MS Literary Magazine Club</option>
-                    <option value="National Art Honor Society">National Art Honor Society</option>
-                    <option value="National French Honor Society">National French Honor Society</option>
-                    <option value="National Honor Society">National Honor Society</option>
-                    <option value="National Junior Honor Society">National Junior Honor Society</option>
-                    <option value="Nature Club">Nature Club</option>
-                    <option value="Neuroscience Club">Neuroscience Club</option>
-                    <option value="Odyssey of the Mind">Odyssey of the Mind</option>
-                    <option value="Outreach for Impact">Outreach for Impact</option>
-                    <option value="Overbooked">Overbooked</option>
-                    <option value="Peace Jam">Peace Jam</option>
-                    <option value="Peer Mentoring">Peer Mentoring</option>
-                    <option value="Philosophy Club">Philosophy Club</option>
-                    <option value="Photography">Photography</option>
-                    <option value="Poet Society">Poet Society</option>
-                    <option value="Political Action">Political Action</option>
-                    <option value="Psi Alpha (Psychology Honor Society)">Psi Alpha (Psychology Honor Society)</option>
-                    <option value="Puzzle Club">Puzzle Club</option>
-                    <option value="Red Cross Club">Red Cross Club</option>
-                    <option value="Rho Kappa Honor Society">Rho Kappa Honor Society</option>
-                    <option value="Run Club">Run Club</option>
-                    <option value="Russian Cultural Heritage">Russian Cultural Heritage</option>
-                    <option value="SAT Prep Club">SAT Prep Club</option>
-                    <option value="Scholars 4 Scholars">Scholars 4 Scholars</option>
-                    <option value="Science National Honor Society">Science National Honor Society</option>
-                    <option value="Science Olympiad">Science Olympiad</option>
-                    <option value="Signing @ PV - American Sign Language Club">Signing @ PV - American Sign Language Club</option>
-                    <option value="Smash Club">Smash Club</option>
-                    <option value="Soccer Club">Soccer Club</option>
-                    <option value="Spanish National Honor Society">Spanish National Honor Society</option>
-                    <option value="Speech & Debate">Speech & Debate</option>
-                    <option value="Students for Asian Advocacy">Students for Asian Advocacy</option>
-                    <option value="Students Organized for Animal Rights (SOAR)">Students Organized for Animal Rights (SOAR)</option>
-                    <option value="Students Working Against Tobacco (SWAT)">Students Working Against Tobacco (SWAT)</option>
-                    <option value="Technology Student Association (TSA)">Technology Student Association (TSA)</option>
-                    <option value="Together Women Rise (TWR)">Together Women Rise (TWR)</option>
-                    <option value="Tri-M Music Honor Society">Tri-M Music Honor Society</option>
-                    <option value="Tree Huggers Environmental Club">Tree Huggers Environmental Club</option>
-                    <option value="UNICEF Club">UNICEF Club</option>
-                    <option value="Ultimate Frisbee Club">Ultimate Frisbee Club</option>
-                    <option value="Unidos Now at Pine View">Unidos Now at Pine View</option>
-                    <option value="Uno Club">Uno Club</option>
-                    <option value="VEX Robotics">VEX Robotics</option>
-                    <option value="Women in Literature">Women in Literature</option>
-                    <option value="Young Investors Society">Young Investors Society</option>
-                    <option value="Weight Lifting Club">Weight Lifting Club</option>
+                    {% for activity in activities %}
+                        <option value="{{ activity }}">{{ activity }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>

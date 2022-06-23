@@ -185,6 +185,57 @@ HSACTIVITIESLIST =  ["Academic Olympics"
                     ,"Young Investors Society"
                     ,"Weight Lifting Club"]
 
+STATESLIST = [  "AL",
+                "AK",
+                "AZ",
+                "AR",
+                "CA",
+                "CO",
+                "CT",
+                "DE",
+                "FL",
+                "GA",
+                "HI",
+                "ID",
+                "IL",
+                "IN",
+                "IA",
+                "KS",
+                "KY",
+                "LA",
+                "ME",
+                "MD",
+                "MA",
+                "MI",
+                "MN",
+                "MS",
+                "MO",
+                "MT",
+                "NE",
+                "NV",
+                "NH",
+                "NJ",
+                "NM",
+                "NY",
+                "NC",
+                "ND",
+                "OH",
+                "OK",
+                "OR",
+                "PA",
+                "RI",
+                "SC",
+                "SD",
+                "TN",
+                "TX",
+                "UT",
+                "VT",
+                "VA",
+                "WA",
+                "WV",
+                "WI",
+                "WY"]
+
 # Reg expression for validating email
 regex_email = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
@@ -206,6 +257,7 @@ def login(request):
                 len(request.POST['inputpassword']) > 30
             ):
                 return render(request, 'error.html', {'error':'One of your fields is longer than its character limit. Try again.'})
+
         if check(request.POST['inputemail'], request.POST['inputpassword']):
                     return render(request, 'error.html', {'error':'Enter a valid email and password.'})
                     
@@ -239,17 +291,17 @@ def signup(request):
                 len(request.POST['inputpassword1']) > 30 or
                 len(request.POST['inputpassword2']) > 30 or
                 len(request.POST['inputlastname']) > 30 or
-                len(request.POST['inputyear']) > 4 or
-                len(request.POST['inputcollege'] > 30) or
-                len(request.POST['inputmajor'] > 30) or
-                len(request.POST['inputcity'] > 30) or
-                len(request.POST['inputcountry'] > 30) or
-                len(request.POST['inputzip'] > 10) or
-                len(request.POST['inputemployer'] > 30) or
-                len(request.POST['inputjobtitle'] > 30)
+                len(request.POST['inputyear']) != 4 or
+                len(request.POST['inputcollege']) > 30 or
+                len(request.POST['inputmajor']) > 30 or
+                len(request.POST['inputcity']) > 30 or
+                len(request.POST['inputcountry']) > 30 or
+                len(request.POST['inputzip']) > 10 or
+                len(request.POST['inputemployer']) > 30 or
+                len(request.POST['inputjobtitle']) > 30
                 ):
                     return render(request, 'error.html', {'error':'One of your fields is longer than its character limit. Try again.'})
-                if check(request.POST['inputemail'], request.POST['inputpassword']):
+                if check(request.POST['inputemail'], request.POST['inputpassword1']):
                     return render(request, 'error.html', {'error':'Enter a valid email and password.'})
 
                 user=User.objects.create_user(username = request.POST['inputemail'],password=request.POST['inputpassword1'], first_name=request.POST['inputfirstname'], last_name=request.POST['inputlastname'])
@@ -292,9 +344,9 @@ def signup(request):
                 return redirect('home')
         else:
             # fix error message to render HTML template
-            return render(request,'signup.html',{'error':'Passwords must match'})
+            return render(request,'signup.html',{'error':'Passwords must match',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
     else:
-        return render(request, 'signup.html')
+        return render(request, 'signup.html', {"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
 
 @login_required(login_url='/accounts/signup')
 def logout(request):
