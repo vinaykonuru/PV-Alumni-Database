@@ -102,7 +102,7 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfield" class="form-label">Field/Specialty (you may select more than one)</label>
-                <select class="form-select" name = "inputfield" multiple size="4">
+                <select class="form-select" name = "inputfield" multiple size="10">
                     {% for field in fields %}
                     {% if field in activefields %}
                         <option value="{{ field }}" selected>{{ field }}</option>
@@ -116,7 +116,7 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputclubs" class="form-label">Student Activities (you may select more than one)</label>
-                <select class="form-select" name = "inputclubs" multiple size="4">
+                <select class="form-select" name = "inputclubs" multiple size="10">
                     {% for activity in activities %}
                     {% if activity in activeactivities %}
                         <option value="{{ activity }}" selected>{{ activity }}</option>

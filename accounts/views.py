@@ -256,7 +256,7 @@ def checklengths(firstname, lastname, email, password1, password2, year, college
         len(email) > 30 or
         len(password1) > 30 or
         len(password2) > 30 or
-        len(year) != 4 or
+        len(year) > 4 or
         len(college) > 30 or
         len(major) > 30 or
         len(city) > 30 or
@@ -265,6 +265,12 @@ def checklengths(firstname, lastname, email, password1, password2, year, college
         len(employer) > 30 or
         len(job) > 30):
             return True
+    return False
+
+# server-side validation for fields
+def checkfields(fields, activities, state):
+    if ((fields is not None and fields not in FIELDSLIST) or (activities is not None and activities not in HSACTIVITIESLIST) or (state is not None and state not in STATESLIST)):
+        return True
     return False
 
 def login(request):
@@ -320,7 +326,6 @@ def signup(request):
 
             try:
                 user=User.objects.get(username = request.POST['inputemail'])
-                # Fix error message to render HTML template instead
                 return render(request, 'signup.html', {'error':'This email has already been taken.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -341,7 +346,7 @@ def signup(request):
                                                         "newsletter":request.POST.get('newsletter'),
                                                         "interview":request.POST.get('interview')})
             except User.DoesNotExist:
-                # Server-side validation 
+                # Server-side validation for lengths
                 if checklengths(
                 request.POST['inputfirstname'],
                 request.POST['inputlastname'],
@@ -377,8 +382,53 @@ def signup(request):
                                                         "newsletter":request.POST.get('newsletter'),
                                                         "interview":request.POST.get('interview')})
 
+                # Server side validation for email and password using regex's
                 if check(request.POST['inputemail'], request.POST['inputpassword1']):
                     return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                                                        "firstname":request.POST['inputfirstname'],
+                                                        "lastname":request.POST['inputlastname'],
+                                                        "email":request.POST['inputemail'],
+                                                        "password1":request.POST['inputpassword1'],
+                                                        "password2":request.POST['inputpassword2'],
+                                                        "year":request.POST['inputyear'],
+                                                        "college":request.POST['inputcollege'],
+                                                        "major":request.POST['inputmajor'],
+                                                        "city":request.POST['inputcity'],
+                                                        "country":request.POST['inputcountry'],
+                                                        "zip":request.POST['inputzip'],
+                                                        "employer":request.POST['inputemployer'],
+                                                        "jobtitle":request.POST['inputjobtitle'],
+                                                        "activefields":request.POST.getlist('inputfield', None),
+                                                        "activeactivities":request.POST.getlist('inputclubs', None),
+                                                        "activestate":request.POST.get('inputstate', None),
+                                                        "newsletter":request.POST.get('newsletter'),
+                                                        "interview":request.POST.get('interview')})
+                
+                # Server-side validation for Terms of Service
+                if request.POST.get('tos') != "on":
+                    return render(request, 'signup.html', {'error':'Please make sure to agree to the Terms of Service.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                                                        "firstname":request.POST['inputfirstname'],
+                                                        "lastname":request.POST['inputlastname'],
+                                                        "email":request.POST['inputemail'],
+                                                        "password1":request.POST['inputpassword1'],
+                                                        "password2":request.POST['inputpassword2'],
+                                                        "year":request.POST['inputyear'],
+                                                        "college":request.POST['inputcollege'],
+                                                        "major":request.POST['inputmajor'],
+                                                        "city":request.POST['inputcity'],
+                                                        "country":request.POST['inputcountry'],
+                                                        "zip":request.POST['inputzip'],
+                                                        "employer":request.POST['inputemployer'],
+                                                        "jobtitle":request.POST['inputjobtitle'],
+                                                        "activefields":request.POST.getlist('inputfield', None),
+                                                        "activeactivities":request.POST.getlist('inputclubs', None),
+                                                        "activestate":request.POST.get('inputstate', None),
+                                                        "newsletter":request.POST.get('newsletter'),
+                                                        "interview":request.POST.get('interview')})
+
+                # Server-side validation for fields, activities, and state
+                if checkfields(request.POST.get('inputfield', None), request.POST.get('inputclubs', None), request.POST.get('inputstate', None)):
+                    return render(request, 'signup.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -437,7 +487,6 @@ def signup(request):
                 alumniprof.save()
                 return redirect('home')
         else:
-            # fix error message to render HTML template
             return render(request,'signup.html',{'error':'Passwords must match',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -477,6 +526,16 @@ def reset(request):
 @login_required(login_url='/accounts/signup')
 def edit(request):
     if request.method == 'POST':
+        # Add server-side validation of same email, firstname, or lastname as another user
+        # Server side validation for email and password using regex's
+        if check(request.POST['inputemail'], request.POST['inputpassword1']):
+            return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
+
+        # Server-side validation for fields, activities, and state
+        if checkfields(request.POST.get('inputfield', None), request.POST.get('inputclubs', None), request.POST.get('inputstate', None)):
+            return render(request, 'editprofile.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
+
+        # Server-side validation of lengths
         if checklengths(
                 request.POST['inputfirstname'],
                 request.POST['inputlastname'],
