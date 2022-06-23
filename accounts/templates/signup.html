@@ -20,57 +20,61 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfirstname" class="form-label">First Name<span class="required">*</span></label>
-                <input type="firstname" name = "inputfirstname" class="form-control" maxlength=30 required>
+                <input type="firstname" name = "inputfirstname" class="form-control" value="{% if firstname %}{{ firstname }}{% endif %}" maxlength=30 required>
             </div>
             <div class="col">
                 <label for="inputlastname" class="form-label">Last Name<span class="required">*</span></label>
-                <input type="lastname" name = "inputlastname" class="form-control" maxlength=30 required>
+                <input type="lastname" name = "inputlastname" class="form-control" value="{% if lastname %}{{ lastname }}{% endif %}" maxlength=30 required>
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputemail" class="form-label">Email address<span class="required">*</span></label>
-                <input type="email" placeholder="janedoe@example.com" name = "inputemail" maxlength=30 class="form-control" required>
+                <input type="email" placeholder="janedoe@example.com" name = "inputemail" value="{% if email %}{{ email }}{% endif %}" maxlength=30 class="form-control" required>
             </div>
         </div>
         <div class="row row-margin mb-4">
             <div class="col">
                 <label for="inputpassword" class="form-label">Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))<span class="required">*</span></label>
-                <input type="password" placeholder="********" name = "inputpassword1" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" maxlength=30 class="form-control" required>
+                <input type="password" placeholder="********" name = "inputpassword1" value="{% if password1 %}{{ password1 }}{% endif %}" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" maxlength=30 class="form-control" required>
             </div>
             <div class="invalid-feedback">Password must be between 8-32 characters long, contain at least one uppercase letter and at least one number.</div>
         </div>
         <div class="row row-margin mb-4">
             <div class="col">
                 <label for="inputpassword" class="form-label">Reenter Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))<span class="required">*</span></label>
-                <input type="password" placeholder="********" name = "inputpassword2" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" maxlength=30 class="form-control" required>
+                <input type="password" placeholder="********" name = "inputpassword2" value="{% if password2 %}{{ password2 }}{% endif %}" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" maxlength=30 class="form-control" required>
             </div>
             <div class="invalid-feedback">Password must be between 8-32 characters long, contain at least one uppercase letter and at least one number.</div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
-                <input type="year" name = "inputyear" pattern= "^[0-9]*$" minlength=4 maxlength=4 class="form-control">
+                <input type="year" name = "inputyear" pattern= "^[0-9]*$" value="{% if year %}{{ year }}{% endif %}" minlength=4 maxlength=4 class="form-control">
             </div>
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>
-                <input type="college" name = "inputcollege" maxlength=30 class="form-control">
+                <input type="college" name = "inputcollege" maxlength=30 value="{% if college %}{{ college }}{% endif %}" class="form-control">
             </div>
             <div class="col">
                 <label for="inputmajor" class="form-label">Major(s)/Department(s)</label>
-                <input type="major" name = "inputmajor" maxlength=30 class="form-control">
+                <input type="major" name = "inputmajor" maxlength=30 value="{% if major %}{{ major }}{% endif %}" class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
-                <input type="country" name = "inputcountry" maxlength=30 class="form-control">
+                <input type="country" name = "inputcountry" value="{% if country %}{{ country }}{% endif %}" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputstate" class="form-label">State</label>
                 <select name = "inputstate" class="form-select" size="4">
                     {% for state in states %}
+                    {% if state == activestate %}
+                    <option value="{{ state }}" selected>{{ state }}</option>
+                    {% else %}
                     <option value="{{ state }}">{{ state }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
@@ -78,21 +82,21 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
-                <input type="city" name = "inputcity" maxlength=30 class="form-control">
+                <input type="city" name = "inputcity" value="{% if city %}{{ city }}{% endif %}" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputzip" class="form-label">Zip</label>
-                <input type="zip" name = "inputzip" pattern= "^[0-9]*$" maxlength=10 class="form-control">
+                <input type="zip" name = "inputzip" value="{% if zip %}{{ zip }}{% endif %}" pattern= "^[0-9]*$" maxlength=10 class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputjobtitle" class="form-label">Job Title</label>
-                <input type="jobtitle" name = "inputjobtitle" maxlength=30 class="form-control">
+                <input type="jobtitle" value="{% if jobtitle %}{{ jobtitle }}{% endif %}" name = "inputjobtitle" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputemployer" class="form-label">Employer</label>
-                <input type="employer" name = "inputemployer" maxlength=30 class="form-control">
+                <input type="employer" value="{% if employer %}{{ employer }}{% endif %}" name = "inputemployer" maxlength=30 class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
@@ -100,7 +104,11 @@
                 <label for="inputfield" class="form-label">Field/Specialty (you may select more than one)</label>
                 <select class="form-select" name = "inputfield" multiple size="4">
                     {% for field in fields %}
+                    {% if field in activefields %}
+                        <option value="{{ field }}" selected>{{ field }}</option>
+                    {% else %}
                         <option value="{{ field }}">{{ field }}</option>
+                    {% endif %}
                     {% endfor %}
                   </select>
             </div>
@@ -110,7 +118,11 @@
                 <label for="inputclubs" class="form-label">Student Activities (you may select more than one)</label>
                 <select class="form-select" name = "inputclubs" multiple size="4">
                     {% for activity in activities %}
+                    {% if activity in activeactivities %}
+                        <option value="{{ activity }}" selected>{{ activity }}</option>
+                    {% else %}
                         <option value="{{ activity }}">{{ activity }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
@@ -125,7 +137,11 @@
         </div>
         <div class="row row-margin mb-3">
             <div class="form-check px-5">
+                {% if newsletter %}
                 <input class="form-check-input" type="checkbox" name="newsletter" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" name="newsletter">
+                {% endif %}
                 <label class="form-check-label" for="gridCheck">
                   I would like to receive the Alumni Newsletter.
                 </label>
@@ -133,7 +149,11 @@
         </div>
         <div class="row row-margin mb-3">
             <div class="form-check px-5">
+                {% if interview %}
                 <input class="form-check-input" type="checkbox" name="interview" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" name="interview">
+                {% endif %}
                 <label class="form-check-label" for="gridCheck">
                   I am interested in mock interviewing students.
                 </label>

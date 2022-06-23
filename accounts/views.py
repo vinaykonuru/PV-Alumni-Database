@@ -274,17 +274,20 @@ def login(request):
                 len(request.POST['inputemail']) > 30 or
                 len(request.POST['inputpassword']) > 30
             ):
-                return render(request, 'login.html', {'error':'One of your fields is longer than its character limit. Try again.'})
+                return render(request, 'login.html', {'error':'One of your fields is longer than its character limit. Try again.', 
+                                                      "email":request.POST['inputemail'], "password":request.POST['inputpassword']})
 
         if check(request.POST['inputemail'], request.POST['inputpassword']):
-            return render(request, 'login.html', {'error':'Enter a valid email and password.'})
+            return render(request, 'login.html', {'error':'Enter a valid email and password.', 
+                                                  "email":request.POST['inputemail'], "password":request.POST['inputpassword']})
                     
         user=auth.authenticate(username=request.POST['inputemail'],password=request.POST['inputpassword'])
         if user is not None:
             auth.login(request,user)
             return redirect('home')
         else:
-            return render(request,'login.html',{'error':'Enter a valid email and password.'})
+            return render(request,'login.html',{'error':'Enter a valid email and password.', 
+                                                "email":request.POST['inputemail'], "password":request.POST['inputpassword']})
     else:
         return render(request, 'login.html')
 
@@ -293,14 +296,50 @@ def signup(request):
         if request.POST['inputpassword1']==request.POST['inputpassword2']:
             try:
                 user=User.objects.get(first_name = request.POST.get('inputfirstname'), last_name = request.POST.get('inputlastname'))
-                return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.'})
+                return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST,
+                                                        "firstname":request.POST['inputfirstname'],
+                                                        "lastname":request.POST['inputlastname'],
+                                                        "email":request.POST['inputemail'],
+                                                        "password1":request.POST['inputpassword1'],
+                                                        "password2":request.POST['inputpassword2'],
+                                                        "year":request.POST['inputyear'],
+                                                        "college":request.POST['inputcollege'],
+                                                        "major":request.POST['inputmajor'],
+                                                        "city":request.POST['inputcity'],
+                                                        "country":request.POST['inputcountry'],
+                                                        "zip":request.POST['inputzip'],
+                                                        "employer":request.POST['inputemployer'],
+                                                        "jobtitle":request.POST['inputjobtitle'],
+                                                        "activefields":request.POST.getlist('inputfield', None),
+                                                        "activeactivities":request.POST.getlist('inputclubs', None),
+                                                        "activestate":request.POST.get('inputstate', None),
+                                                        "newsletter":request.POST.get('newsletter'),
+                                                        "interview":request.POST.get('interview')})
             except:
                 pass
 
             try:
                 user=User.objects.get(username = request.POST['inputemail'])
                 # Fix error message to render HTML template instead
-                return render(request, 'signup.html', {'error':'This email has already been taken.'})
+                return render(request, 'signup.html', {'error':'This email has already been taken.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                                                        "firstname":request.POST['inputfirstname'],
+                                                        "lastname":request.POST['inputlastname'],
+                                                        "email":request.POST['inputemail'],
+                                                        "password1":request.POST['inputpassword1'],
+                                                        "password2":request.POST['inputpassword2'],
+                                                        "year":request.POST['inputyear'],
+                                                        "college":request.POST['inputcollege'],
+                                                        "major":request.POST['inputmajor'],
+                                                        "city":request.POST['inputcity'],
+                                                        "country":request.POST['inputcountry'],
+                                                        "zip":request.POST['inputzip'],
+                                                        "employer":request.POST['inputemployer'],
+                                                        "jobtitle":request.POST['inputjobtitle'],
+                                                        "activefields":request.POST.getlist('inputfield', None),
+                                                        "activeactivities":request.POST.getlist('inputclubs', None),
+                                                        "activestate":request.POST.get('inputstate', None),
+                                                        "newsletter":request.POST.get('newsletter'),
+                                                        "interview":request.POST.get('interview')})
             except User.DoesNotExist:
                 # Server-side validation 
                 if checklengths(
@@ -318,9 +357,46 @@ def signup(request):
                 request.POST['inputemployer'],
                 request.POST['inputjobtitle']
                 ):
-                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.'})
+                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                                                        "firstname":request.POST['inputfirstname'],
+                                                        "lastname":request.POST['inputlastname'],
+                                                        "email":request.POST['inputemail'],
+                                                        "password1":request.POST['inputpassword1'],
+                                                        "password2":request.POST['inputpassword2'],
+                                                        "year":request.POST['inputyear'],
+                                                        "college":request.POST['inputcollege'],
+                                                        "major":request.POST['inputmajor'],
+                                                        "city":request.POST['inputcity'],
+                                                        "country":request.POST['inputcountry'],
+                                                        "zip":request.POST['inputzip'],
+                                                        "employer":request.POST['inputemployer'],
+                                                        "jobtitle":request.POST['inputjobtitle'],
+                                                        "activefields":request.POST.getlist('inputfield', None),
+                                                        "activeactivities":request.POST.getlist('inputclubs', None),
+                                                        "activestate":request.POST.get('inputstate', None),
+                                                        "newsletter":request.POST.get('newsletter'),
+                                                        "interview":request.POST.get('interview')})
+
                 if check(request.POST['inputemail'], request.POST['inputpassword1']):
-                    return render(request, 'signup.html', {'error':'Enter a valid email and password.'})
+                    return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                                                        "firstname":request.POST['inputfirstname'],
+                                                        "lastname":request.POST['inputlastname'],
+                                                        "email":request.POST['inputemail'],
+                                                        "password1":request.POST['inputpassword1'],
+                                                        "password2":request.POST['inputpassword2'],
+                                                        "year":request.POST['inputyear'],
+                                                        "college":request.POST['inputcollege'],
+                                                        "major":request.POST['inputmajor'],
+                                                        "city":request.POST['inputcity'],
+                                                        "country":request.POST['inputcountry'],
+                                                        "zip":request.POST['inputzip'],
+                                                        "employer":request.POST['inputemployer'],
+                                                        "jobtitle":request.POST['inputjobtitle'],
+                                                        "activefields":request.POST.getlist('inputfield', None),
+                                                        "activeactivities":request.POST.getlist('inputclubs', None),
+                                                        "activestate":request.POST.get('inputstate', None),
+                                                        "newsletter":request.POST.get('newsletter'),
+                                                        "interview":request.POST.get('interview')})
 
                 user=User.objects.create_user(username = request.POST['inputemail'],password=request.POST['inputpassword1'], first_name=request.POST['inputfirstname'], last_name=request.POST['inputlastname'])
                 auth.login(request,user)
@@ -362,7 +438,25 @@ def signup(request):
                 return redirect('home')
         else:
             # fix error message to render HTML template
-            return render(request,'signup.html',{'error':'Passwords must match',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
+            return render(request,'signup.html',{'error':'Passwords must match',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                                                        "firstname":request.POST['inputfirstname'],
+                                                        "lastname":request.POST['inputlastname'],
+                                                        "email":request.POST['inputemail'],
+                                                        "password1":request.POST['inputpassword1'],
+                                                        "password2":request.POST['inputpassword2'],
+                                                        "year":request.POST['inputyear'],
+                                                        "college":request.POST['inputcollege'],
+                                                        "major":request.POST['inputmajor'],
+                                                        "city":request.POST['inputcity'],
+                                                        "country":request.POST['inputcountry'],
+                                                        "zip":request.POST['inputzip'],
+                                                        "employer":request.POST['inputemployer'],
+                                                        "jobtitle":request.POST['inputjobtitle'],
+                                                        "activefields":request.POST.getlist('inputfield', None),
+                                                        "activeactivities":request.POST.getlist('inputclubs', None),
+                                                        "activestate":request.POST.get('inputstate', None),
+                                                        "newsletter":request.POST.get('newsletter'),
+                                                        "interview":request.POST.get('interview')})
     else:
         return render(request, 'signup.html', {"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
 
@@ -398,7 +492,8 @@ def edit(request):
                 request.POST['inputemployer'],
                 request.POST['inputjobtitle']
                 ):
-                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.'})
+                    return render(request, 'editprofile.html', {'error':'One of your fields is longer than its character limit. Try again.',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
+        
         first_name = request.POST['inputfirstname']
         last_name = request.POST['inputlastname']
         grad_year = request.POST['inputyear']
@@ -467,5 +562,5 @@ def edit(request):
 
         return render(request, 'editprofile.html',{'first_name':first_name, 'last_name':last_name,'grad_year':grad_year,
         'college':college, 'major':major,'city':city,'state':state, 'country':country,'zip':zip, 'employer':employer,
-        'job':job,'field':field, 'hs_activities':hs_activities, 'newsletter':newsletter, 'interview':interview, 
+        'job':job,'field':field, 'hs_activities':hs_activities, 'newsletter':newsletter, 'interview':interview, 'states':STATESLIST,
         'fields_list':FIELDSLIST, 'hs_activities_list':HSACTIVITIESLIST})
