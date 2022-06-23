@@ -17,107 +17,62 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfirstname" class="form-label">First Name</label>
-                <input value = {{first_name}} type="firstname" name="inputfirstname" class="form-control" required>
+                <input value = {{first_name}} type="firstname" name="inputfirstname" maxlength=30 class="form-control" required>
             </div>
             <div class="col">
                 <label for="inputlastname" class="form-label">Last Name</label>
-                <input value = {{last_name}} type="lastname" name="inputlastname" class="form-control" required>
+                <input value = {{last_name}} type="lastname" name="inputlastname" maxlength=30 class="form-control" required>
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
-                <input value = {{grad_year}} type="year" name="inputyear" class="form-control" required>
+                <input value = {{grad_year}} type="year" name="inputyear" pattern= "^[0-9]*$" maxlength=4 minlength=4 class="form-control" required>
             </div>
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>
-                <input value = {{college}} type="college" name="inputcollege" class="form-control">
+                <input value = {{college}} type="college" name="inputcollege" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputmajor" class="form-label">Major(s)/Department(s)</label>
-                <input value = {{major}} type="major" name="inputmajor" class="form-control">
+                <input value = {{major}} type="major" name="inputmajor" maxlength=30 class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
-                <input value = {{country}} type="country" name="inputcountry" class="form-control" required>
+                <input value = {{country}} type="country" name="inputcountry" maxlength=30 class="form-control" required>
             </div>
             <div class="col">
                 <label for="inputstate" class="form-label">State</label>
                 <select name="inputstate" class="form-select" size="4">
-                    <option value = {{state}} selected> {{state}} </option>
-                    <option value="AL">AL</option>
-                    <option value="AK">AK</option>
-                    <option value="AZ">AZ</option>
-                    <option value="AR">AR</option>
-                    <option value="CA">CA</option>
-                    <option value="CO">CO</option>
-                    <option value="CT">CT</option>
-                    <option value="DE">DE</option>
-                    <option value="FL">FL</option>
-                    <option value="GA">GA</option>
-                    <option value="HI">HI</option>
-                    <option value="ID">ID</option>
-                    <option value="IL">IL</option>
-                    <option value="IN">IN</option>
-                    <option value="IA">IA</option>
-                    <option value="KS">KS</option>
-                    <option value="KY">KY</option>
-                    <option value="LA">LA</option>
-                    <option value="ME">ME</option>
-                    <option value="MD">MD</option>
-                    <option value="MA">MA</option>
-                    <option value="MI">MI</option>
-                    <option value="MN">MN</option>
-                    <option value="MS">MS</option>
-                    <option value="MO">MO</option>
-                    <option value="MT">MT</option>
-                    <option value="NE">NE</option>
-                    <option value="NV">NV</option>
-                    <option value="NH">NH</option>
-                    <option value="NJ">NJ</option>
-                    <option value="NM">NM</option>
-                    <option value="NY">NY</option>
-                    <option value="NC">NC</option>
-                    <option value="ND">ND</option>
-                    <option value="OH">OH</option>
-                    <option value="OK">OK</option>
-                    <option value="OR">OR</option>
-                    <option value="PA">PA</option>
-                    <option value="RI">RI</option>
-                    <option value="SC">SC</option>
-                    <option value="SD">SD</option>
-                    <option value="TN">TN</option>
-                    <option value="TX">TX</option>
-                    <option value="UT">UT</option>
-                    <option value="VT">VT</option>
-                    <option value="VA">VA</option>
-                    <option value="WA">WA</option>
-                    <option value="WV">WV</option>
-                    <option value="WI">WI</option>
-                    <option value="WY">WY</option>
+                    {% for a_state in states %}
+                    {% if a_state == state %}
+                    <option value="{{ state }}" selected>{{ state }}</option>
+                    {% else %}
+                    <option value="{{ state }}">{{ state }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
-                <input value = {{city}} type="city" name="inputcity" class="form-control" required>
+                <input value = {{city}} type="city" name="inputcity" maxlength=30 class="form-control" required>
             </div>
             <div class="col">
                 <label for="inputzip" class="form-label">Zip</label>
-                <input value = {{zip}} type="zip" name="inputzip" class="form-control">
+                <input value = {{zip}} type="zip" name="inputzip" pattern= "^[0-9]*$" maxlength="10" class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputjobtitle" class="form-label">Job Title</label>
-                <input value = {{job}} type="jobtitle" name="inputjobtitle" class="form-control">
+                <input value = {{job}} type="jobtitle" name="inputjobtitle" maxlength="30" class="form-control">
             </div>
             <div class="col">
                 <label for="inputemployer" class="form-label">Employer</label>
-                <input value = {{employer}} type="employer" name="inputemployer" class="form-control">
+                <input value = {{employer}} type="employer" name="inputemployer" maxlength="30" class="form-control">
             </div>
         </div>
 
