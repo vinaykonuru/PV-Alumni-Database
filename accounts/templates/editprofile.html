@@ -48,9 +48,9 @@
                 <select name="inputstate" class="form-select" size="4">
                     {% for a_state in states %}
                     {% if a_state == state %}
-                    <option value="{{ state }}" selected>{{ state }}</option>
+                    <option value="{{ a_state }}" selected>{{ a_state }}</option>
                     {% else %}
-                    <option value="{{ state }}">{{ state }}</option>
+                    <option value="{{ a_state }}">{{ a_state }}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
