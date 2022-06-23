@@ -526,10 +526,7 @@ def reset(request):
 @login_required(login_url='/accounts/signup')
 def edit(request):
     if request.method == 'POST':
-        # Add server-side validation of same email, firstname, or lastname as another user
-        # Server side validation for email and password using regex's
-        if check(request.POST['inputemail'], request.POST['inputpassword1']):
-            return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
+        # Add server-side validation of same firstname or lastname as another user
 
         # Server-side validation for fields, activities, and state
         if checkfields(request.POST.get('inputfield', None), request.POST.get('inputclubs', None), request.POST.get('inputstate', None)):
@@ -539,7 +536,7 @@ def edit(request):
         if checklengths(
                 request.POST['inputfirstname'],
                 request.POST['inputlastname'],
-                request.POST['inputemail'],
+                '',
                 '',
                 '',
                 request.POST['inputyear'],
