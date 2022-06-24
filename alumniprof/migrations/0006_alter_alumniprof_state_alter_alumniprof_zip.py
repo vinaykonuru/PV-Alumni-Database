@@ -20,4 +20,8 @@ class Migration(migrations.Migration):
             name='zip',
             field=models.CharField(blank=True, max_length=10, null=True),
         ),
+        migrations.RemoveField(
+            model_name='alumniprof',
+            name='email',
+        ),
     ]
