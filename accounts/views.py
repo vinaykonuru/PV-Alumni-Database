@@ -245,7 +245,7 @@ regex_password = r'^(?=.*[A-Z])(?=.*[0-9]).{8,32}$'
 # server-side email and password validator
 def check(email, password):
     if(re.fullmatch(regex_email, email) and re.fullmatch(regex_password, password)):
-        pass
+        return False
     else:
         return True
 
@@ -287,7 +287,7 @@ def login(request):
             return render(request, 'login.html', {'error':'Enter a valid email and password.', 
                                                   "email":request.POST['inputemail'], "password":request.POST['inputpassword']})
                     
-        user=auth.authenticate(username=request.POST['inputemail'],password=request.POST['inputpassword'])
+        user=auth.authenticate(username=request.POST['inputemail'], password=request.POST['inputpassword'])
         if user is not None:
             auth.login(request,user)
             return redirect('home')
@@ -526,7 +526,7 @@ def reset(request):
 @login_required(login_url='/accounts/signup')
 def edit(request):
     if request.method == 'POST':
-        # Add server-side validation of same firstname or lastname as another user
+        # Add server-side validation of same firstname, lastname, or email as another user
 
         # Server-side validation for fields, activities, and state
         if checkfields(request.POST.get('inputfield', None), request.POST.get('inputclubs', None), request.POST.get('inputstate', None)):
@@ -569,17 +569,7 @@ def edit(request):
         interview = request.POST.get('interview', False)
         if (interview == 'on'):
             interview = True
-
-        # if not field:
-        #     field = ""
-        # else:
-        #     field = field[0]
-
-        # if not hs_activities:
-        #     hs_activities = ""
-        # else:
-        #     hs_activities = hs_activities[0]
-
+            
         AlumniProf.objects.get(user=request.user).delete()
         alumniprof = AlumniProf(
         first_name = first_name, last_name = last_name,
@@ -616,7 +606,58 @@ def edit(request):
         newsletter = alumniprof.newsletter
         interview = alumniprof.interview
 
-        return render(request, 'editprofile.html',{'first_name':first_name, 'last_name':last_name,'grad_year':grad_year,
+        return render(request, 'editprofile.html',{'first_name':first_name, 'last_name':last_name, 'grad_year':grad_year,
         'college':college, 'major':major,'city':city,'state':state, 'country':country,'zip':zip, 'employer':employer,
         'job':job,'field':field, 'hs_activities':hs_activities, 'newsletter':newsletter, 'interview':interview, 'states':STATESLIST,
         'fields_list':FIELDSLIST, 'hs_activities_list':HSACTIVITIESLIST})
+
+@login_required(login_url='/accounts/signup')
+def changelogin(request):
+    if request.method == 'POST':
+        if request.POST["inputemail"] != "" and request.POST["inputpassword"] != "":
+            oldAlumniProf = AlumniProf.objects.get(user=request.user)
+            current_user = request.user
+            oldusername = current_user.username
+            oldfirstname = current_user.first_name
+            oldlastname = current_user.last_name
+            newusername = request.POST["inputemail"]
+            try:
+                request.user.delete()
+                User.objects.get(username = newusername)
+                request.user = User.objects.create_user(username = oldusername, password=request.POST["inputpassword"], first_name=oldfirstname, last_name=oldlastname)
+                request.user.save()
+                alumniprof = AlumniProf(
+                first_name = oldAlumniProf.first_name, last_name = oldAlumniProf.last_name,
+                grad_year = oldAlumniProf.grad_year, college = oldAlumniProf.college,
+                major = oldAlumniProf.major, city = oldAlumniProf.city,
+                state = oldAlumniProf.state, country = oldAlumniProf.country,
+                zip = oldAlumniProf.zip, employer = oldAlumniProf.employer,
+                job = oldAlumniProf.job, field = oldAlumniProf.field,
+                hs_activities = oldAlumniProf.hs_activities, 
+                newsletter = oldAlumniProf.newsletter,
+                interview = oldAlumniProf.interview,
+                user = request.user
+                )
+                oldAlumniProf.delete()
+                alumniprof.save()
+                return render(request, 'login.html', {"error": "Your new email has already been taken. Please log in again with your original credentials."})
+            except User.DoesNotExist:
+                request.user = User.objects.create_user(username = newusername ,password=request.POST["inputpassword"], first_name=oldfirstname, last_name=oldlastname)
+                request.user.save()
+                alumniprof = AlumniProf(
+                first_name = oldAlumniProf.first_name, last_name = oldAlumniProf.last_name,
+                grad_year = oldAlumniProf.grad_year, college = oldAlumniProf.college,
+                major = oldAlumniProf.major, city = oldAlumniProf.city,
+                state = oldAlumniProf.state, country = oldAlumniProf.country,
+                zip = oldAlumniProf.zip, employer = oldAlumniProf.employer,
+                job = oldAlumniProf.job, field = oldAlumniProf.field,
+                hs_activities = oldAlumniProf.hs_activities, 
+                newsletter = oldAlumniProf.newsletter,
+                interview = oldAlumniProf.interview,
+                user = request.user
+                )
+                oldAlumniProf.delete()
+                alumniprof.save()
+                return render(request, 'login.html', {'error':'Please login again with your new email and password.', 'email':newusername})
+    else:
+        return render(request, 'changelogin.html')

@@ -12,22 +12,26 @@
     <div class="container">
     <div class="rows col-lg-8 no-gutters">
     <h1 class = "pt-4 pb-4 text-center">Edit your profile</h1>
+    <h2 class="pt-2 pb-2 text-center">Want to change your email or password? Click <a href="{% url 'changelogin' %}">here</a>.</h2>
+    {% if error %}
+    <h2 class="pt-2 pb-2 text-center">{{error}}</h2>
+    {% endif %}
     <form method = "POST" action="{% url 'edit' %}">
         {% csrf_token %}
         <div class="row row-margin mb-3">
             <div class="col">
-                <label for="inputfirstname" class="form-label">First Name</label>
+                <label for="inputfirstname" class="form-label">First Name<span class="required">*</span></label>
                 <input value = "{{first_name}}" onkeyup="leftTrim(this)" type="firstname" name="inputfirstname" maxlength=30 class="form-control" required>
             </div>
             <div class="col">
-                <label for="inputlastname" class="form-label">Last Name</label>
+                <label for="inputlastname" class="form-label">Last Name<span class="required">*</span></label>
                 <input value = "{{last_name}}" onkeyup="leftTrim(this)" type="lastname" name="inputlastname" maxlength=30 class="form-control" required>
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
-                <input value = "{% if year %}{{ year }}{% endif %}" onkeyup="leftTrim(this)" type="year" name="inputyear" pattern= "^[0-9]*$" maxlength=4 minlength=4 class="form-control">
+                <input value = "{% if grad_year %}{{ grad_year }}{% endif %}" onkeyup="leftTrim(this)" type="year" name="inputyear" pattern= "^[0-9]*$" maxlength=4 minlength=4 class="form-control">
             </div>
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>

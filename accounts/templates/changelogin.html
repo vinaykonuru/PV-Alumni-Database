@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/formstyle.css' %}" /> 
+<title>Change Email/Password</title>
+{% endblock %}
+
+{% block content %}
+    <!-- Form -->
+    <section class="form pt-4">
+    <div class="container">
+    <div class="rows col-lg-8 no-gutters">
+    <h1 class = "pt-4 pb-4 text-center">Change Email and Password</h1>
+    {% if error %}
+    <h2 class="pt-2 pb-2 text-center">{{error}}</h2>
+    {% endif %}
+    <form method = "POST" action="{% url 'changelogin' %}">
+        {% csrf_token %}
+        <div class="row row-margin mb-3">
+            <div class="col">
+                <label for="inputemail" class="form-label">New Email address</label>
+                <input type="email" onkeyup="leftTrim(this)" placeholder="janedoe@example.com" name = 'inputemail' id="inputemail" value="{% if email %}{{ email }}{% endif %}" class="form-control" maxlength=30 required>
+            </div>
+        </div>
+        <div class="row row-margin mb-4">
+            <div class="col">
+                <label for="inputpassword" class="form-label">New Password</label>
+                <input type="password" onkeyup="leftTrim(this)" placeholder="*******" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" value="{% if password %}{{ password }}{% endif %}" name = "inputpassword" id="inputpassword" class="form-control" minlength=8 maxlength=30 required>
+            </div>
+        </div>
+        <div class="row row-margin mb-3">
+            <div class="col">
+                <input type="submit" class="btn1 mb-3">
+            </div>
+        </div>
+    </form>
+    </div>
+    </div>
+    </section>
+
+    <script>
+        function leftTrim(element) {
+            if (element) {
+                element.value = element.value.replace(/^\s+/,"");
+            }
+        }
+    </script>
+
+{% endblock %}
