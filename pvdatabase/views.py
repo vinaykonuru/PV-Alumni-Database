@@ -30,6 +30,12 @@ def search(request):
         job = request.POST['inputjobtitle']
         field = request.POST.getlist('inputfield', None)
         hs_activities = request.POST.getlist('inputclubs', None)
+        newsletter = request.POST.get('newsletter', False)
+        if (newsletter == 'on'):
+            newsletter = True
+        interview = request.POST.get('interview', False)
+        if (interview == 'on'):
+            interview = True
 
         print(state)
         if not state:
@@ -75,7 +81,9 @@ def search(request):
             (job == '' or job in profile.job) & \
             (employer == '' or employer in profile.employer) & \
             (field == '' or fieldset1.issubset(fieldset2)) & \
-            (hs_activities == '' or activityset1.issubset(activityset2))):
+            (hs_activities == '' or activityset1.issubset(activityset2)) & \
+            (newsletter == False or newsletter == profile.newsletter) & \
+            (interview == False or interview == profile.interview)):
                 # add sorting by field and hs_activities
                 matched_profiles.append(profile)
 
@@ -103,5 +111,5 @@ def profile(request, first_name, last_name):
                 matched_profile.hs_activities = matched_profile.hs_activities.replace('[','')
                 matched_profile.hs_activities = matched_profile.hs_activities.replace(']', '')
                 matched_profile.hs_activities = matched_profile.hs_activities.replace("'", '')
-                
+
     return render(request, 'profile.html', {'profile':matched_profile})
