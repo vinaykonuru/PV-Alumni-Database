@@ -406,7 +406,7 @@ def signup(request):
                                                         "interview":request.POST.get('interview')})
 
                 # Server-side validation for firstname, lastname (required fields)
-                if request.POST['firstname'] == "" or request.POST['lastname'] == "":
+                if request.POST['inputfirstname'] == "" or request.POST['inputlastname'] == "":
                     return render(request, 'signup.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
