@@ -27,7 +27,7 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
-                <input value = "{% if year %}{{ year }}{% endif %}" type="year" name="inputyear" pattern= "^[0-9]*$" maxlength=4 minlength=4 class="form-control" required>
+                <input value = "{% if year %}{{ year }}{% endif %}" type="year" name="inputyear" pattern= "^[0-9]*$" maxlength=4 minlength=4 class="form-control">
             </div>
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>
@@ -41,7 +41,7 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
-                <input value = "{% if country %}{{ country }}{% endif %}" type="country" name="inputcountry" maxlength=30 class="form-control" required>
+                <input value = "{% if country %}{{ country }}{% endif %}" type="country" name="inputcountry" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputstate" class="form-label">State</label>
@@ -59,7 +59,7 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
-                <input value = "{% if city %}{{ city }}{% endif %}" type="city" name="inputcity" maxlength=30 class="form-control" required>
+                <input value = "{% if city %}{{ city }}{% endif %}" type="city" name="inputcity" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputzip" class="form-label">Zip</label>
@@ -69,7 +69,7 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputjobtitle" class="form-label">Job Title</label>
-                <input value = "{% if jobtitle %}{{ jobtitle }}{% endif %}" type="jobtitle" name="inputjobtitle" maxlength="30" class="form-control">
+                <input value = "{% if job %}{{ job }}{% endif %}" type="jobtitle" name="inputjobtitle" maxlength="30" class="form-control">
             </div>
             <div class="col">
                 <label for="inputemployer" class="form-label">Employer</label>
