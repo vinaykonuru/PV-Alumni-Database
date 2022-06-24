@@ -300,6 +300,7 @@ def login(request):
 def signup(request):
     if request.method=='POST':
         if request.POST['inputpassword1']==request.POST['inputpassword2']:
+            # server-side validation for same first and last name as another user
             try:
                 user=User.objects.get(first_name = request.POST.get('inputfirstname'), last_name = request.POST.get('inputlastname'))
                 return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST,
@@ -385,6 +386,28 @@ def signup(request):
                 # Server side validation for email and password using regex's
                 if check(request.POST['inputemail'], request.POST['inputpassword1']):
                     return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                                                        "firstname":request.POST['inputfirstname'],
+                                                        "lastname":request.POST['inputlastname'],
+                                                        "email":request.POST['inputemail'],
+                                                        "password1":request.POST['inputpassword1'],
+                                                        "password2":request.POST['inputpassword2'],
+                                                        "year":request.POST['inputyear'],
+                                                        "college":request.POST['inputcollege'],
+                                                        "major":request.POST['inputmajor'],
+                                                        "city":request.POST['inputcity'],
+                                                        "country":request.POST['inputcountry'],
+                                                        "zip":request.POST['inputzip'],
+                                                        "employer":request.POST['inputemployer'],
+                                                        "jobtitle":request.POST['inputjobtitle'],
+                                                        "activefields":request.POST.getlist('inputfield', None),
+                                                        "activeactivities":request.POST.getlist('inputclubs', None),
+                                                        "activestate":request.POST.get('inputstate', None),
+                                                        "newsletter":request.POST.get('newsletter'),
+                                                        "interview":request.POST.get('interview')})
+
+                # Server-side validation for firstname, lastname (required fields)
+                if request.POST.get['firstname'] or request.POST['lastname'] == "":
+                    return render(request, 'signup.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -526,8 +549,6 @@ def reset(request):
 @login_required(login_url='/accounts/signup')
 def edit(request):
     if request.method == 'POST':
-        # Add server-side validation of same firstname, lastname, or email as another user
-
         # Server-side validation for fields, activities, and state
         if checkfields(request.POST.get('inputfield', None), request.POST.get('inputclubs', None), request.POST.get('inputstate', None)):
             return render(request, 'editprofile.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
@@ -550,6 +571,53 @@ def edit(request):
                 ):
                     return render(request, 'editprofile.html', {'error':'One of your fields is longer than its character limit. Try again.',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
         
+        # Server-side validation for firstname, lastname (required fields)
+        if request.POST.get['firstname'] or request.POST['lastname'] == "":
+            return render(request, 'editprofile.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                                                "firstname":request.POST['inputfirstname'],
+                                                "lastname":request.POST['inputlastname'],
+                                                "email":request.POST['inputemail'],
+                                                "password1":request.POST['inputpassword1'],
+                                                "password2":request.POST['inputpassword2'],
+                                                "year":request.POST['inputyear'],
+                                                "college":request.POST['inputcollege'],
+                                                "major":request.POST['inputmajor'],
+                                                "city":request.POST['inputcity'],
+                                                "country":request.POST['inputcountry'],
+                                                "zip":request.POST['inputzip'],
+                                                "employer":request.POST['inputemployer'],
+                                                "jobtitle":request.POST['inputjobtitle'],
+                                                "activefields":request.POST.getlist('inputfield', None),
+                                                "activeactivities":request.POST.getlist('inputclubs', None),
+                                                "activestate":request.POST.get('inputstate', None),
+                                                "newsletter":request.POST.get('newsletter'),
+                                                "interview":request.POST.get('interview')})
+        
+        # server-side validation for same first and last name as another user
+        try:
+            user=User.objects.get(first_name = request.POST.get('inputfirstname'), last_name = request.POST.get('inputlastname'))
+            return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST,
+                                                    "firstname":request.POST['inputfirstname'],
+                                                    "lastname":request.POST['inputlastname'],
+                                                    "email":request.POST['inputemail'],
+                                                    "password1":request.POST['inputpassword1'],
+                                                    "password2":request.POST['inputpassword2'],
+                                                    "year":request.POST['inputyear'],
+                                                    "college":request.POST['inputcollege'],
+                                                    "major":request.POST['inputmajor'],
+                                                    "city":request.POST['inputcity'],
+                                                    "country":request.POST['inputcountry'],
+                                                    "zip":request.POST['inputzip'],
+                                                    "employer":request.POST['inputemployer'],
+                                                    "jobtitle":request.POST['inputjobtitle'],
+                                                    "activefields":request.POST.getlist('inputfield', None),
+                                                    "activeactivities":request.POST.getlist('inputclubs', None),
+                                                    "activestate":request.POST.get('inputstate', None),
+                                                    "newsletter":request.POST.get('newsletter'),
+                                                    "interview":request.POST.get('interview')})
+        except:
+            pass
+        
         first_name = request.POST['inputfirstname']
         last_name = request.POST['inputlastname']
         grad_year = request.POST['inputyear']
@@ -569,7 +637,7 @@ def edit(request):
         interview = request.POST.get('interview', False)
         if (interview == 'on'):
             interview = True
-            
+
         AlumniProf.objects.get(user=request.user).delete()
         alumniprof = AlumniProf(
         first_name = first_name, last_name = last_name,
@@ -614,6 +682,18 @@ def edit(request):
 @login_required(login_url='/accounts/signup')
 def changelogin(request):
     if request.method == 'POST':
+        # server-side validation for lengths and regex expressions
+        if (
+                len(request.POST['inputemail']) > 30 or
+                len(request.POST['inputpassword']) > 30
+            ):
+                return render(request, 'changelogin.html', {'error':'One of your fields is longer than its character limit. Try again.', 
+                                                      "email":request.POST['inputemail'], "password":request.POST['inputpassword']})
+
+        if check(request.POST['inputemail'], request.POST['inputpassword']):
+            return render(request, 'changelogin.html', {'error':'Enter a valid email and password.', 
+                                                  "email":request.POST['inputemail'], "password":request.POST['inputpassword']})
+
         if request.POST["inputemail"] != "" and request.POST["inputpassword"] != "":
             oldAlumniProf = AlumniProf.objects.get(user=request.user)
             current_user = request.user
