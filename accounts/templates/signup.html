@@ -20,17 +20,17 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputfirstname" class="form-label">First Name<span class="required">*</span></label>
-                <input type="firstname" name = "inputfirstname" class="form-control" value="{% if firstname %}{{ firstname }}{% endif %}" maxlength=30 required>
+                <input type="firstname" onkeyup="leftTrim(this)" name = "inputfirstname" class="form-control" value="{% if firstname %}{{ firstname }}{% endif %}" maxlength=30 required>
             </div>
             <div class="col">
                 <label for="inputlastname" class="form-label">Last Name<span class="required">*</span></label>
-                <input type="lastname" name = "inputlastname" class="form-control" value="{% if lastname %}{{ lastname }}{% endif %}" maxlength=30 required>
+                <input type="lastname" onkeyup="leftTrim(this)" name = "inputlastname" class="form-control" value="{% if lastname %}{{ lastname }}{% endif %}" maxlength=30 required>
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputemail" class="form-label">Email address<span class="required">*</span></label>
-                <input type="email" placeholder="janedoe@example.com" name = "inputemail" value="{% if email %}{{ email }}{% endif %}" maxlength=30 class="form-control" required>
+                <input type="email" onkeyup="leftTrim(this)" placeholder="janedoe@example.com" name = "inputemail" value="{% if email %}{{ email }}{% endif %}" maxlength=30 class="form-control" required>
             </div>
         </div>
         <div class="row row-margin mb-4">
@@ -50,21 +50,21 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
-                <input type="year" name = "inputyear" pattern= "^[0-9]*$" value="{% if year %}{{ year }}{% endif %}" minlength=4 maxlength=4 class="form-control">
+                <input type="year" onkeyup="leftTrim(this)" name = "inputyear" pattern= "^[0-9]*$" value="{% if year %}{{ year }}{% endif %}" minlength=4 maxlength=4 class="form-control">
             </div>
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>
-                <input type="college" name = "inputcollege" maxlength=30 value="{% if college %}{{ college }}{% endif %}" class="form-control">
+                <input type="college" onkeyup="leftTrim(this)" name = "inputcollege" maxlength=30 value="{% if college %}{{ college }}{% endif %}" class="form-control">
             </div>
             <div class="col">
                 <label for="inputmajor" class="form-label">Major(s)/Department(s)</label>
-                <input type="major" name = "inputmajor" maxlength=30 value="{% if major %}{{ major }}{% endif %}" class="form-control">
+                <input type="major" onkeyup="leftTrim(this)" name = "inputmajor" maxlength=30 value="{% if major %}{{ major }}{% endif %}" class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
-                <input type="country" name = "inputcountry" value="{% if country %}{{ country }}{% endif %}" maxlength=30 class="form-control">
+                <input type="country" onkeyup="leftTrim(this)" name = "inputcountry" value="{% if country %}{{ country }}{% endif %}" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputstate" class="form-label">State</label>
@@ -82,21 +82,21 @@
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcity" class="form-label">City</label>
-                <input type="city" name = "inputcity" value="{% if city %}{{ city }}{% endif %}" maxlength=30 class="form-control">
+                <input type="city" onkeyup="leftTrim(this)" name = "inputcity" value="{% if city %}{{ city }}{% endif %}" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputzip" class="form-label">Zip</label>
-                <input type="zip" name = "inputzip" value="{% if zip %}{{ zip }}{% endif %}" pattern= "^[0-9]*$" maxlength=10 class="form-control">
+                <input type="zip" onkeyup="leftTrim(this)" name = "inputzip" value="{% if zip %}{{ zip }}{% endif %}" pattern= "^[0-9]*$" maxlength=10 class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputjobtitle" class="form-label">Job Title</label>
-                <input type="jobtitle" value="{% if jobtitle %}{{ jobtitle }}{% endif %}" name = "inputjobtitle" maxlength=30 class="form-control">
+                <input type="jobtitle" onkeyup="leftTrim(this)" value="{% if jobtitle %}{{ jobtitle }}{% endif %}" name = "inputjobtitle" maxlength=30 class="form-control">
             </div>
             <div class="col">
                 <label for="inputemployer" class="form-label">Employer</label>
-                <input type="employer" value="{% if employer %}{{ employer }}{% endif %}" name = "inputemployer" maxlength=30 class="form-control">
+                <input type="employer" onkeyup="leftTrim(this)" value="{% if employer %}{{ employer }}{% endif %}" name = "inputemployer" maxlength=30 class="form-control">
             </div>
         </div>
         <div class="row row-margin mb-3">
@@ -169,5 +169,13 @@
     </div>
     </div>
     </section>
+
+    <script>
+        function leftTrim(element) {
+            if (element) {
+                element.value = element.value.replace(/^\s+/,"");
+            }
+        }
+    </script>
 
 {% endblock %}
