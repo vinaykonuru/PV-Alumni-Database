@@ -241,6 +241,24 @@ RELATIONSLIST = ['Student (Current/Former)',
                  'Administration (Current/Former)',
                  'Parent of Current/Former Student']
 
+DEGREESLIST = ['Associate of Arts (A.A.)',
+               'Associate of Science (A.S.)',
+               'Bachelor of Arts (B.A.)',
+               'Bachelor of Science (B.S.)',
+               'Bachelor of Fine Arts (B.F.A.)',
+               'Master of Arts (M.A.)',
+               'Master of Science (M.S.)',
+               'Master of Business Administration (M.B.A.)',
+               'Doctor of Philosophy (Ph.D.)',
+               'Doctor of Education (Ed.D.)',
+               'Doctor of Dental Surgery (D.D.S.)',
+               'Doctor of Optometry (O.D.)',
+               'Doctor of Osteopathic Medicine (D.O.)',
+               'Doctor of Podiatric Medicine (D.P.M)',
+               'Doctor of Medicine (M.D.)',
+               'Juris Doctor (J.D.)'
+               ]
+
 # Reg expression for validating email
 regex_email = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
@@ -273,17 +291,17 @@ def checklengths(firstname, lastname, email, password1, password2, year, college
     return False
 
 # server-side validation for fields
-def checkfields(fields, activities, state, relation):
+def checkfields(fields, activities, state, relation, degrees):
     fieldset1 = set(fields)
     fieldset2 = set(FIELDSLIST)
 
     activityset1 = set(activities)
     activityset2 = set(HSACTIVITIESLIST)
 
-    print(fieldset1.issubset(fieldset2))
-    print(activityset1.issubset(activityset2))
+    degreeset1 = set(degrees)
+    degreeset2 = set(DEGREESLIST)
 
-    if ((bool(fields) and not fieldset1.issubset(fieldset2)) or (bool(activities) and not activityset1.issubset(activityset2)) or (state is not None and state not in STATESLIST) or (relation is not None and relation not in RELATIONSLIST)):
+    if ((bool(fields) and not fieldset1.issubset(fieldset2)) or (bool(activities) and not activityset1.issubset(activityset2)) or (state is not None and state not in STATESLIST) or (relation is not None and relation not in RELATIONSLIST) or (bool(degrees) and not degreeset1.issubset(degreeset2))):
         return True
     return False
 
@@ -317,7 +335,7 @@ def signup(request):
             # server-side validation for same first and last name as another user
             try:
                 user=User.objects.get(first_name = request.POST.get('inputfirstname'), last_name = request.POST.get('inputlastname'))
-                return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                         "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -327,6 +345,7 @@ def signup(request):
                                                         "year":request.POST['inputyear'],
                                                         "college":request.POST['inputcollege'],
                                                         "major":request.POST['inputmajor'],
+                                                        "activedegrees":request.POST.getlist('inputdegrees', None),
                                                         "city":request.POST['inputcity'],
                                                         "country":request.POST['inputcountry'],
                                                         "zip":request.POST['inputzip'],
@@ -342,7 +361,7 @@ def signup(request):
 
             try:
                 user=User.objects.get(username = request.POST['inputemail'])
-                return render(request, 'signup.html', {'error':'This email has already been taken.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                return render(request, 'signup.html', {'error':'This email has already been taken.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                         "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -352,6 +371,7 @@ def signup(request):
                                                         "year":request.POST['inputyear'],
                                                         "college":request.POST['inputcollege'],
                                                         "major":request.POST['inputmajor'],
+                                                        "activedegrees":request.POST.getlist('inputdegrees', None),
                                                         "city":request.POST['inputcity'],
                                                         "country":request.POST['inputcountry'],
                                                         "zip":request.POST['inputzip'],
@@ -379,7 +399,7 @@ def signup(request):
                 request.POST['inputemployer'],
                 request.POST['inputjobtitle']
                 ):
-                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                         "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -389,6 +409,7 @@ def signup(request):
                                                         "year":request.POST['inputyear'],
                                                         "college":request.POST['inputcollege'],
                                                         "major":request.POST['inputmajor'],
+                                                        "activedegrees":request.POST.getlist('inputdegrees', None),
                                                         "city":request.POST['inputcity'],
                                                         "country":request.POST['inputcountry'],
                                                         "zip":request.POST['inputzip'],
@@ -402,7 +423,7 @@ def signup(request):
 
                 # Server side validation for email and password using regex's
                 if check(request.POST['inputemail'], request.POST['inputpassword1']):
-                    return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                    return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                         "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -412,6 +433,7 @@ def signup(request):
                                                         "year":request.POST['inputyear'],
                                                         "college":request.POST['inputcollege'],
                                                         "major":request.POST['inputmajor'],
+                                                        "activedegrees":request.POST.getlist('inputdegrees', None),
                                                         "city":request.POST['inputcity'],
                                                         "country":request.POST['inputcountry'],
                                                         "zip":request.POST['inputzip'],
@@ -425,7 +447,7 @@ def signup(request):
 
                 # Server-side validation for firstname, lastname (required fields)
                 if request.POST['inputfirstname'] == "" or request.POST['inputlastname'] == "":
-                    return render(request, 'signup.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                    return render(request, 'signup.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                         "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -435,6 +457,7 @@ def signup(request):
                                                         "year":request.POST['inputyear'],
                                                         "college":request.POST['inputcollege'],
                                                         "major":request.POST['inputmajor'],
+                                                        "activedegrees":request.POST.getlist('inputdegrees', None),
                                                         "city":request.POST['inputcity'],
                                                         "country":request.POST['inputcountry'],
                                                         "zip":request.POST['inputzip'],
@@ -448,7 +471,7 @@ def signup(request):
                 
                 # Server-side validation for Terms of Service
                 if request.POST.get('tos') != "on":
-                    return render(request, 'signup.html', {'error':'Please make sure to agree to the Terms of Service.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                    return render(request, 'signup.html', {'error':'Please make sure to agree to the Terms of Service.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                         "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -458,6 +481,7 @@ def signup(request):
                                                         "year":request.POST['inputyear'],
                                                         "college":request.POST['inputcollege'],
                                                         "major":request.POST['inputmajor'],
+                                                        "activedegrees":request.POST.getlist('inputdegrees', None),
                                                         "city":request.POST['inputcity'],
                                                         "country":request.POST['inputcountry'],
                                                         "zip":request.POST['inputzip'],
@@ -470,8 +494,8 @@ def signup(request):
                                                         "interview":request.POST.get('interview')})
 
                 # Server-side validation for fields, activities, and state
-                if checkfields(request.POST.getlist('inputfield', None), request.POST.getlist('inputclubs', None), request.POST.get('inputstate', None), request.POST.get('inputrelation', None)):
-                    return render(request, 'signup.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                if checkfields(request.POST.getlist('inputfield', None), request.POST.getlist('inputclubs', None), request.POST.get('inputstate', None), request.POST.get('inputrelation', None), request.POST.getlist('inputdegrees', None)):
+                    return render(request, 'signup.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                         "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -481,6 +505,7 @@ def signup(request):
                                                         "year":request.POST['inputyear'],
                                                         "college":request.POST['inputcollege'],
                                                         "major":request.POST['inputmajor'],
+                                                        "activedegrees":request.POST.getlist('inputdegrees', None),
                                                         "city":request.POST['inputcity'],
                                                         "country":request.POST['inputcountry'],
                                                         "zip":request.POST['inputzip'],
@@ -500,6 +525,7 @@ def signup(request):
                 grad_year = request.POST['inputyear']
                 college = request.POST['inputcollege']
                 major = request.POST['inputmajor']
+                degrees = request.POST.getlist('inputdegrees', None)
                 city = request.POST['inputcity']
                 state = request.POST.get('inputstate', None)
                 country = request.POST['inputcountry']
@@ -521,7 +547,7 @@ def signup(request):
                 relation = relation, 
                 first_name = first_name, last_name = last_name,
                 grad_year = grad_year, college = college,
-                major = major, city = city,
+                major = major, degrees = degrees, city = city,
                 state = state, country = country,
                 zip = zip, employer = employer,
                 job = job, field = field,
@@ -533,7 +559,7 @@ def signup(request):
                 alumniprof.save()
                 return redirect('home')
         else:
-            return render(request,'signup.html',{'error':'Passwords must match',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+            return render(request,'signup.html',{'error':'Passwords must match',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                         "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
@@ -543,6 +569,7 @@ def signup(request):
                                                         "year":request.POST['inputyear'],
                                                         "college":request.POST['inputcollege'],
                                                         "major":request.POST['inputmajor'],
+                                                        "activedegrees":request.POST.getlist('inputdegrees', None),
                                                         "city":request.POST['inputcity'],
                                                         "country":request.POST['inputcountry'],
                                                         "zip":request.POST['inputzip'],
@@ -554,7 +581,7 @@ def signup(request):
                                                         "newsletter":request.POST.get('newsletter'),
                                                         "interview":request.POST.get('interview')})
     else:
-        return render(request, 'signup.html', {"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST})
+        return render(request, 'signup.html', {"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST})
 
 @login_required(login_url='/accounts/signup')
 def logout(request):
@@ -574,14 +601,15 @@ def reset(request):
 def edit(request):
     if request.method == 'POST':
         # Server-side validation for fields, activities, and state
-        if checkfields(request.POST.getlist('inputfield', None), request.POST.getlist('inputclubs', None), request.POST.get('inputstate', None), request.POST.get('inputrelation', None)):
-            return render(request, 'editprofile.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, 
+        if checkfields(request.POST.getlist('inputfield', None), request.POST.getlist('inputclubs', None), request.POST.get('inputstate', None), request.POST.get('inputrelation', None), request.POST.getlist('inputdegrees', None)):
+            return render(request, 'editprofile.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                 "activerelation":request.POST.get('inputrelation', None),
                                                 "firstname":request.POST['inputfirstname'],
                                                 "lastname":request.POST['inputlastname'],
                                                 "year":request.POST['inputyear'],
                                                 "college":request.POST['inputcollege'],
                                                 "major":request.POST['inputmajor'],
+                                                "activedegrees":request.POST.getlist('inputdegrees', None),
                                                 "city":request.POST['inputcity'],
                                                 "country":request.POST['inputcountry'],
                                                 "zip":request.POST['inputzip'],
@@ -609,13 +637,14 @@ def edit(request):
                 request.POST['inputemployer'],
                 request.POST['inputjobtitle']
                 ):
-                    return render(request, 'editprofile.html', {'error':'One of your fields is longer than its character limit. Try again.',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, 
+                    return render(request, 'editprofile.html', {'error':'One of your fields is longer than its character limit. Try again.',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                 "activerelation":request.POST.get('inputrelation', None),
                                                 "firstname":request.POST['inputfirstname'],
                                                 "lastname":request.POST['inputlastname'],
                                                 "year":request.POST['inputyear'],
                                                 "college":request.POST['inputcollege'],
                                                 "major":request.POST['inputmajor'],
+                                                "activedegrees":request.POST.getlist('inputdegrees', None),
                                                 "city":request.POST['inputcity'],
                                                 "country":request.POST['inputcountry'],
                                                 "zip":request.POST['inputzip'],
@@ -629,13 +658,14 @@ def edit(request):
         
         # Server-side validation for firstname, lastname (required fields)
         if request.POST['inputfirstname'] == "" or request.POST['inputlastname'] == "":
-            return render(request, 'editprofile.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, 
+            return render(request, 'editprofile.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST,
                                                 "activerelation":request.POST.get('inputrelation', None),
                                                 "firstname":request.POST['inputfirstname'],
                                                 "lastname":request.POST['inputlastname'],
                                                 "year":request.POST['inputyear'],
                                                 "college":request.POST['inputcollege'],
                                                 "major":request.POST['inputmajor'],
+                                                "activedegrees":request.POST.getlist('inputdegrees', None),
                                                 "city":request.POST['inputcity'],
                                                 "country":request.POST['inputcountry'],
                                                 "zip":request.POST['inputzip'],
@@ -653,6 +683,8 @@ def edit(request):
         grad_year = request.POST['inputyear']
         college = request.POST['inputcollege']
         major = request.POST['inputmajor']
+        degrees = request.POST.getlist('inputdegrees', None)
+        print(degrees)
         city = request.POST['inputcity']
         state = request.POST.get('inputstate', None)
         country = request.POST['inputcountry']
@@ -673,7 +705,7 @@ def edit(request):
         relation = relation,
         first_name = first_name, last_name = last_name,
         grad_year = grad_year, college = college,
-        major = major, city = city,
+        major = major, degrees = degrees, city = city,
         state = state, country = country,
         zip = zip, employer = employer,
         job = job, field = field,
@@ -695,6 +727,7 @@ def edit(request):
         grad_year = alumniprof.grad_year
         college = alumniprof.college
         major = alumniprof.major
+        degrees = alumniprof.degrees
         city = alumniprof.city
         state = alumniprof.state
         country = alumniprof.country
@@ -706,7 +739,7 @@ def edit(request):
         newsletter = alumniprof.newsletter
         interview = alumniprof.interview
 
-        return render(request, 'editprofile.html',{'activerelation':relation,'firstname':first_name, 'lastname':last_name, 'year':grad_year, 'college':college, 'major':major,'city':city,'activestate':state, 'country':country,'zip':zip, 'employer':employer, 'jobtitle':job,'activefields':field, 'activeactivities':hs_activities, 'newsletter':newsletter, 'interview':interview, 'states':STATESLIST, 'fields':FIELDSLIST, 'activities':HSACTIVITIESLIST, "relations":RELATIONSLIST,})
+        return render(request, 'editprofile.html',{'activerelation':relation, 'firstname':first_name, 'lastname':last_name, 'year':grad_year, 'college':college, 'major':major, 'activedegrees':degrees, 'city':city, 'activestate':state, 'country':country,'zip':zip, 'employer':employer, 'jobtitle':job,'activefields':field, 'activeactivities':hs_activities, 'newsletter':newsletter, 'interview':interview, 'states':STATESLIST, 'fields':FIELDSLIST, 'activities':HSACTIVITIESLIST, "relations":RELATIONSLIST, "degrees":DEGREESLIST})
 
 @login_required(login_url='/accounts/signup')
 def changelogin(request):
@@ -736,9 +769,10 @@ def changelogin(request):
                 request.user = User.objects.create_user(username = oldusername, password=request.POST["inputpassword"], first_name=oldfirstname, last_name=oldlastname)
                 request.user.save()
                 alumniprof = AlumniProf(
+                relation = oldAlumniProf.relation,
                 first_name = oldAlumniProf.first_name, last_name = oldAlumniProf.last_name,
                 grad_year = oldAlumniProf.grad_year, college = oldAlumniProf.college,
-                major = oldAlumniProf.major, city = oldAlumniProf.city,
+                major = oldAlumniProf.major, degrees = oldAlumniProf.degrees, city = oldAlumniProf.city,
                 state = oldAlumniProf.state, country = oldAlumniProf.country,
                 zip = oldAlumniProf.zip, employer = oldAlumniProf.employer,
                 job = oldAlumniProf.job, field = oldAlumniProf.field,
@@ -754,9 +788,10 @@ def changelogin(request):
                 request.user = User.objects.create_user(username = newusername ,password=request.POST["inputpassword"], first_name=oldfirstname, last_name=oldlastname)
                 request.user.save()
                 alumniprof = AlumniProf(
+                relation = oldAlumniProf.relation,
                 first_name = oldAlumniProf.first_name, last_name = oldAlumniProf.last_name,
                 grad_year = oldAlumniProf.grad_year, college = oldAlumniProf.college,
-                major = oldAlumniProf.major, city = oldAlumniProf.city,
+                major = oldAlumniProf.major, degrees = oldAlumniProf.degrees, city = oldAlumniProf.city,
                 state = oldAlumniProf.state, country = oldAlumniProf.country,
                 zip = oldAlumniProf.zip, employer = oldAlumniProf.employer,
                 job = oldAlumniProf.job, field = oldAlumniProf.field,

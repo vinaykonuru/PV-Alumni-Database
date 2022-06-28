@@ -44,9 +44,11 @@
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
-                <label for="inputyear" class="form-label">High School Graduation Year</label>
+                <label for="inputyear" class="form-label">Pine View School Graduation Year</label>
                 <input value = "{% if year %}{{ year }}{% endif %}" onkeyup="leftTrim(this)" type="year" name="inputyear" pattern= "^[0-9]*$" maxlength=4 minlength=4 class="form-control">
             </div>
+        </div>
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>
                 <input value = "{% if college %}{{ college }}{% endif %}" onkeyup="leftTrim(this)" type="college" name="inputcollege" maxlength=30 class="form-control">
@@ -54,6 +56,20 @@
             <div class="col">
                 <label for="inputmajor" class="form-label">Major(s)/Department(s)</label>
                 <input value ="{% if major %}{{ major }}{% endif %}" onkeyup="leftTrim(this)" type="major" name="inputmajor" maxlength=30 class="form-control">
+            </div>
+        </div>
+        <div class="row row-margin mb-3">
+            <div class="col">
+                <label for="inputdegree" class="form-label">Degree(s)</label>
+                <select class="form-select" name = "inputdegrees" multiple size="3">
+                    {% for degree in degrees %}
+                    {% if degree in activedegrees %}
+                        <option value="{{ degree }}" selected>{{ degree }}</option>
+                    {% else %}
+                        <option value="{{ degree }}">{{ degree }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
             </div>
         </div>
         <div class="row row-margin mb-3">

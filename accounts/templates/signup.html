@@ -78,6 +78,20 @@
             </div>
         </div>
         <div class="row row-margin mb-3">
+            <div class="col">
+                <label for="inputdegree" class="form-label">Degree(s)</label>
+                <select class="form-select" name = "inputdegrees" multiple size="3">
+                    {% for degree in degrees %}
+                    {% if degree in activedegrees %}
+                        <option value="{{ degree }}" selected>{{ degree }}</option>
+                    {% else %}
+                        <option value="{{ degree }}">{{ degree }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+            </div>
+        </div>
+        <div class="row row-margin mb-3">
             <h4 class="text-center" style="text-decoration:underline;">Current Location</h4>
         </div>
         <div class="row row-margin mb-3">

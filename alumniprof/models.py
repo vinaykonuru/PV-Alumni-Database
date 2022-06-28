@@ -12,6 +12,7 @@ class AlumniProf(models.Model):
     grad_year = models.CharField(max_length=4, blank=True, null=True)
     college = models.CharField(max_length=200, blank=True, null=True)
     major = models.CharField(max_length=200, blank=True, null=True)
+    degrees = models.CharField(max_length=400, blank=True, null=True)
     city = models.CharField(max_length=200, blank=True, null=True)
     state = models.CharField(max_length=2, blank=True, null=True)
     country = models.CharField(max_length=200, blank=True, null=True)
