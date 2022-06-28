@@ -33,14 +33,14 @@
                 <input type="email" onkeyup="leftTrim(this)" placeholder="janedoe@example.com" name = "inputemail" value="{% if email %}{{ email }}{% endif %}" maxlength=30 class="form-control" required>
             </div>
         </div>
-        <div class="row row-margin mb-4">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputpassword" class="form-label">Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))<span class="required">*</span></label>
                 <input type="password" placeholder="********" name = "inputpassword1" value="{% if password1 %}{{ password1 }}{% endif %}" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" maxlength=30 class="form-control" required>
             </div>
             <div class="invalid-feedback">Password must be between 8-32 characters long, contain at least one uppercase letter and at least one number.</div>
         </div>
-        <div class="row row-margin mb-4">
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputpassword" class="form-label">Reenter Password (At least 8 characters, 1 uppercase letter (A-Z), and 1 number (0-9))<span class="required">*</span></label>
                 <input type="password" placeholder="********" name = "inputpassword2" value="{% if password2 %}{{ password2 }}{% endif %}" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,32}$" maxlength=30 class="form-control" required>
@@ -52,6 +52,8 @@
                 <label for="inputyear" class="form-label">High School Graduation Year</label>
                 <input type="year" onkeyup="leftTrim(this)" name = "inputyear" pattern= "^[0-9]*$" value="{% if year %}{{ year }}{% endif %}" minlength=4 maxlength=4 class="form-control">
             </div>
+        </div>
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcollege" class="form-label">College(s)</label>
                 <input type="college" onkeyup="leftTrim(this)" name = "inputcollege" maxlength=30 value="{% if college %}{{ college }}{% endif %}" class="form-control">
@@ -60,6 +62,9 @@
                 <label for="inputmajor" class="form-label">Major(s)/Department(s)</label>
                 <input type="major" onkeyup="leftTrim(this)" name = "inputmajor" maxlength=30 value="{% if major %}{{ major }}{% endif %}" class="form-control">
             </div>
+        </div>
+        <div class="row row-margin mb-3">
+            <h4 class="text-center" style="text-decoration:underline;">Current Location</h4>
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
