@@ -274,7 +274,16 @@ def checklengths(firstname, lastname, email, password1, password2, year, college
 
 # server-side validation for fields
 def checkfields(fields, activities, state, relation):
-    if ((bool(fields) and fields not in FIELDSLIST) or (bool(activities) and activities not in HSACTIVITIESLIST) or (state is not None and state not in STATESLIST) or (relation is not None and relation not in RELATIONSLIST)):
+    fieldset1 = set(fields)
+    fieldset2 = set(FIELDSLIST)
+
+    activityset1 = set(activities)
+    activityset2 = set(HSACTIVITIESLIST)
+
+    print(fieldset1.issubset(fieldset2))
+    print(activityset1.issubset(activityset2))
+
+    if ((bool(fields) and not fieldset1.issubset(fieldset2)) or (bool(activities) and not activityset1.issubset(activityset2)) or (state is not None and state not in STATESLIST) or (relation is not None and relation not in RELATIONSLIST)):
         return True
     return False
 
@@ -565,8 +574,24 @@ def reset(request):
 def edit(request):
     if request.method == 'POST':
         # Server-side validation for fields, activities, and state
-        if checkfields(request.POST.get('inputfield', None), request.POST.get('inputclubs', None), request.POST.get('inputstate', None)):
-            return render(request, 'editprofile.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
+        if checkfields(request.POST.getlist('inputfield', None), request.POST.getlist('inputclubs', None), request.POST.get('inputstate', None), request.POST.get('inputrelation', None)):
+            return render(request, 'editprofile.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, 
+                                                "activerelation":request.POST.get('inputrelation', None),
+                                                "firstname":request.POST['inputfirstname'],
+                                                "lastname":request.POST['inputlastname'],
+                                                "year":request.POST['inputyear'],
+                                                "college":request.POST['inputcollege'],
+                                                "major":request.POST['inputmajor'],
+                                                "city":request.POST['inputcity'],
+                                                "country":request.POST['inputcountry'],
+                                                "zip":request.POST['inputzip'],
+                                                "employer":request.POST['inputemployer'],
+                                                "jobtitle":request.POST['inputjobtitle'],
+                                                "activefields":request.POST.getlist('inputfield', None),
+                                                "activeactivities":request.POST.getlist('inputclubs', None),
+                                                "activestate":request.POST.get('inputstate', None),
+                                                "newsletter":request.POST.get('newsletter'),
+                                                "interview":request.POST.get('interview')})
 
         # Server-side validation of lengths
         if checklengths(
@@ -584,16 +609,10 @@ def edit(request):
                 request.POST['inputemployer'],
                 request.POST['inputjobtitle']
                 ):
-                    return render(request, 'editprofile.html', {'error':'One of your fields is longer than its character limit. Try again.',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
-        
-        # Server-side validation for firstname, lastname (required fields)
-        if request.POST.get['firstname'] or request.POST['lastname'] == "":
-            return render(request, 'editprofile.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                    return render(request, 'editprofile.html', {'error':'One of your fields is longer than its character limit. Try again.',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, 
+                                                "activerelation":request.POST.get('inputrelation', None),
                                                 "firstname":request.POST['inputfirstname'],
                                                 "lastname":request.POST['inputlastname'],
-                                                "email":request.POST['inputemail'],
-                                                "password1":request.POST['inputpassword1'],
-                                                "password2":request.POST['inputpassword2'],
                                                 "year":request.POST['inputyear'],
                                                 "college":request.POST['inputcollege'],
                                                 "major":request.POST['inputmajor'],
@@ -608,31 +627,27 @@ def edit(request):
                                                 "newsletter":request.POST.get('newsletter'),
                                                 "interview":request.POST.get('interview')})
         
-        # server-side validation for same first and last name as another user
-        try:
-            user=User.objects.get(first_name = request.POST.get('inputfirstname'), last_name = request.POST.get('inputlastname'))
-            return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST,
-                                                    "firstname":request.POST['inputfirstname'],
-                                                    "lastname":request.POST['inputlastname'],
-                                                    "email":request.POST['inputemail'],
-                                                    "password1":request.POST['inputpassword1'],
-                                                    "password2":request.POST['inputpassword2'],
-                                                    "year":request.POST['inputyear'],
-                                                    "college":request.POST['inputcollege'],
-                                                    "major":request.POST['inputmajor'],
-                                                    "city":request.POST['inputcity'],
-                                                    "country":request.POST['inputcountry'],
-                                                    "zip":request.POST['inputzip'],
-                                                    "employer":request.POST['inputemployer'],
-                                                    "jobtitle":request.POST['inputjobtitle'],
-                                                    "activefields":request.POST.getlist('inputfield', None),
-                                                    "activeactivities":request.POST.getlist('inputclubs', None),
-                                                    "activestate":request.POST.get('inputstate', None),
-                                                    "newsletter":request.POST.get('newsletter'),
-                                                    "interview":request.POST.get('interview')})
-        except:
-            pass
+        # Server-side validation for firstname, lastname (required fields)
+        if request.POST['inputfirstname'] == "" or request.POST['inputlastname'] == "":
+            return render(request, 'editprofile.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST, 
+                                                "activerelation":request.POST.get('inputrelation', None),
+                                                "firstname":request.POST['inputfirstname'],
+                                                "lastname":request.POST['inputlastname'],
+                                                "year":request.POST['inputyear'],
+                                                "college":request.POST['inputcollege'],
+                                                "major":request.POST['inputmajor'],
+                                                "city":request.POST['inputcity'],
+                                                "country":request.POST['inputcountry'],
+                                                "zip":request.POST['inputzip'],
+                                                "employer":request.POST['inputemployer'],
+                                                "jobtitle":request.POST['inputjobtitle'],
+                                                "activefields":request.POST.getlist('inputfield', None),
+                                                "activeactivities":request.POST.getlist('inputclubs', None),
+                                                "activestate":request.POST.get('inputstate', None),
+                                                "newsletter":request.POST.get('newsletter'),
+                                                "interview":request.POST.get('interview')})
         
+        relation = request.POST.get('inputrelation', None)
         first_name = request.POST['inputfirstname']
         last_name = request.POST['inputlastname']
         grad_year = request.POST['inputyear']
@@ -655,6 +670,7 @@ def edit(request):
 
         AlumniProf.objects.get(user=request.user).delete()
         alumniprof = AlumniProf(
+        relation = relation,
         first_name = first_name, last_name = last_name,
         grad_year = grad_year, college = college,
         major = major, city = city,
@@ -673,6 +689,7 @@ def edit(request):
         if(alumniprof == None):
             return redirect('home')
 
+        relation = alumniprof.relation
         first_name = alumniprof.first_name
         last_name = alumniprof.last_name
         grad_year = alumniprof.grad_year
@@ -689,10 +706,7 @@ def edit(request):
         newsletter = alumniprof.newsletter
         interview = alumniprof.interview
 
-        return render(request, 'editprofile.html',{'first_name':first_name, 'last_name':last_name, 'grad_year':grad_year,
-        'college':college, 'major':major,'city':city,'state':state, 'country':country,'zip':zip, 'employer':employer,
-        'job':job,'field':field, 'hs_activities':hs_activities, 'newsletter':newsletter, 'interview':interview, 'states':STATESLIST,
-        'fields_list':FIELDSLIST, 'hs_activities_list':HSACTIVITIESLIST})
+        return render(request, 'editprofile.html',{'activerelation':relation,'firstname':first_name, 'lastname':last_name, 'year':grad_year, 'college':college, 'major':major,'city':city,'activestate':state, 'country':country,'zip':zip, 'employer':employer, 'jobtitle':job,'activefields':field, 'activeactivities':hs_activities, 'newsletter':newsletter, 'interview':interview, 'states':STATESLIST, 'fields':FIELDSLIST, 'activities':HSACTIVITIESLIST, "relations":RELATIONSLIST,})
 
 @login_required(login_url='/accounts/signup')
 def changelogin(request):
