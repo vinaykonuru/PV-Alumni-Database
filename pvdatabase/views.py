@@ -18,6 +18,7 @@ def tos(request):
 @login_required(login_url='/accounts/signup')
 def search(request):
     if(request.method == 'POST'):
+        relation = request.POST.get('inputrelation', None)
         first_name = request.POST['inputfirstname']
         last_name = request.POST['inputlastname']
         grad_year = request.POST['inputyear']
@@ -41,7 +42,7 @@ def search(request):
         if not state:
             state = ""
         else:
-            state = state[0];
+            state = state[0]
         # 1. get all profiles
         # 2. if filter is empty or if the profile matches the filter, include
         # it in search results
@@ -70,6 +71,7 @@ def search(request):
                 activityset2 = profile.hs_activities
 
             if( \
+            (relation == '' or relation in profile.relation) & \
             (first_name == '' or first_name.upper() in profile.first_name.upper()) & \
             (last_name == '' or last_name.upper() in profile.last_name.upper()) & \
             (grad_year == '' or profile.grad_year == grad_year) & \

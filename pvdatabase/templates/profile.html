@@ -12,6 +12,8 @@
   <div class="container text-center">
     <section class="p-3 col-lg-10 col-xl-8 col-sm-12 bg-light absolute-center position-relative">
       <strong class="search-card-title">{{profile.first_name}} {{profile.last_name}}</strong>
+      <p>Relation to Pine View School: {{ profile.relation }}</p>
+
       {% if profile.grad_year|length > 0 %}
       <p>Pine View Class of {{ profile.grad_year }}</p>
       {% else %}

@@ -236,6 +236,11 @@ STATESLIST = [  "AL",
                 "WI",
                 "WY"]
 
+RELATIONSLIST = ['Student (Current/Former)',
+                 'Teacher (Current/Former)',
+                 'Administration (Current/Former)',
+                 'Parent of Current/Former Student']
+
 # Reg expression for validating email
 regex_email = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
@@ -268,8 +273,8 @@ def checklengths(firstname, lastname, email, password1, password2, year, college
     return False
 
 # server-side validation for fields
-def checkfields(fields, activities, state):
-    if ((fields is not None and fields not in FIELDSLIST) or (activities is not None and activities not in HSACTIVITIESLIST) or (state is not None and state not in STATESLIST)):
+def checkfields(fields, activities, state, relation):
+    if ((bool(fields) and fields not in FIELDSLIST) or (bool(activities) and activities not in HSACTIVITIESLIST) or (state is not None and state not in STATESLIST) or (relation is not None and relation not in RELATIONSLIST)):
         return True
     return False
 
@@ -303,7 +308,8 @@ def signup(request):
             # server-side validation for same first and last name as another user
             try:
                 user=User.objects.get(first_name = request.POST.get('inputfirstname'), last_name = request.POST.get('inputlastname'))
-                return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST,
+                return render(request, 'signup.html', {'error':'Your first and last name already match an account in the database.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                                                        "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -327,7 +333,8 @@ def signup(request):
 
             try:
                 user=User.objects.get(username = request.POST['inputemail'])
-                return render(request, 'signup.html', {'error':'This email has already been taken.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                return render(request, 'signup.html', {'error':'This email has already been taken.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                                                        "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -363,7 +370,8 @@ def signup(request):
                 request.POST['inputemployer'],
                 request.POST['inputjobtitle']
                 ):
-                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                    return render(request, 'signup.html', {'error':'One of your fields is longer than its character limit. Try again.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                                                        "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -385,7 +393,8 @@ def signup(request):
 
                 # Server side validation for email and password using regex's
                 if check(request.POST['inputemail'], request.POST['inputpassword1']):
-                    return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                    return render(request, 'signup.html', {'error':'Enter a valid email and password.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                                                        "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -407,7 +416,8 @@ def signup(request):
 
                 # Server-side validation for firstname, lastname (required fields)
                 if request.POST['inputfirstname'] == "" or request.POST['inputlastname'] == "":
-                    return render(request, 'signup.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                    return render(request, 'signup.html', {'error':'Please make sure to input a first name and/or last name.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                                                        "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -429,7 +439,8 @@ def signup(request):
                 
                 # Server-side validation for Terms of Service
                 if request.POST.get('tos') != "on":
-                    return render(request, 'signup.html', {'error':'Please make sure to agree to the Terms of Service.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                    return render(request, 'signup.html', {'error':'Please make sure to agree to the Terms of Service.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                                                        "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -450,8 +461,9 @@ def signup(request):
                                                         "interview":request.POST.get('interview')})
 
                 # Server-side validation for fields, activities, and state
-                if checkfields(request.POST.get('inputfield', None), request.POST.get('inputclubs', None), request.POST.get('inputstate', None)):
-                    return render(request, 'signup.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+                if checkfields(request.POST.getlist('inputfield', None), request.POST.getlist('inputclubs', None), request.POST.get('inputstate', None), request.POST.get('inputrelation', None)):
+                    return render(request, 'signup.html', {'error':'Please enter valid state, fields, and activities.', "states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                                                        "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -473,6 +485,7 @@ def signup(request):
 
                 user=User.objects.create_user(username = request.POST['inputemail'],password=request.POST['inputpassword1'], first_name=request.POST['inputfirstname'], last_name=request.POST['inputlastname'])
                 auth.login(request,user)
+                relation = request.POST.get('inputrelation', None)
                 first_name = request.POST['inputfirstname']
                 last_name = request.POST['inputlastname']
                 grad_year = request.POST['inputyear']
@@ -496,6 +509,7 @@ def signup(request):
                     interview = True
 
                 alumniprof = AlumniProf(
+                relation = relation, 
                 first_name = first_name, last_name = last_name,
                 grad_year = grad_year, college = college,
                 major = major, city = city,
@@ -510,7 +524,8 @@ def signup(request):
                 alumniprof.save()
                 return redirect('home')
         else:
-            return render(request,'signup.html',{'error':'Passwords must match',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, 
+            return render(request,'signup.html',{'error':'Passwords must match',"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST,
+                                                        "activerelation":request.POST.get('inputrelation', None),
                                                         "firstname":request.POST['inputfirstname'],
                                                         "lastname":request.POST['inputlastname'],
                                                         "email":request.POST['inputemail'],
@@ -530,7 +545,7 @@ def signup(request):
                                                         "newsletter":request.POST.get('newsletter'),
                                                         "interview":request.POST.get('interview')})
     else:
-        return render(request, 'signup.html', {"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST})
+        return render(request, 'signup.html', {"states":STATESLIST, "fields":FIELDSLIST, "activities":HSACTIVITIESLIST, "relations":RELATIONSLIST})
 
 @login_required(login_url='/accounts/signup')
 def logout(request):

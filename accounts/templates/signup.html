@@ -19,6 +19,20 @@
       {% csrf_token %}
         <div class="row row-margin mb-3">
             <div class="col">
+                <label for="inputrelation" class="form-label">Relationship to Pine View School<span class="required">*</span></label>
+                <select name = "inputrelation" class="form-select" size="4">
+                    {% for relation in relations %}
+                    {% if relation == activerelation %}
+                    <option value="{{ relation }}" selected>{{ relation }}</option>
+                    {% else %}
+                    <option value="{{ relation }}">{{ relation }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row row-margin mb-3">
+            <div class="col">
                 <label for="inputfirstname" class="form-label">First Name<span class="required">*</span></label>
                 <input type="firstname" onkeyup="leftTrim(this)" name = "inputfirstname" class="form-control" value="{% if firstname %}{{ firstname }}{% endif %}" maxlength=30 required>
             </div>
@@ -49,7 +63,7 @@
         </div>
         <div class="row row-margin mb-3">
             <div class="col">
-                <label for="inputyear" class="form-label">High School Graduation Year</label>
+                <label for="inputyear" class="form-label">Pine View School Graduation Year (if applicable)</label>
                 <input type="year" onkeyup="leftTrim(this)" name = "inputyear" pattern= "^[0-9]*$" value="{% if year %}{{ year }}{% endif %}" minlength=4 maxlength=4 class="form-control">
             </div>
         </div>
