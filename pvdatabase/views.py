@@ -74,7 +74,7 @@ def search(request):
             (major == '' or major.upper() in profile.major.upper()) & \
             (degreeset1.issubset(degreeset2)) & \
             (city == '' or city.upper() in profile.city.upper()) & \
-            (state == '' or state in profile.state) &  \
+            (state == '' or state == profile.state) &  \
             (country == '' or country.upper() in profile.country.upper()) & \
             (job == '' or job in profile.job) & \
             (employer == '' or employer in profile.employer) & \

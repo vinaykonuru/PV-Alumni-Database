@@ -523,15 +523,15 @@ def signup(request):
                 first_name = request.POST['inputfirstname']
                 last_name = request.POST['inputlastname']
                 grad_year = request.POST['inputyear']
-                college = request.POST['inputcollege']
-                major = request.POST['inputmajor']
+                college = request.POST.get('inputcollege', "")
+                major = request.POST.get('inputmajor', "")
                 degrees = request.POST.getlist('inputdegrees', None)
-                city = request.POST['inputcity']
+                city = request.POST.get('inputcity', "")
                 state = request.POST.get('inputstate', None)
-                country = request.POST['inputcountry']
+                country = request.POST.get('inputcountry', "")
                 zip = request.POST['inputzip']
-                employer = request.POST['inputemployer']
-                job = request.POST['inputjobtitle']
+                employer = request.POST.get('inputemployer', "")
+                job = request.POST.get('inputjobtitle', "")
                 # fixes MultiValueDictKey Error
                 field = request.POST.getlist('inputfield', None)
                 # fixes MultiValueDictKey Error
