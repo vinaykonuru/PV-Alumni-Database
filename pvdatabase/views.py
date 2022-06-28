@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from alumniprof.models import AlumniProf
+import ast
 
 import csv
 
@@ -18,12 +19,13 @@ def tos(request):
 @login_required(login_url='/accounts/signup')
 def search(request):
     if(request.method == 'POST'):
-        relation = request.POST.get('inputrelation', None)
+        relation = request.POST.get('inputrelation', '')
         first_name = request.POST['inputfirstname']
         last_name = request.POST['inputlastname']
         grad_year = request.POST['inputyear']
         college = request.POST['inputcollege']
         major = request.POST['inputmajor']
+        degrees = request.POST.getlist('inputdegrees', None)
         city = request.POST['inputcity']
         state = request.POST.getlist('inputstate')
         country = request.POST['inputcountry']
@@ -38,7 +40,6 @@ def search(request):
         if (interview == 'on'):
             interview = True
 
-        print(state)
         if not state:
             state = ""
         else:
@@ -50,25 +51,19 @@ def search(request):
         matched_profiles = []
 
         # convert to sets to search subsets of lists
-        if field != '':
-            fieldset1 = set(field)
-        else:
-            fieldset1 = field
-        if hs_activities != '':
-            activityset1 = set(hs_activities)
-        else:
-            activityset1 = hs_activities
+        fieldset1 = set(field)
+        activityset1 = set(hs_activities)
+        degreeset1 = set(degrees)
+        print(fieldset1)
 
         for profile in profiles: # filtering profiles
             # convert to sets to search subsets of lists
-            if profile.field != '':
-                fieldset2 = set(profile.field)
-            else: 
-                fieldset2 = profile.field
-            if profile.hs_activities != '':
-                activityset2 = set(profile.hs_activities)
-            else:
-                activityset2 = profile.hs_activities
+            fieldset2 = ast.literal_eval(profile.field)
+            fieldset2 = set(fieldset2)
+            activityset2 = ast.literal_eval(profile.hs_activities)
+            activityset2 = set(activityset2)
+            degreeset2 = ast.literal_eval(profile.degrees)
+            degreeset2 = set(degreeset2)
 
             if( \
             (relation == '' or relation in profile.relation) & \
@@ -77,13 +72,14 @@ def search(request):
             (grad_year == '' or profile.grad_year == grad_year) & \
             (college == '' or college.upper() in profile.college.upper()) & \
             (major == '' or major.upper() in profile.major.upper()) & \
+            (degreeset1.issubset(degreeset2)) & \
             (city == '' or city.upper() in profile.city.upper()) & \
             (state == '' or state in profile.state) &  \
             (country == '' or country.upper() in profile.country.upper()) & \
             (job == '' or job in profile.job) & \
             (employer == '' or employer in profile.employer) & \
-            (field == '' or fieldset1.issubset(fieldset2)) & \
-            (hs_activities == '' or activityset1.issubset(activityset2)) & \
+            (fieldset1.issubset(fieldset2)) & \
+            (activityset1.issubset(activityset2)) & \
             (newsletter == False or newsletter == profile.newsletter) & \
             (interview == False or interview == profile.interview)):
                 # add sorting by field and hs_activities
