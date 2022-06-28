@@ -73,6 +73,9 @@
             </div>
         </div>
         <div class="row row-margin mb-3">
+            <h4 class="text-center" style="text-decoration:underline;">Current Location</h4>
+        </div>
+        <div class="row row-margin mb-3">
             <div class="col">
                 <label for="inputcountry" class="form-label">Country</label>
                 <input value = "{% if country %}{{ country }}{% endif %}" onkeyup="leftTrim(this)" type="country" name="inputcountry" maxlength=30 class="form-control">
