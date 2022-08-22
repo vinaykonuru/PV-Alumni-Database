@@ -11,7 +11,7 @@ Server-side and client-side validation prevents attacks through the login and si
 
 Additionally, alumni can contact administrators through an embedded Contact Us form.
 
-![Screenshot of Post-Sign-Up Home Page](staticfiles/admin/img/images/Screen Shot 2022-08-21 at 9.19.29 PM.png)
+![Screenshot of Post-Sign-Up Home Page](staticfiles/admin/img/images/Screen Shot 2022-08-21 at 9.19.29 PM.png?raw=true)
 
 ## Authors
 This app was made by Vinay Konuru and Kris Selberg.
